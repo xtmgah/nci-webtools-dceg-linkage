@@ -32,7 +32,7 @@ def main(argv):
 	print "User: "+user
 	print 'password: '+ password
 	client.admin.authenticate(user, password, mechanism='SCRAM-SHA-1')
-	db = client.LDLink
+	db = client.LDLink_sandbox
 
 	if(multiple==True):
 		Multi(input,db)              
