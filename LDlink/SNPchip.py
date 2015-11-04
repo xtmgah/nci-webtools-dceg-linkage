@@ -106,7 +106,8 @@ def calculate_chip(snplst,request):
 	
 	client = MongoClient()
 	client = MongoClient('localhost', 27017)
-	db = client.LDLink
+	client.admin.authenticate("LDLink_user", "1234", mechanism='SCRAM-SHA-1')
+	db = client.LDLink_sandbox
 
 	#Quering MongoDB to get platforms for position/chromsome pairs 
 	for k in range(len(snp_coords_sort)):
