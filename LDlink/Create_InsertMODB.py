@@ -1,16 +1,48 @@
 from pymongo import MongoClient
 import os
 import csv
-client = MongoClient()
-client = MongoClient('localhost', 27017)
-# Open Database
-db = client.snp_test
+import sys, getopt
 
-#Create/Update database
-def Multi():
+
+
+#Usr input: File (---file) or Folder (--folder)
+#User input: user name for mongo (--user) and password (--password)
+
+def main(argv):
+
+
+	# Open Database
+	user=""
+	password=""
+	multiple=False
+	input=""
+	opts, args = getopt.getopt(argv,"upf:upd",["file=","folder=","user=","password="])
+	for opt, arg in opts:                
+	        if opt in ("d","--folder"):
+    			multiple=True
+    			input=arg
+	        elif opt in ("f","--file"):
+	        	multiple=False
+	        	input=arg 
+	        elif opt in ("u","--user"): 
+	            user=arg
+	        elif opt in ("p","--password"): 
+	            password=arg
+	client = MongoClient('localhost', 27017)
+	print "User: "+user
+	print 'password: '+ password
+	client.admin.authenticate(user, password, mechanism='SCRAM-SHA-1')
+	db = client.LDLink
+
+	if(multiple==True):
+		Multi(input,db)              
+	else:
+		Single(input,db)
+	
+#if inserting a folder
+def Multi(folder,db):
 	
 	# Manifest Info
-	folder='./snp_test/test2/' #<------Must change to source folder of manifest files
 	manifest_file=os.listdir(folder)
 	manifest=[]
 	for k in range(0,len(manifest_file)):
@@ -19,13 +51,15 @@ def Multi():
 		manifest_file[k]=folder+manifest_file[k]
 
 	for i in range(len(manifest)):
-		Insert(manifest_file[i],manifest[i])			
+		Insert(manifest_file[i],manifest[i],db)			
 		
+#If inserting a single file
+def Single(file,db):
+	file_name=os.path.splitext(file)[0]
+	Insert(file,file_name,db)
 
-def Single():
-
-
-def Insert(file,platform):
+#Insert function: Inserts position and chromsome/platform pairs for each position
+def Insert(file,platform,db):
 	db.snp_col.create_index("pos")
 	snp_data=csv.reader(open(file))			
 	for coord in snp_data:
@@ -36,3 +70,5 @@ def Insert(file,platform):
     		{ "$addToSet" : { "data" : { "$each" :[ { "chr" : Chr, "platform" :platform} ] } } },
     		upsert=True,
 		)
+
+main(sys.argv[1:])
