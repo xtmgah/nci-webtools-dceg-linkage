@@ -29,8 +29,6 @@ def main(argv):
 	        elif opt in ("p","--password"): 
 	            password=arg
 	client = MongoClient('localhost', 27017)
-	print "User: "+user
-	print 'password: '+ password
 	client.admin.authenticate(user, password, mechanism='SCRAM-SHA-1')
 	db = client.LDLink_sandbox
 
