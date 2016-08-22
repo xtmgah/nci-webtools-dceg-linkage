@@ -4,7 +4,7 @@
 # Usage: ./configure.sh --key1 value1 --key2 value2
 
 # create hash for parameters
-declare -A parameters=( [username]= [password]= [port]= )
+declare -A parameters=( [username]= [password]= [port]= [hostname]= )
 valid=true
 filename=SNP_Query_loginInfo.ini
 
@@ -36,6 +36,7 @@ else
         echo -e "\e[95m sh\e[39m configure.sh \e[92m[options]"
 
         echo -e "\e[32mOptions:"
+        echo -e "\e[39m --hostname\e[92m hostname"
         echo -e "\e[39m --username\e[92m user.name"
         echo -e "\e[39m --password\e[92m user.password"
         echo -e "\e[39m --port\e[92m 0-65535\e[39m"
