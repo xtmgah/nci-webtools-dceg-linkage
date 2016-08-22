@@ -14,6 +14,8 @@ contents=open("SNP_Query_loginInfo.ini").read().split('\n')
 username=contents[0].split('=')[1]
 password=contents[1].split('=')[1]
 port=int(contents[2].split('=')[1])
+hostname=contents[3].split('=')[1]
+
 #print "username:"+username
 #rint "password:"+password
 #print "port:"+str(port)
@@ -21,8 +23,10 @@ port=int(contents[2].split('=')[1])
 def get_platform_request():
 
 	try:
+		if hostname == '@hostname@':
+			hostname = 'localhost'
 		client = MongoClient()
-		client = MongoClient('localhost', port)
+		client = MongoClient(hostname, port)
 	except pymongo.errors.ConnectionFailure:
 		print "MongoDB is down"
 		print "syntax: mongod --dbpath /local/content/ldlink/mongo/data/db/ --auth"
