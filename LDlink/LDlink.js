@@ -448,7 +448,7 @@ function createProxyTable() {
         "bAutoWidth": true,
         "bProcessing": false,
         "deferRender": false,
-        "order": [[ 7, "desc" ], [ 5, "asc"]], //Order desc on DPrime
+        "order": [[ 7, "desc" ], [ 5, "desc"]], //Order desc on DPrime
         "columnDefs": [
             {
                 "render": function ( data, type, row ) {
@@ -2810,9 +2810,8 @@ function batchUpload(e) {
             //Ajax events
             beforeSend: function () {
                 var percent = 0;
-                $('form#ldbatch progressbar' ).css('width', percent + "%");
-                $('form#ldbatch progressbar' ).html(percent + '% Completed');
-                $('form#ldbatch #ldassoc-file-container').hide();
+                $('form#ldbatch progressbar').css('width', percent + "%");
+                $('form#ldbatch progressbar').html(percent + '% Completed');
                 $('form#ldbatch progressbar').addClass('show');
             },
             success: function(data, statusText, xhr) {
@@ -2821,7 +2820,6 @@ function batchUpload(e) {
                 messageElement.addClass("alert alert-success show").find("#message").html(data.message);
                 createCookie("token", data.token)
             },
-            // completeHandler,
             error:function(data, statusText, xhr) {
                 $(inputControl).parent().addClass("has-feedback has-error");
                 messageElement.find("#iconType").empty().html("<span class='glyphicon glyphicon-remove'></span>");
@@ -2860,13 +2858,15 @@ function batchProcess(e) {
             beforeSend: beforeSendHandler,
             success: function(data, statusText, xhr) {
                 e.target.reset();
-                $(e.target).find('.form-group').removeClass("has-feedback has-success has-error");
 
+                $.each( $(e.target).find('input').parent('.form-group'), function(i,el) {
+                    $(el).removeClass("has-feedback has-error has-success");
+                });
                 messageElement.find("#iconType").empty().html("<span class='glyphicon glyphicon-ok'></span>");
                 messageElement.addClass("alert alert-success show").find("#message").html(data.message);
             },
             // completeHandler,
-            error:function(data, statusText, xhr) {
+            error: function(data, statusText, xhr) {
                 $(inputControl).parent().addClass("has-feedback has-error");
                 messageElement.find("#iconType").empty().html("<span class='glyphicon glyphicon-remove'></span>");
                 messageElement.addClass("alert alert-danger show").find("#message").html(data.message);

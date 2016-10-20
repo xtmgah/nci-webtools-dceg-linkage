@@ -491,10 +491,11 @@ def batch_upload():
         if 'batchFile' in request.files:
             print "has batch file"
             file = request.files['batchFile']
+            filename, ext = os.path.splitext(file.filename)
             token = request.form['token']
 
-            file.save(os.path.join(app.config['UPLOAD_DIR'], secure_filename(token)))
-            resp = jsonify({ "message": "The file has been sucessfully uploaded.", "token" : token })
+            file.save(os.path.join(app.config['UPLOAD_DIR'], secure_filename("inputBatch_{0}{1}".format(token, ext) )))
+            resp = jsonify({ "message": "The file '"+ file.filename + "' has been sucessfully uploaded.", "token" : token })
         else:
             raise IOError("No batch file has been uploaded to be processed")
     except IOError as e:
@@ -511,22 +512,20 @@ def batch_upload():
 
 @app.route('/LDlinkRest/ldbatch/process', methods = ['POST'])
 def ldbatch_process():
+    resp = ""
     try:
-        if 'token' not in request.form:
-            resp = jsonify({ "message": "Try again"})
-            resp.status_code = 400
-            print "process not executed, missing token from request at {0}".format(time.strftime("%m.%d.%Y %H%:M:%S"))
-        elif 'recipientEmail' in request.form:
-            email = request.form['recipientEmail']
-            batchFile = open(os.path.join('tmp', request.form['token']), 'r')
-            queueResponse = toQueue(email, batchFile)
+        email = request.form['recipientEmail']
+        token = request.form['token']
 
-            resp=jsonify({ "message": queueResponse })
+        if 'token' not in request.form:
+            raise KeyError("process not executed, missing token from request at {0}".format(time.strftime("%m.%d.%Y %H%:%M:%S")) )
         else:
-            raise KeyError("The recipient's E-Mail address must be entered")
-    except Exception, e:
+            resp = toQueue(email, token )
+            print "after toQueue"
+    except KeyError, e:
+        errorType, error, traceback = sys.exc_info()
         print "Error Type: {0} Error: {1} Trace: {2}".format(errorType, error, traceback)
-        resp = jsonify({ message: e.args })
+        resp = jsonify({ "message": e.args })
         resp.status_code = 400
     finally:
         return resp
