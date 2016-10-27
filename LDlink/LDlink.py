@@ -499,12 +499,13 @@ def batch_upload():
         else:
             raise IOError("No batch file has been uploaded to be processed")
     except IOError as e:
-        print "Error Type: {0} Error: {1} Trace: {2}".format(errorType, error, traceback)
+        print "Error Type: {0} Error: {1} Trace: {2} at line '{3}'".format(errorType, error, traceback,traceback.tb_lineno, )
         errorType, error, traceback = sys.exc_info()
         resp = jsonify({ message: e.args })
         resp.status_code = 404
     except Exception, e:
-        print "Error Type: {0} Error: {1} Trace: {2}".format(errorType, error, traceback)
+        errorType, error,traceback = sys.exc_info()
+        print "ErrorType: {0}\n Error: {1}\n traceback: {2} at line number '{3}' in {4}".format(errorType, error, traceback, traceback.tb_lineno, os.path.basename(sys.argv[0]))
         resp = jsonify({ message: e.args })
         resp.status_code = 400
     finally:
@@ -520,11 +521,12 @@ def ldbatch_process():
         if 'token' not in request.form:
             raise KeyError("process not executed, missing token from request at {0}".format(time.strftime("%m.%d.%Y %H%:%M:%S")) )
         else:
-            resp = toQueue(email, token )
+            resp = toQueue(email, token)
             print "after toQueue"
+            print resp
     except KeyError, e:
-        errorType, error, traceback = sys.exc_info()
-        print "Error Type: {0} Error: {1} Trace: {2}".format(errorType, error, traceback)
+        errorType, error,traceback = sys.exc_info()
+        print "ErrorType: {0}\n Error: {1}\n traceback: {2} at line number '{3}' in {4}".format(errorType, error, traceback, traceback.tb_lineno, os.path.basename(sys.argv[0]))
         resp = jsonify({ "message": e.args })
         resp.status_code = 400
     finally:
@@ -534,6 +536,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("-p", dest="port_number", default="9982", help="Sets the Port")
     parser.add_argument("-d", dest="debug", default="False", help="Sets the Debugging Option")
+
     # Default port is production value; prod,stage,dev = 9982, sandbox=9983
     args = parser.parse_args()
     port_num = int(args.port_number)

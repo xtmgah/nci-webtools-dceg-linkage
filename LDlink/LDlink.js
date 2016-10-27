@@ -73,33 +73,6 @@ $(document).ready(function() {
         } 
     });
 
-    /*
-    $("#ldassoc-region").multiselect({
-       multiple: false,
-       header: "Select a Region",
-       noneSelectedText: "Region",
-       selectedList: 1
-    });
-    */
-    /*
-    console.dir(ldassocData);
-    $(".draggable").draggable();
-    $(".dropzone").droppable({
-        accept: "li",
-        hoverClass: "highlight",
-        tolerance: "fit",
-        activate: function(evt, ui) {
-            $(this).find("h3").css("background-color", "cornsilk");
-        },
-        deactivate: function(evt, ui) {
-            $(this).find("h3").css("background-color", "");
-        },
-        drop: function(evt, ui) {
-            $(this).find("h3").text("Dropped");
-            //ui.draggable.find("h3").text("Dropped");
-        }
-    });
-    */
     updateVersion(ldlink_version);
     //addValidators();
     $('#ldlink-tabs').on('click', 'a', function(e) {
@@ -2864,6 +2837,10 @@ function batchProcess(e) {
                 });
                 messageElement.find("#iconType").empty().html("<span class='glyphicon glyphicon-ok'></span>");
                 messageElement.addClass("alert alert-success show").find("#message").html(data.message);
+
+                setTimeout(function() {
+                    messageElement.removeClass("alert alert-success show").find("#message, #iconType").html("")
+                }, 4000)
             },
             // completeHandler,
             error: function(data, statusText, xhr) {
