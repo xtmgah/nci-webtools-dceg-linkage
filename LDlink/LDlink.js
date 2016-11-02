@@ -2761,15 +2761,9 @@ function eraseCookie(name) {
     createCookie(name,"",-1);
 }
 
-function batchUpload(e) {
-    var messageElement = $("#ldbatch-messages");
-
-    if(e.target.files.length > 0) {
-        var tok = (Math.random() * (1000000 - 1000) + 1000).toFixed(0) +  new Date().getTime();
-        var formData = new FormData();
-        formData.append(e.target.id, e.target.files[0]);
-        formData.append("token", tok);
-        inputControl = e.target;
+function batchUpload(formData) {
+        var messageElement = $("#ldbatch-messages");
+        
         $.ajax({
             url: restServerUrl + '/ldbatch/upload',  //Server script to process data
             type: 'POST',
@@ -2788,13 +2782,13 @@ function batchUpload(e) {
                 $('form#ldbatch progressbar').addClass('show');
             },
             success: function(data, statusText, xhr) {
-                $(inputControl).parent().addClass("has-feedback has-success");
-                messageElement.find("#iconType").empty().html("<span class='glyphicon glyphicon-ok'></span>");
+                $("#batchFile").parent().addClass("has-feedback has-success");
+                $("#ldbatch-messages #iconType").empty().html("<span class='glyphicon glyphicon-ok'></span>");
                 messageElement.addClass("alert alert-success show").find("#message").html(data.message);
                 createCookie("token", data.token)
             },
             error:function(data, statusText, xhr) {
-                $(inputControl).parent().addClass("has-feedback has-error");
+                $("#batchFile").parent().addClass("has-feedback has-error");
                 messageElement.find("#iconType").empty().html("<span class='glyphicon glyphicon-remove'></span>");
                 messageElement.addClass("alert alert-danger show").find("#message").html(data.message);
             },
@@ -2803,7 +2797,6 @@ function batchUpload(e) {
             contentType: false,
             processData: false
         });
-    }
 }
 
 function batchProcess(e) {
@@ -2859,4 +2852,15 @@ function batchProcess(e) {
     }
 }
 
-$("#batchFile").on("change", batchUpload);
+$("#batchFile").on("change",function(e) {
+    var tok = (Math.random() * (1000000 - 1000) + 1000).toFixed(0) +  new Date().getTime();
+
+    var formData = new FormData();
+    formData.append(e.target.id, e.target.files[0]);
+    formData.append("token", tok);
+    var inputControl = e.target;
+
+    if(e.target.files.length > 0) {
+        batchUpload(formData);
+    }
+});

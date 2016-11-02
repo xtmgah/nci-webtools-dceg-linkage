@@ -28,17 +28,15 @@ def toQueue(email=None, tokenId=None):
         client.connect()
         print "Connected to queue..."
 
+        print "client.send({0},{1})".format(qp.Q_NAME, data)
         # sending to queue
         client.send(qp.Q_NAME, data)
 
-        for attr, value in client.__dict__.iteritems():
-            print attr, value
-
         # disconnecting
         client.disconnect()
-        print client
         print "disconnected from queue..."
-        return jsonify({"message": "The batch process has begun. You will be notified via email at '" + email + "' when processing has completed."})
+
+        resp = jsonify({"message": "The batch process has begun. You will be notified via email at '" + email + "' when processing has completed."})
     except Exception, e:
         print "In Exeception toQueue"
         errorType, error, traceback = sys.exc_info()
@@ -47,16 +45,17 @@ def toQueue(email=None, tokenId=None):
         print traceback
         print traceback.tb_lineno
         print __FILE__
-        resp = jsonify(
-            {"message": "The batch process was not executed due to an error. Try Again. \n" + e.args.join(', ')})
+        resp = jsonify({"message": "The batch process was not executed due to an error. Try Again. \n" + e.args.join(', ')})
         resp.status_code = 400
+    finally:
         return resp
+
 
 
 def queueConsumer(self, client, frame):
     resp = ""
     files = []
-    print "in consumer"
+    print "in queueConsumer"
     print self
     print client
     print frame
