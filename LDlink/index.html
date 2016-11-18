@@ -83,7 +83,8 @@
 
 			<!-- BATCH -->
 			<li>
-				<a id="ldbatch-tab-anchor" href="#ldbatch-tab" data-toggle="tab" title="Batch processing">LDbatch</a>
+				<a id="ldbatch-tab-anchor" href="#ldbatch-tab" data-toggle="tab" title="Batch processing"><span class="badge" title='0 Pending calculations for batch processing'>0</span> LDbatch
+			</a>
 			</li>
 			<!-- CHIP -->
 			<li>
@@ -97,7 +98,6 @@
 			<li>
 				<a id="help-tab-anchor" href="#help-tab" data-toggle="tab">Help</a>
 			</li>
-
 		</ul>
 		<!-- Tab Content -->
 		<div class="tab-content">
@@ -786,7 +786,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<a id="ldpair-population-codes-zero"
 										style="position:relative;left:180px;"
 										href="#"
@@ -800,10 +800,15 @@
 									</select>
 								</div>
 							</div>
-							<div class="form-group">
-								<div class="col-sm-1">
-									<input type="submit" id="ldpair" value="Calculate"
-										class="btn btn-default calculate" />
+
+							<div class="col-lg-3">
+								<div class="input-group">
+									<span class="input-group-btn">
+										<input type="submit" id="ldpair" value="Calculate"	class="btn btn-default calculate" aria-label="Calculate"/>
+									</span>
+									<button id="ldproxy-batch" class="btn btn-default batch" aria-label="Append to batch jobs">
+										<span class="glyphicon glyphicon-plus-sign"></span> Batch
+									</button>
 								</div>
 							</div>
 						</form>
@@ -1005,22 +1010,27 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<div class="col-sm-2 col-sm-offset-1">
-								<div title="Select pairwise value" data-toggle="buttons" class="btn-group">
-										<label class="btn btn-default active" id="proxy_color_r2">
-									 		<input type="radio" checked="" autocomplete="off" name="options"> R<sup>2</sup>
-										</label>
-										<label class="btn btn-default">
-											<input type="radio" autocomplete="off" name="options"> D'
-										</label>
+								<div class="col-sm-2">
+									<div title="Select pairwise value" data-toggle="buttons" class="btn-group">
+											<label class="btn btn-default active" id="proxy_color_r2">
+										 		<input type="radio" checked="" autocomplete="off" name="options"> R<sup>2</sup>
+											</label>
+											<label class="btn btn-default">
+												<input type="radio" autocomplete="off" name="options"> D'
+											</label>
 									</div>
-									</div>
+								</div>
 							</div>
 
-							<div class="form-group">
-								<div class="col-sm-1">
-									<input type="submit" id="ldproxy" value="Calculate"
-										class="btn btn-default calculate" />
+							<div class="col-lg-3">
+								<div class="input-group">
+									<span class="input-group-btn">
+										<input type="submit" id="ldproxy" value="Calculate"	class="btn btn-default calculate" aria-label="Calculate"/>
+									</span>
+
+									<button id="ldproxy-batch" class="btn btn-default batch">
+										<span class="glyphicon glyphicon-plus-sign"></span>Batch
+									</button>
 								</div>
 							</div>
 						</form>
@@ -1128,33 +1138,49 @@
 			<!-- LDbatch -->
 			<div class="tab-pane fade" id="ldbatch-tab">
 				<!-- LDbatch FORM -->
-				<form id="ldbatchForm">
-					<!-- LDpbatch INPUTS-->
-					<div class="col-xs-12">
-						<div id="ldbatch-messages">
-							<span id="iconType"></span>
-							<b id='message'></b>
+				<form id="ldbatchForm" class="ldlinkForm">
+					<div id="pendingTotal" class="list-group">
+						<a href="#" class="list-group-item disabled"><b>0</b> Pending Calculations</a>
+					</div>
+					
+					<div id="modules" class="row" >
+						<b class=" col-xs-6 col-sm-2">Select a Module:</b>
+						<div class="col-xs-6 col-sm-10">
+							<div class="btn-group btn-group-sm btn-group-justified" role="group" aria-label="Select a module">
+	<!-- 						<a id="ldassoc" class="btn btn-default">LDAssoc</a>
+								<a id="ldhap" class="btn btn-default">LDhap</a>
+								<a id="ldmatrix" class="btn btn-default">LDmatrix</a> -->
+								<a id="ldpair" class="btn btn-default">LDpair</a>
+								<a id="ldproxy" class="btn btn-default">LDproxy</a>
+	<!-- 						<a id="snpchip" class="btn btn-default">SNPChip</a>
+								<a id="snpclip" class="btn btn-default">SNPClip</a> -->
+							</div>
 						</div>
 					</div>
 
-					<div class="form-group">
-						<div class="col-xs-12 col-sm-5">
-							<input type="file" id="batchFile" class="form-control" name="batchFile" title="You must upload a batch file to process" required />
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-xs-12 col-sm-5">
-							<input type="email" id="recipientEmail" name="recipientEmail" class="form-control" 
-							title="You must enter a valid email adress" placeholder="Email" aria-label="Email" required />
-						</div>
-					</div>
+					<div id="pendingDetails" class="row"></div>
+
+					<div id="batchControls">
 						<div class="form-group">
-						<div class="col-sm-2">
-							<button type="submit" class="btn btn-default">Submit</button>
+							<label class="control-label col-xs-9 col-sm-3">Results file format: </label>
+							<div class="col-xs-4">
+								<label for="ff-txt">
+									<input id="ff-txt" type="radio" name="fileFormat" value="txt"> .txt
+								</label>
+
+								<label for="ff-json">
+									<input id="ff-json" type="radio" name="fileFormat" value="json"> .json
+								</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-12 col-sm-4">
+								<input id="batchEmail" class="form-control" type="email" placeholder="E-Mail" aria-label="Enter recipient e-mail">
+							</div>
 						</div>
 					</div>
-			
-					<hr class="col-xs-12">
+
+					<button id="sendBatch" class="btn btn-default">Submit for Batch Processing</button>
 				</form>
 			</div>
 

@@ -32,8 +32,6 @@ Object.size = function(obj) {
 $(document).ready(function() {
     console.log("supportAjaxUploadWithProgress: "+supportAjaxUploadWithProgress());
     $('#progressbar').progressbar();
-    //$('#progressbar').progressbar('setPosition', 85);
-    //$('#ldassoc-progressbar').progressbar('reset');
     $('#ldassoc-progressbar').on("positionChanged", function (e) {
         console.log(e.position);
         console.log(e.percent);
@@ -70,15 +68,12 @@ $(document).ready(function() {
             case "Variant":
                 $("#region-variant-container").show();
                 break;
-        } 
+        }
     });
 
     updateVersion(ldlink_version);
-    //addValidators();
+
     $('#ldlink-tabs').on('click', 'a', function(e) {
-        //console.warn("You clicked a tab");
-        //console.info("Check for an attribute called data-url");
-        //If data-url use that.
         var currentTab = e.target.id.substr(0, e.target.id.search('-'));
         //console.log(currentTab);
         var last_url_params = $("#"+currentTab+"-tab-anchor").attr("data-url-params");
@@ -128,9 +123,33 @@ $(document).ready(function() {
         $('#'+ id + '-message-warning').hide();
         $('#'+ id + "-loading").hide();
     });
-    $('.ldlinkForm').on('submit', function(e) {
-        //alert('Validate');
-        calculate(e);
+    $(document).on('submit', '.ldlinkForm', function(e) {
+
+        if (e.target.id.indexOf('ldbatch'))
+            console.log("Submitting batch");
+        else
+            calculate(e);
+    });
+
+    $(document).on('click', '.batch', function(e) {
+        var valid = false;
+
+        var form = e.target.form;
+        var formId = form.id.slice(0, -4);
+
+        var inputs = $('#' + e.target.form.id ).find('input');
+        $(inputs).each(function(i, el) {
+            valid = el.validity.valid;
+            return valid;
+        });
+
+        if(isPopulationSet(formId) && valid) {
+            appendBatch(formId);
+        }
+
+        $(e.target.form).removeClass('toBatch');
+
+        e.preventDefault();
     });
 
     $("form#ldbatchForm").on('submit', batchProcess);
@@ -140,6 +159,20 @@ $(document).ready(function() {
     createFileSelectEvent();
     createEnterEvent();
 
+    $('#ldhap-file-snp-numbers').keyup(validateTextarea);
+    $('#ldmatrix-file-snp-numbers').keyup(validateTextarea);
+    $('#snpchip-file-snp-numbers').keyup(validateTextarea);
+    $('#snpclip-file-snp-numbers').keyup(validateTextarea);
+    $('#region-gene-base-pair-window').keyup(validateBasePairWindows);
+    $('#region-variant-base-pair-window').keyup(validateBasePairWindows);
+    $('#region-variant-index').keyup(validateIndex);
+    $('#region-region-start-coord').keyup(validateChr);
+    $('#region-region-end-coord').keyup(validateChr);
+    $('#region-region-index').keyup(validateIndex);
+    $('#region-gene-index').keyup(validateIndex);
+    $('#region-gene-name').keyup(validateGeneName);
+
+    pendingBatchJobs();
 });
 
 // Set file support trigger
@@ -207,15 +240,8 @@ function uploadFile2() {
     var fileInput = document.getElementById('ldassoc-file');
     var file = fileInput.files[0];
     var formData = new FormData();
-    //console.log("formData before");
-    //console.dir(formData);
     formData.append('ldassocFile', file);
-    //console.log("formData after");
-    //console.dir(formData);
-    // Display the keys
-    //  for (var key of formData.keys()) {
-    //     console.log(key); 
-    //  }
+
     $.ajax({
         url: restServerUrl+'/upload',  //Server script to process data
         type: 'POST',
@@ -302,7 +328,6 @@ function createFileSelectEvent() {
 function fileUpload(fieldName, buttonName){
     
     restService.route = 'LDlinkRest/load';
-    //restServerUrl = restService.protocol + "//" + restService.hostname + restService.pathname + restService.route;
     uploadFile(fieldName, buttonName);
 }
 
@@ -421,7 +446,7 @@ function createProxyTable() {
         "bAutoWidth": true,
         "bProcessing": false,
         "deferRender": false,
-        "order": [[ 7, "desc" ], [ 5, "desc"]], //Order desc on DPrime
+        "order": [[ 7, "desc" ], [ 5, "desc"]],
         "columnDefs": [
             {
                 "render": function ( data, type, row ) {
@@ -431,7 +456,6 @@ function createProxyTable() {
             },
             {
                 "render": function ( data, type, row ) {
-                    //Remove 'chr' from the chromosome
                     return data.substring(3);
                 },
                 "targets": 1
@@ -539,7 +563,9 @@ function autoCalculate() {
                 updateData(id);
             }
             break;
-    } 
+    }
+
+    return url 
 }
 
 function setupSNPchipControls() {
@@ -566,9 +592,6 @@ function setupSNPchipControls() {
 
     $('#selectAllIllumina').click(function(e) {
         var id = e.target.id;
-        //console.log("Look for state");
-        //console.dir(e);
-        //console.log($("#"+id).prop('checked'));
         if($("#"+id).prop('checked') == true) {
             $(".illumina").prop("checked", true);
         } else {
@@ -654,12 +677,6 @@ function setupSNPclipControls() {
     });
 }
 
-/*
-function pushInputs(currentTab, inputs) {
-    window.history.pushState({},'', "?tab="+currentTab+"&inputs="+JSON.stringify(inputs));
-}
-*/
-
 function showFFWarning() {
     // Is this a version of Mozilla?
     if ($.browser.mozilla) {
@@ -676,7 +693,6 @@ function showFFWarning() {
 }
 
 // Map knockout models to a sample json data
-//var ldproxyModel = ko.mapping.fromJS(ldProxyData);
 var ldpairModel = ko.mapping.fromJS(ldPairData);
 var ldhapModel = ko.mapping.fromJS(ldhapData);
 var snpclipModel = ko.mapping.fromJS(snpclipData);
@@ -815,7 +831,6 @@ function cleanSNP(text) {
                 return false;
             }
         });
-        //console.log("rsnumber is "+rsnumber);
         if(rsnumber.length > 2) {
             //console.log(line[0]);
             var pos = rsnumber.search(/^[R|r][S|s]\d+$/);
@@ -863,18 +878,14 @@ function populateAssocDropDown(headers) {
 }
 
 function parseHeaderValues(header_line) {
-    //alert(header_line);
     //Assumption: No spaces in the header title for each column.  Either a space or comma between header titles.
     var clean = header_line.replace(/\t/g, " ");
     clean = clean.replace(/","/g, " ");
     clean = clean.replace(/,/g, " ");
-    //var line = clean.replace(/[^[A-Z0-9\n ]/ig, "");
-    //console.log("Here is clean");
-    //console.log(clean);
+
     var headers = clean.split(" ");
     //console.log(headers);
     var new_headers = headers.filter(function(v){return v!==''});
-    //console.log(new_headers);
 
     populateAssocDropDown(new_headers);
 
@@ -892,9 +903,6 @@ function getHeaderLine(header) {
             return;
         }
     }
-
-    //console.warn("Did not find a return in the header line. Please fix input file.  Make sure the header line is the first line and has a return.");
-
 }
 
 function populateHeaderValues(event, numFiles, label) {
@@ -902,23 +910,6 @@ function populateHeaderValues(event, numFiles, label) {
     console.warn("populateHeaderValues");
     //findColumnLength(event.target.files[0], printLength);
     parseFile(event.target.files[0], getHeaderLine);
-    /*  
-    id = event.target.id;
-    if (window.FileReader) {
-
-        var input = event.target;
-        var reader = new FileReader();
-        reader.onload = function() {
-            var text = reader.result;
-            $('#'+id+'-snp-numbers').val(cleanSNP(text));
-            $('#'+id+'-snp-numbers').keyup();
-        };
-        reader.readAsText(input.files[0]);
-    } else {
-        alert('FileReader not supported');
-        return;
-    }
-    */
 }
 function loadHelp() {
     $('#help-tab').load('help.html');
@@ -1315,10 +1306,7 @@ function loadSNPChip(data) {
             delete snpchip[row];
         } else {
             //Gather all platforms
-            //if(parseInt(row)< 1) {
                 associated_platforms = detail[2].split(",");
-                //console.log("associated_platforms: "+parseInt(row)+" "+detail[0]);
-                //console.dir(associated_platforms.sort());
 
                 $.each(detail[2].split(","), function(key, value){
                     if(value != "") {
@@ -1326,11 +1314,10 @@ function loadSNPChip(data) {
                         test += key+") "+detail[2]+"\n";
                     }
                 });
-            //}
+           
         }
     });
-    //console.warn("All Platforms");
-    //console.log("Count: "+all_platforms_used.length);
+
     //Find the unique one from all of the platforms
     var used_platforms
     var platform_list = all_platforms_used.unique();
@@ -1338,24 +1325,17 @@ function loadSNPChip(data) {
     var reversed_platform_list = [];
     snpchipData["headers"] = [];
     platform_list.sort();
-    /*
-    console.warn("Filtered list of  Platforms");
-    console.log("Count: "+platform_list.length);
-    console.log(test);
-    */
+
     //Now that we have the platform list... Map each platform.
     $.each(snpchip, function(row, detail){
         //Walk throught the platform_list and determine if it has the list... create a map for the table.
         map = [];
         used_platforms = detail[2].split(",");
-        //console.log("used_platforms:");
-        //console.dir(used_platforms);
-        //console.warn("row: "+row);
+
         var platform_count = 0;
 
         $.each(platform_list, function(key, value) {
-            //console.log(key+":"+value);
-            //console.info($.inArray(value, used_platforms));
+
             if($.inArray(value, used_platforms) >= 0) {
                 map.push("&#x2713;");
                 platform_count++;
@@ -1386,13 +1366,6 @@ function loadSNPChip(data) {
             platform: value
         };
         if(typeof obj.code === "undefined") {
-            /*
-            console.info("Reverse lookup does appear to exist");
-            console.info("Removing key "+key+" from platform_list below.");
-            console.info("This value doesn't seem to have a code: "+value);
-            console.log("platform_list:");
-            console.dir(platform_list);
-            */
             obj ={
                 code: "unknown code",
                 platform: value
@@ -1499,12 +1472,7 @@ function anchorRSposition(coord, rs_number) {
         snp142 : 'pack',
         'hgFind.matches' : rs_number
     };
-    var url = server + "?" + $.param(params);
-    //if(hide_chr) {
-    //  return '<a href="'+url+'" target="coord_'+coord+'">'+positions[1]+'</a>';
-    //} else {
     return '<a href="'+url+'" target="coord_'+coord+'">'+coord+'</a>';
-    //}
 }
 
 function populateSNPwarnings(data) {
@@ -1521,15 +1489,12 @@ function populateSNPwarnings(data) {
             rs_number_link: anchorRSnumber(index),
             position_link: anchorRSposition(value[0], index)
         };
-        //console.log(index+" - "+value);
+
         if(filtered.comment != 'Variant kept.' && filtered.comment.substring(0, 13) != 'Variant in LD') {
             // Place message on the warning table.
             snpclipData.warnings.push(filtered);
         }
     });
-    
-    //console.log("Warning Data");
-    //console.dir(snpclipData.warnings);
 
     if(snpclipData.warnings.length == 0) {
         $('#snpclip-warning').hide();
@@ -1543,15 +1508,7 @@ function populateSNPwarnings(data) {
 function loadSNPdetails(data, rs_number) {
 
     snpclipData.details =[];
-    /*
-    console.log("Here is the rs_number to populate");
-    console.log("rs_number: "+rs_number);
-    console.dir(data.details);
-    console.log("find key for the rs_number");
 
-    console.log("Found one::::");
-    console.dir(data.details[rs_number]);
-    */
     var found = false;
     var match = 'Variant in LD with '+rs_number;
 ;
@@ -1565,17 +1522,17 @@ function loadSNPdetails(data, rs_number) {
             rs_number_link: anchorRSnumber(index),
             position_link: anchorRSposition(value[0], index)
         };
-        //console.log(index+" - "+value);
+
         if(detail.rs_number == rs_number) {
             found = true;
         }
-        //if(found == true && detail.rs_number == rs_number) {
+
         if(found) {
             if(detail.comment == 'Variant kept.' && detail.rs_number != rs_number){
                 // List is complete, exit loop
                 return false;
             }
-            //console.log("Search: "+detail.comment.indexOf(data.details[rs_number])>0);
+
             if(detail.comment == 'Variant kept.' || 
                 detail.comment.indexOf(match)>=0) {
                 snpclipData.details.push(detail);
@@ -1583,8 +1540,6 @@ function loadSNPdetails(data, rs_number) {
         }
     });
 
-    //console.dir(snpclipData);
-    //console.log(JSON.stringify(snpclipData));
     ko.mapping.fromJS(snpclipData, snpclipModel);
     $('#snpclip-detail-title').text("Details for "+rs_number); 
 }
@@ -1605,11 +1560,7 @@ function initClip(data) {
 
 function formatLDhapData(data) {
 
-    //console.log("get the two main parts of the data as hplotypes and snps");
-    //var indels = [];
     var haplotypes = data.haplotypes;
-
-    //console.dir(haplotypes);
 
     var snps = data.snps;
     var ldhapTable = {
@@ -1623,8 +1574,6 @@ function formatLDhapData(data) {
 
     // Convert haplotypes to footer
     for (key in haplotypes) {
-        //console.log(key);
-        //console.dir(haplotypes[key]);
         var obj = {
             Count : haplotypes[key].Count,
             Frequency : haplotypes[key].Frequency,
@@ -1656,13 +1605,9 @@ function formatLDhapData(data) {
         });
     });
 
-    //console.log('ldhapTable');
-    //console.dir(ldhapTable);
     var obj = {
         out_final : ldhapTable
     }
-    //console.dir(obj);
-    //console.info("LDhap ENDS here:");
 
     return ldhapTable;
 }
@@ -1690,8 +1635,6 @@ function updateLDmatrix() {
         reference : Math.floor(Math.random() * (99999 - 10000 + 1)),
         r2_d : r2_d
     };
-    //console.log('ldmatrixInputs');
-    //console.dir(ldmatrixInputs);
 
     var url = restServerUrl + "/ldmatrix";
     var ajaxRequest = $.ajax({
@@ -1701,9 +1644,7 @@ function updateLDmatrix() {
     });
 
     ajaxRequest.success(function(data) {
-        //console.log("ldmatrix");
-        //console.log(typeof data);
-        //console.dir(data);
+
         if(typeof data == 'string') {
             $('#ldmatrix-bokeh-graph').empty().append(data);
             $('#' + id + '-progress-container').hide();
@@ -1729,92 +1670,6 @@ function addLDMatrixHyperLinks(request) {
     $('#ldmatrix-DPrime').attr('href', 'tmp/d_prime_' + request + '.txt');
     $('#ldmatrix-R2').attr('href', 'tmp/r2_' + request + '.txt');
 }
-/*
-function updateLDproxyProgressBar(id, seconds) {
-
-    var milliseconds = seconds * 1000;
-    // Divide number of milliseconds to get 100 to get 100 updates
-    var delay = milliseconds / 100;
-
-    $('#' + id + '-progress').show();
-    var progressBar = $('#ldproxy-progress-bar');
-    width = 0;
-
-    progressBar.width(width);
-
-    var interval = setInterval(function() {
-        width += 1;
-        progressBar.css('width', width + '%').attr('aria-valuenow',
-                width.toString() + '%');
-        progressBar.html('<span>' + width.toString() + '% Complete</span>');
-        if (width >= 100) {
-            clearInterval(interval);
-            return;
-        }
-    }, delay);
-}
-*/
-/*
-function createPopulationDropdown(id) {
-
-    alert("createPop");
-    $('#' + id + '-population-codes')
-        .multiselect(
-        {
-            enableClickableOptGroups : true,
-            buttonWidth : '180px',
-            maxHeight : 500,
-            includeSelectAllOption : true,
-            dropRight : true,
-            allSelectedText : 'All Populations',
-            nonSelectedText : 'Select Population',
-            numberDisplayed : 4,
-            selectAllText : 'All Populations',
-
-            // buttonClass: 'btn btn-link',
-            buttonText : function(options, select) {
-                if (options.length === 0) {
-                    return '<span class="pull-left">'
-                            + this.nonSelectedText + '</span>'
-                            + ' <b class="caret"></b>';
-                } else if (options.length == $('option', $(select)).length) {
-                    return '<span class="pull-left">'
-                            + this.nonSelectedText + '</span>'
-                            + ' <b class="caret"></b>';
-                } else if (options.length > this.numberDisplayed) {
-                    return '<span class="badge pull-left">'
-                            + options.length + '</span> '
-                            + this.nSelectedText
-                            + ' <b class="caret"></b>';
-                } else {
-                    var selected = '';
-                    options.each(function() {
-                        // var label = $(this).attr('label') :
-                        // $(this).html();
-                        selected += $(this).val() + '+';
-                    });
-
-                    return selected.substr(0, selected.length - 1)
-                            + ' <b class="caret"></b>';
-                }
-            },
-            buttonTitle : function(options, select) {
-                if (options.length === 0) {
-                    return this.nonSelectedText;
-                } else {
-                    var selected = '';
-                    options.each(function() {
-                        selected += $(this).text() + '\n';
-                    });
-                    return selected;
-                }
-            },
-            onChange : function(option, checked) {
-                alert("You changed something");
-            }
-        });
-}
-*/
 
 function updateLDproxy() {
     var id = "ldproxy";
@@ -1825,11 +1680,9 @@ function updateLDproxy() {
     if($('#proxy_color_r2').hasClass('active')) {
         r2_d='r2'; // i.e. R2
         $('#ldproxy-genome').html("View R<sup>2</sup> data in UCSC Genome Browser");
-        //$("#ldmatrix-legend").attr('src', 'LDmatrix_legend_R2.png');
     } else {
         r2_d='d';  // i.e.  Dprime
         $('#ldproxy-genome').html("View D' data in UCSC Genome Browser");
-        //$("#ldmatrix-legend").attr('src', 'LDmatrix_legend_Dprime.png');
     }
 
     var ldproxyInputs = {
@@ -1841,13 +1694,10 @@ function updateLDproxy() {
 
     updateHistoryURL(id, ldproxyInputs);
 
-    //console.log(location.hostname);
-
     $('#ldproxy-genome').attr('href',
         'http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hgt.customText=http://'+location.hostname+'/LDlink/tmp/track' 
         + ldproxyInputs.reference + '.txt');
 
-    //console.dir(ldproxyInputs);
     $('#ldproxy-results-link').attr('href','tmp/proxy' + ldproxyInputs.reference + '.txt');
     var url = restServerUrl + "/ldproxy";
     var ajaxRequest = $.ajax({
@@ -1882,8 +1732,6 @@ function hideLoadingIcon(ajaxRequest, id) {
 function getLDProxyResults(jsonfile) {
     var id = "ldproxy";
     var url = "tmp/"+jsonfile;
-    //console.info("Here is the LOG file");
-    //console.log(url);
 
     var ajaxRequest = $.ajax({
         type : "GET",
@@ -1893,7 +1741,6 @@ function getLDProxyResults(jsonfile) {
         //catch error and warning in json
         if (displayError(id, data) == false) {
             RefreshTable('#new-ldproxy', data);
-            //ko.mapping.fromJS(data, ldproxyModel);
         }
 
     });
@@ -1906,8 +1753,6 @@ function getLDProxyResults(jsonfile) {
 function getLDAssocResults(jsonfile) {
     var id = "ldassoc";
     var url = "tmp/"+jsonfile;
-    //console.info("Here is the LOG file");
-    //console.log(url);
 
     var ajaxRequest = $.ajax({
         type : "GET",
@@ -1955,8 +1800,6 @@ function getLDAssocResults(jsonfile) {
 }
 
 function displayCommFail(id, jqXHR, textStatus) {
-    //console.log(textStatus);
-    //console.dir(jqXHR);
     console.warn("CommFail\n"+"Status: "+textStatus);
     var message = jqXHR.responseText;
     message += "<p>code: "+jqXHR.status+" - "+textStatus+"</p>";
@@ -2006,12 +1849,9 @@ function updateHistoryURL(id, inputs) {
 
     params["tab"] = id;
     var recursiveEncoded = $.param( params );
-    //console.log(recursiveEncoded);
+
     window.history.pushState({},'', "?"+ recursiveEncoded);
     $("#"+id+"-tab-anchor").attr("data-url-params", recursiveEncoded);
-
-    //console.log(JSON.stringify(params.pop));
-
 }
 
 function updateLDpair() {
@@ -2020,9 +1860,6 @@ function updateLDpair() {
 
     var population = getPopulationCodes(id+'-population-codes');
 
-    //console.log("LD Pair");
-    //console.log('population');
-    //console.dir(population);
     var ldpairInputs = {
         var1 : $('#ldpair-snp1').val(),
         var2 : $('#ldpair-snp2').val(),
@@ -2030,8 +1867,6 @@ function updateLDpair() {
         reference : "ref" + Math.floor(Math.random() * (99999 - 10000 + 1))
                 + 10000
     };
-    //console.log("ldpairInputs");
-    //console.dir(ldpairInputs);
 
     updateHistoryURL(id, ldpairInputs);
 
@@ -2095,14 +1930,13 @@ function displayCommFail(id, jqXHR, textStatus) {
     console.log(textStatus);
     console.dir(jqXHR);
     console.warn("CommFail\n"+"Status: "+textStatus);
-    //$("#calculating-spinner").modal('hide');
-    //alert("Comm Fail");
+
     var message;
     var errorThrown = "";
     console.warn("header: " + jqXHR
     + "\ntextStatus: " + textStatus
     + "\nerrorThrown: " + errorThrown);
-    //alert('Communication problem: ' + textStatus);
+
     // ERROR
     if(jqXHR.status == 500) {
         message = 'Internal Server Error: ' + textStatus + "<br>";
@@ -2167,12 +2001,9 @@ function addLDHapHyperLinks(request, ldhapTable) {
     var params = {};
     var rs_number;
     var url;
-    //server = 'http://genome.ucsc.edu/cgi-bin/hgTracks';
-    //console.log("ldhapData");
-    
+    //server = 'http://genome.ucsc.edu/cgi-bin/hgTracks';    
 
     $.each(ldhapTable.rows, function(index, value) {
-        //console.log(index + ": " + value);
         // Create RSnumber link (Cluster Report)
         server = 'http://www.ncbi.nlm.nih.gov/projects/SNP/snp_ref.cgi';
         // snp1-rsum
@@ -2332,7 +2163,6 @@ function buildPopulationDropdown(elementId) {
     }
 
     $('#' + elementId).html(htmlText);
-    //alert(elemtnId);
     $('#' + elementId).multiselect({
         enableClickableOptGroups : true,
         buttonWidth : '180px',
@@ -2349,9 +2179,7 @@ function buildPopulationDropdown(elementId) {
         maxPopulationWarnTimeout: 5000,
         maxPopulationWarnVisible: false,
 
-        // buttonClass: 'btn btn-link',
         buttonText : function(options, select) {
-            //console.log("elementId: "+elementId);
             if(this.previousOptionLength < this.maxPopulationWarn && options.length >= this.maxPopulationWarn) {
                 $('#'+elementId+'-popover').popover('show');
                 this.maxPopulatinWarnVisible=true;
@@ -2383,8 +2211,6 @@ function buildPopulationDropdown(elementId) {
             } else {
                 var selected = '';
                 options.each(function() {
-                    // var label = $(this).attr('label') :
-                    // $(this).html();
                     selected += $(this).val() + '+';
                 });
 
@@ -2404,22 +2230,8 @@ function buildPopulationDropdown(elementId) {
             }
         },
         onChange : function(option, checked) {
-            /*
-            var active_tab = $("#ldlink-tabs li:[class]='active']");
-            console.dir(active_tab);
-            */
-            //alert("You changed the population selection.");
-            //console.log("Option: ")
-            //console.dir(option[0]);
-            //console.log("checked: ")
-            //console.dir(checked);
         }
     });
-
-    //console.log(elementId);
-    //console.dir($('#' + elementId));
-
-
 }
 
 function getPopulationCodes(id) {
@@ -2427,13 +2239,6 @@ function getPopulationCodes(id) {
     var totalPopulations;
     population =  $('#'+id).val();
     totalPopulations = countSubPopulations(populations);
-
-    //console.log("Populations (static)");
-    //console.log("Populations length: "+totalPopulations);
-
-    //console.dir(populations);
-    //console.log("Population selected");
-    //console.log("Population length: "+population.length);
 
     //Check for selection of All
     // If total subPopulations equals number of population then popluation = array("All");
@@ -2761,44 +2566,6 @@ function eraseCookie(name) {
     createCookie(name,"",-1);
 }
 
-function batchUpload(formData) {
-        var messageElement = $("#ldbatch-messages");
-        
-        $.ajax({
-            url: restServerUrl + '/ldbatch/upload',  //Server script to process data
-            type: 'POST',
-            xhr: function() {  // Custom XMLHttpRequest
-                var myXhr = $.ajaxSettings.xhr();
-                if(myXhr.upload) // Check if upload property exists
-                    myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // For handling the progress of the upload
-
-                return myXhr;
-            },
-            //Ajax events
-            beforeSend: function () {
-                var percent = 0;
-                $('form#ldbatch progressbar').css('width', percent + "%");
-                $('form#ldbatch progressbar').html(percent + '% Completed');
-                $('form#ldbatch progressbar').addClass('show');
-            },
-            success: function(data, statusText, xhr) {
-                $("#batchFile").parent().addClass("has-feedback has-success");
-                $("#ldbatch-messages #iconType").empty().html("<span class='glyphicon glyphicon-ok'></span>");
-                messageElement.addClass("alert alert-success show").find("#message").html(data.message);
-                createCookie("token", data.token)
-            },
-            error:function(data, statusText, xhr) {
-                $("#batchFile").parent().addClass("has-feedback has-error");
-                messageElement.find("#iconType").empty().html("<span class='glyphicon glyphicon-remove'></span>");
-                messageElement.addClass("alert alert-danger show").find("#message").html(data.message);
-            },
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false
-        });
-}
-
 function batchProcess(e) {
     e.preventDefault();
 
@@ -2824,6 +2591,8 @@ function batchProcess(e) {
             beforeSend: beforeSendHandler,
             success: function(data, statusText, xhr) {
                 e.target.reset();
+
+                clearBatch();
 
                 $.each( $(e.target).find('input').parent('.form-group'), function(i,el) {
                     $(el).removeClass("has-feedback has-error has-success");
@@ -2851,6 +2620,113 @@ function batchProcess(e) {
         $(inputControl).parent().addClass("has-feedback has-error");
     }
 }
+
+function appendBatch(id) {
+    data = {
+        module: id,
+        inputs: null
+    };
+
+    if(data.module == 'ldpair') {
+        data.inputs = {
+            var1 : $('#ldpair-snp1').val(),
+            var2 : $('#ldpair-snp2').val(),
+            reference : "ref" + Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000
+        };
+    }
+
+    else if(data.module == "ldproxy") {
+        var r2_d;
+
+        data.inputs = {
+            var: $('#ldproxy-snp').val(),
+            reference: Math.floor(Math.random() * (99999 - 10000 + 1))
+        };
+
+        if($('#proxy_color_r2').hasClass('active')) {
+            data.inputs.r2_d = 'r2'; // i.e. R2
+        }
+        else {
+            data.inputs.r2_d = 'd';  // i.e.  Dprime
+        }
+    }
+
+    if(id.indexOf('snpchip') < 0) {
+        data.inputs['pop'] = getPopulationCodes(id+'-population-codes').join("+");
+    }
+
+    var dataString = JSON.stringify(data);
+
+    createCookie('batch-' + id.toLowerCase(), dataString, 10);
+
+    console.log(readCookie( 'batch-'+id.toLowerCase() ));
+
+    pendingBatchJobs();
+
+
+    $("#ldbatch-tab-anchor").trigger('click');
+}
+
+function objectToHTML(obj) {
+    var oStr = "";
+    for (prop in obj) {
+        oStr += "<p><b>" + prop + "</b> : " + obj[prop] + "\n </p>";
+    }
+
+    console.log(oStr);
+
+    return oStr;
+}
+
+function pendingBatchJobs() {
+    var pendingCount = 0;
+    var pendingElements = "";
+    $("#pendingDetails").html("<div class='panel panel-default'><div class='panel-heading'>Pending Batch Calculations</div></div>");
+
+    $.each(document.cookie.split(/; */), function(i, cookie) {
+        console.log(cookie);
+        var key = cookie.split("=")[0];
+        var value = cookie.split("=")[1];
+
+        if(key.indexOf('batch-') > -1 && value.length > 0) {
+            params = JSON.parse(value);
+            pendingElements += "<div id='" + key + "' class='list-group-item'><h4>" + params.module + "</h4><p class='list-group-item-text'>" + objectToHTML(params.inputs) + "</p></div>";
+            pendingCount++;
+        }
+
+    });
+
+    $("#pendingDetails .panel").append("<div class='list-group'>" + pendingElements + "</div>");
+
+
+    $("#pendingTotal").html("<div class='alert alert-info'><b>" + pendingCount + "</b> Pending Calculations</div>");
+    $("#ldbatch-tab-anchor .badge").attr("title", pendingCount + " pending calculations for batch processing").html(pendingCount);
+
+    if(pendingCount > 0) {
+        $("#batchControls").addClass('show');
+    }
+    else {
+        $("#batchControls").removeClass('show');
+    }
+
+}
+
+function clearBatch() {
+   $.each(document.cookie.split(/; */), function(i, cookie) {
+        var key = cookie.split("=")[0];
+        var value = cookie.split("=")[1];
+
+        if(key.indexOf('batch')) {
+            eraseCookie(key);
+        }
+   });
+}
+
+$("#modules a").on("click", function(e) {
+    var moduleName = e.target.id;
+    console.log(moduleName);
+    $("#" + moduleName + "-tab-anchor").trigger('click');
+});
 
 $("#batchFile").on("change",function(e) {
     var tok = (Math.random() * (1000000 - 1000) + 1000).toFixed(0) +  new Date().getTime();

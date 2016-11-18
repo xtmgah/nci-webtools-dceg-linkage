@@ -699,8 +699,12 @@ textarea:invalid, .error {
 .progress {
 	margin-bottom:18px;
 }
+#pendingDetails {
+	margin: 10px 0;
+}
 
-.form-group > .form-control-feedback:not(.show) {
+.form-group > .form-control-feedback:not(.show),
+#batchControls:not(.show) {
 	display: none;
 }
 
