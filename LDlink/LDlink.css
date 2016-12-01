@@ -703,9 +703,9 @@ textarea:invalid, .error {
 	margin: 10px 0;
 }
 
-.form-group > .form-control-feedback:not(.show),
-#batchControls:not(.show) {
-	display: none;
+#ldbatchForm .panel-heading {
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .form-group.has-success > input,

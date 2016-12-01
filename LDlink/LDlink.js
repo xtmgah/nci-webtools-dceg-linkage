@@ -16,6 +16,7 @@ var ldassocData=[{RS_Number:"rs75563749",Coord:"chr3:171031233",Alleles:"(A/T)",
 var ldClipDetails={rs1:["NA","NA","SNP not found in dbSNP142, SNP removed."],rs111531283:["chr19:39738317","A=0.737, C=0.263","SNP in LD with rs11322783 (R2=0.2849), SNP removed"],rs11322783:["chr19:39739153","T=0.444, -=0.556","SNP kept"],rs11881222:["chr19:39734923","A=0.672, G=0.328","SNP in LD with rs11322783 (R2=0.2245), SNP removed"],rs11882871:["chr19:39737610","A=0.475, G=0.525","SNP in LD with rs11322783 (R2=0.6373), SNP removed"],rs12979860:["chr19:39738787","C=0.485, T=0.515","SNP in LD with rs11322783 (R2=0.85), SNP removed"],rs12980275:["chr19:39731783","A=0.556, G=0.444","SNP in LD with rs11322783 (R2=0.3546), SNP removed"],rs12980602:["chr19:39752820","T=0.763, C=0.237","SNP kept"],rs2:["NA","NA","SNP not found in dbSNP142, SNP removed."],rs35963157:["chr19:39745695","-=0.338, C=0.662","SNP in LD with rs11322783 (R2=0.1887), SNP removed"],rs368234815:["NA","NA","Variant not in 1000G VCF file, variant removed"],rs4803217:["chr19:39734220","C=0.47, A=0.53","SNP in LD with rs11322783 (R2=0.6526), SNP removed"],rs4803222:["chr19:39739353","G=0.747, C=0.253","SNP in LD with rs11322783 (R2=0.2703), SNP removed"],rs6508852:["chr19:39752262","A=0.263, G=0.737","SNP in LD with rs8101517 (R2=0.609), SNP removed"],rs66477315:["chr19:39751674","T=0.636, -=0.364","SNP in LD with rs8101517 (R2=0.1736), SNP removed"],rs688187:["chr19:39732752","G=0.465, A=0.535","SNP in LD with rs11322783 (R2=0.6682), SNP removed"],rs7248668:["chr19:39743821","G=0.924, A=0.076","SNP in LD with rs8099917 (R2=1.0), SNP removed"],rs74597329:["chr19:39739155","T=0.444, G=0.556","SNP in LD with rs11322783 (R2=1.0), SNP removed"],rs78605718:["chr19:39745812","C=0.904, T=0.096","SNP kept"],rs8099917:["chr19:39743165","T=0.924, G=0.076","SNP kept"],rs8101517:["chr19:39747741","A=0.328, C=0.672","SNP kept"],rs8103142:["chr19:39735106","T=0.424, C=0.576","SNP in LD with rs11322783 (R2=0.6), SNP removed"],rs8109886:["chr19:39742762","C=0.253, A=0.747","SNP in LD with rs11322783 (R2=0.4223), SNP removed"],rs955155:["chr19:39729479","G=0.96, A=0.04","SNP kept"]};
 var snpclipData = {"warnings":[{"rs_number":"rs12980602","position":"chr19:39752820","alleles":"T=0.763, C=0.237","comment":"SNP kept","rs_number_link":"<a>rs12980602</a>","position_link":"<a>chr19:39752820</a>"},{"rs_number":"rs35963157","position":"chr19:39745695","alleles":"-=0.338, C=0.662","comment":"SNP in LD with rs11322783 (R2=0.1887), SNP removed","rs_number_link":"<a>rs35963157</a>","position_link":"<a>chr19:39745695</a>"}],"details":[{"rs_number":"rs12980602","position":"chr19:39752820","alleles":"T=0.763, C=0.237","comment":"SNP kept","rs_number_link":"<a>rs12980602</a>","position_link":"<a>chr19:39752820</a>"},{"rs_number":"rs35963157","position":"chr19:39745695","alleles":"-=0.338, C=0.662","comment":"SNP in LD with rs11322783 (R2=0.1887), SNP removed","rs_number_link":"<a>rs35963157</a>","position_link":"<a>chr19:39745695</a>"}]};
 var snpchipData = {"snpchip":[{"rs_number":"<a href=\"http://www.ncbi.nlm.nih.gov/projects/SNP/snp_ref.cgi?rs=505066\" target=\"rs_number_rs505066\">rs505066</a>","chromosome":"1","position":"<a href=\"http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&position=chr1%3A96882421-96882921&snp142=pack&hgFind.matches=rs505066\" target=\"coord_chr1:96882671\">96882671</a>","map":["&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","X","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","X","X","X","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;"]},{"rs_number":"<a href=\"http://www.ncbi.nlm.nih.gov/projects/SNP/snp_ref.cgi?rs=4478775\" target=\"rs_number_rs4478775\">rs4478775</a>","chromosome":"1","position":"<a href=\"http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&position=chr1%3A177769847-177770347&snp142=pack&hgFind.matches=rs4478775\" target=\"coord_chr1:177770097\">177770097</a>","map":["&nbsp;","X","&nbsp;","X","&nbsp;","X","&nbsp;","&nbsp;","&nbsp;","&nbsp;","X","X","X","X","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","X"]},{"rs_number":"<a href=\"http://www.ncbi.nlm.nih.gov/projects/SNP/snp_ref.cgi?rs=561634\" target=\"rs_number_rs561634\">rs561634</a>","chromosome":"1","position":"<a href=\"http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&position=chr1%3A177895513-177896013&snp142=pack&hgFind.matches=rs561634\" target=\"coord_chr1:177895763\">177895763</a>","map":["&nbsp;","X","&nbsp;","X","&nbsp;","X","&nbsp;","&nbsp;","&nbsp;","&nbsp;","X","X","X","X","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","X"]},{"rs_number":"<a href=\"http://www.ncbi.nlm.nih.gov/projects/SNP/snp_ref.cgi?rs=2820292\" target=\"rs_number_rs2820292\">rs2820292</a>","chromosome":"1","position":"<a href=\"http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&position=chr1%3A201784037-201784537&snp142=pack&hgFind.matches=rs2820292\" target=\"coord_chr1:201784287\">201784287</a>","map":["X","X","X","X","X","X","X","X","X","X","X","X","X","X","X","X","X","X","X","X","X","X","X"]}],"headers":[{"code":"A_AFR","platform":"Affymetrix Axiom GW AFR"},{"code":"A_ASI","platform":"Affymetrix Axiom GW ASI"},{"code":"A_EAS","platform":"Affymetrix Axiom GW EAS"},{"code":"A_EUR","platform":"Affymetrix Axiom GW EUR"},{"code":"A_Hu","platform":"Affymetrix Axiom GW Hu"},{"code":"A_Hu-CHB","platform":"Affymetrix Axiom GW Hu-CHB"},{"code":"A_LAT","platform":"Affymetrix Axiom GW LAT"},{"code":"A_Onco","platform":"Affymetrix OncoScan"},{"code":"A_OncoCNV","platform":"Affymetrix OncoScan CNV"},{"code":"A_SNP6.0","platform":"Affymetrix SNP 6.0"},{"code":"I_CardioMetab","platform":"Illumina Cardio-MetaboChip"},{"code":"I_1M-D","platform":"Illumina Human1M-Duov3"},{"code":"I_1M","platform":"Illumina Human1Mv1"},{"code":"I_Exon510S","platform":"Illumina HumanExon510Sv1"},{"code":"I_O1S-8","platform":"Illumina HumanOmni1S-8v1"},{"code":"I_O2.5-4","platform":"Illumina HumanOmni2.5-4v1"},{"code":"I_O2.5-8","platform":"Illumina HumanOmni2.5-8v1.2"},{"code":"I_O2.5E-8v1","platform":"Illumina HumanOmni2.5Exome-8v1"},{"code":"I_O2.5E-8v1.1","platform":"Illumina HumanOmni2.5Exome-8v1.1"},{"code":"I_O2.5E-8v1.2","platform":"Illumina HumanOmni2.5Exome-8v1.2"},{"code":"I_O5-4","platform":"Illumina HumanOmni5-4v1"},{"code":"I_O5E-4","platform":"Illumina HumanOmni5Exome-4v1"},{"code":"I_ME-Global-8","platform":"Illumina Infinium Multi-Ethnic Global-8"}]};
+
 var snpchipReverseLookup = [];
 var ldClipRaw;
 var modules = [ "ldassoc", "ldhap", "ldmatrix", "ldpair", "ldproxy", "snpclip", "snpchip" ];
@@ -103,6 +104,7 @@ $(document).ready(function() {
     
     $('[data-toggle="popover"]').popover();
     loadHelp();
+
     // Apply Bindings
     ko.applyBindings(ldpairModel, document
             .getElementById('ldpair-results-container'));
@@ -122,7 +124,16 @@ $(document).ready(function() {
         $('#'+ id + '-message').hide();
         $('#'+ id + '-message-warning').hide();
         $('#'+ id + "-loading").hide();
+
+        $("#modules").append("<a id='" + id + "' class='btn btn-default'>" + id + "</a>");
     });
+
+    $("#modules a").on("click", function(e) {
+        var moduleName = e.target.id;
+        console.log(moduleName);
+        $("#" + moduleName + "-tab-anchor").trigger('click');
+    });
+
     $(document).on('submit', '.ldlinkForm', function(e) {
 
         if (e.target.id.indexOf('ldbatch'))
@@ -130,29 +141,6 @@ $(document).ready(function() {
         else
             calculate(e);
     });
-
-    $(document).on('click', '.batch', function(e) {
-        var valid = false;
-
-        var form = e.target.form;
-        var formId = form.id.slice(0, -4);
-
-        var inputs = $('#' + e.target.form.id ).find('input');
-        $(inputs).each(function(i, el) {
-            valid = el.validity.valid;
-            return valid;
-        });
-
-        if(isPopulationSet(formId) && valid) {
-            appendBatch(formId);
-        }
-
-        $(e.target.form).removeClass('toBatch');
-
-        e.preventDefault();
-    });
-
-    $("form#ldbatchForm").on('submit', batchProcess);
 
     setupTabs();
     autoCalculate();
@@ -171,8 +159,6 @@ $(document).ready(function() {
     $('#region-region-index').keyup(validateIndex);
     $('#region-gene-index').keyup(validateIndex);
     $('#region-gene-name').keyup(validateGeneName);
-
-    pendingBatchJobs();
 });
 
 // Set file support trigger
@@ -691,6 +677,57 @@ function showFFWarning() {
         }
     }
 }
+
+var BatchViewModel = function(data) {
+    var $this = this;
+
+    $this.batchJobs = ko.observableArray();
+
+    $this.jobsCount = function() {
+        return $this.batchJobs().length;
+    };
+
+    $this.addJob = function(batch) {
+        if(batch) {
+            $this.batchJobs.unshift(batch);
+            createCookie('batch', JSON.stringify($this.batchJobs()), 10 );
+        }
+    };
+
+    $this.removeJob = function(batch, e) {
+        $this.batchJobs.remove(batch);
+        createCookie('batch', JSON.stringify($this.batchJobs()), 10 );
+    };
+
+    $this.clearBatch = function() {
+        $this.batchJobs.removeAll();
+        eraseCookie('batch');
+    };
+
+    $this.retrievePendingJobs = function() {
+        if(readCookie('batch')) {
+            $this.batchJobs( JSON.parse(readCookie('batch')) );
+            ko.applyBindings($this, document.getElementById('ldbatchForm'));
+        }
+    };
+
+    $this.getInputs = function (batch){
+        return JSON.stringify(batch.inputs, null, 4);
+    };
+
+    $this.retrievePendingJobs();
+
+    return {
+        addJob: $this.addJob,
+        removeJob: $this.removeJob,
+        clearBatch: $this.clearBatch,
+        batchJobs: $this.batchJobs,
+        jobsCount: $this.jobsCount,
+        getInputs: $this.getInputs
+    };
+};
+
+var batchViewModel = new BatchViewModel();
 
 // Map knockout models to a sample json data
 var ldpairModel = ko.mapping.fromJS(ldPairData);
@@ -1511,7 +1548,6 @@ function loadSNPdetails(data, rs_number) {
 
     var found = false;
     var match = 'Variant in LD with '+rs_number;
-;
 
     $.each(data.details, function( index, value ){
         var detail = {
@@ -2566,6 +2602,29 @@ function eraseCookie(name) {
     createCookie(name,"",-1);
 }
 
+$(document).on('click', '.batch', function(e) {
+    e.preventDefault();
+
+    var valid = false;
+
+    var form = e.target.form;
+    var formId = form.id.slice(0, -4);
+
+    var inputs = $('#' + e.target.form.id ).find('input');
+    $(inputs).each(function(i, el) {
+        valid = el.validity.valid;
+        return valid;
+    });
+
+    if(isPopulationSet(formId) && valid) {
+        appendBatch(formId);
+        $("#ldbatch-tab-anchor").trigger('click');
+    }
+});
+
+$("form#ldbatchForm").on('submit', batchProcess);
+
+
 function batchProcess(e) {
     e.preventDefault();
 
@@ -2622,7 +2681,7 @@ function batchProcess(e) {
 }
 
 function appendBatch(id) {
-    data = {
+    var data = {
         module: id,
         inputs: null
     };
@@ -2635,7 +2694,7 @@ function appendBatch(id) {
         };
     }
 
-    else if(data.module == "ldproxy") {
+    if(data.module == "ldproxy") {
         var r2_d;
 
         data.inputs = {
@@ -2643,100 +2702,15 @@ function appendBatch(id) {
             reference: Math.floor(Math.random() * (99999 - 10000 + 1))
         };
 
-        if($('#proxy_color_r2').hasClass('active')) {
+        if($('#proxy_color_r2').hasClass('active'))
             data.inputs.r2_d = 'r2'; // i.e. R2
-        }
-        else {
+        else
             data.inputs.r2_d = 'd';  // i.e.  Dprime
-        }
     }
 
     if(id.indexOf('snpchip') < 0) {
         data.inputs['pop'] = getPopulationCodes(id+'-population-codes').join("+");
     }
 
-    var dataString = JSON.stringify(data);
-
-    createCookie('batch-' + id.toLowerCase(), dataString, 10);
-
-    console.log(readCookie( 'batch-'+id.toLowerCase() ));
-
-    pendingBatchJobs();
-
-
-    $("#ldbatch-tab-anchor").trigger('click');
+    batchViewModel.addJob(data);
 }
-
-function objectToHTML(obj) {
-    var oStr = "";
-    for (prop in obj) {
-        oStr += "<p><b>" + prop + "</b> : " + obj[prop] + "\n </p>";
-    }
-
-    console.log(oStr);
-
-    return oStr;
-}
-
-function pendingBatchJobs() {
-    var pendingCount = 0;
-    var pendingElements = "";
-    $("#pendingDetails").html("<div class='panel panel-default'><div class='panel-heading'>Pending Batch Calculations</div></div>");
-
-    $.each(document.cookie.split(/; */), function(i, cookie) {
-        console.log(cookie);
-        var key = cookie.split("=")[0];
-        var value = cookie.split("=")[1];
-
-        if(key.indexOf('batch-') > -1 && value.length > 0) {
-            params = JSON.parse(value);
-            pendingElements += "<div id='" + key + "' class='list-group-item'><h4>" + params.module + "</h4><p class='list-group-item-text'>" + objectToHTML(params.inputs) + "</p></div>";
-            pendingCount++;
-        }
-
-    });
-
-    $("#pendingDetails .panel").append("<div class='list-group'>" + pendingElements + "</div>");
-
-
-    $("#pendingTotal").html("<div class='alert alert-info'><b>" + pendingCount + "</b> Pending Calculations</div>");
-    $("#ldbatch-tab-anchor .badge").attr("title", pendingCount + " pending calculations for batch processing").html(pendingCount);
-
-    if(pendingCount > 0) {
-        $("#batchControls").addClass('show');
-    }
-    else {
-        $("#batchControls").removeClass('show');
-    }
-
-}
-
-function clearBatch() {
-   $.each(document.cookie.split(/; */), function(i, cookie) {
-        var key = cookie.split("=")[0];
-        var value = cookie.split("=")[1];
-
-        if(key.indexOf('batch')) {
-            eraseCookie(key);
-        }
-   });
-}
-
-$("#modules a").on("click", function(e) {
-    var moduleName = e.target.id;
-    console.log(moduleName);
-    $("#" + moduleName + "-tab-anchor").trigger('click');
-});
-
-$("#batchFile").on("change",function(e) {
-    var tok = (Math.random() * (1000000 - 1000) + 1000).toFixed(0) +  new Date().getTime();
-
-    var formData = new FormData();
-    formData.append(e.target.id, e.target.files[0]);
-    formData.append("token", tok);
-    var inputControl = e.target;
-
-    if(e.target.files.length > 0) {
-        batchUpload(formData);
-    }
-});
