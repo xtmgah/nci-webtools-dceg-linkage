@@ -861,6 +861,7 @@ def calculate_assoc(file,region,pop,request,myargs):
 	from bokeh.models import HoverTool,LinearAxis,Range1d
 	from bokeh.plotting import ColumnDataSource,curdoc,figure,output_file,reset_output,save
 	from bokeh.resources import CDN
+	from bokeh.io import export_svgs
 
 	reset_output()
 
@@ -900,8 +901,8 @@ def calculate_assoc(file,region,pop,request,myargs):
 	assoc_plot=figure(
 				title="P-values and Regional LD for "+snp+" in "+pop,
 				min_border_top=2, min_border_bottom=2, min_border_left=60, min_border_right=60, h_symmetry=False, v_symmetry=False,
-				plot_width=6000,
-				plot_height=4000,
+				plot_width=900,
+				plot_height=600,
 				x_range=xr, y_range=yr,
 				tools="tap,pan,box_zoom,wheel_zoom,box_select,undo,redo,reset,previewsave", logo=None,
 				toolbar_location="above")
@@ -964,7 +965,9 @@ def calculate_assoc(file,region,pop,request,myargs):
 	rug=figure(
 			x_range=xr, y_range=yr_rug, border_fill_color='white', y_axis_type=None,
 			title="", min_border_top=2, min_border_bottom=2, min_border_left=60, min_border_right=60, h_symmetry=False, v_symmetry=False,
-			plot_width=900, plot_height=50, tools="xpan,tap,wheel_zoom", logo=None)
+			plot_width=900, 
+			plot_height=50, 
+			tools="xpan,tap,wheel_zoom", logo=None)
 
 	rug.segment(x, y2_ll, x, y2_ul, source=source, color=color, alpha=alpha, line_width=1)
 	rug.toolbar_location=None
@@ -1059,7 +1062,9 @@ def calculate_assoc(file,region,pop,request,myargs):
 		gene_plot = figure(min_border_top=2, min_border_bottom=0, min_border_left=100, min_border_right=5,
 						   x_range=xr, y_range=yr2, border_fill_color='white',
 						   title="", h_symmetry=False, v_symmetry=False, logo=None,
-						   plot_width=900, plot_height=plot_h_pix, tools="hover,xpan,box_zoom,wheel_zoom,tap,undo,redo,reset,previewsave")
+						   plot_width=900, 
+						   plot_height=plot_h_pix, 
+						   tools="hover,xpan,box_zoom,wheel_zoom,tap,undo,redo,reset,previewsave")
 
 		if len(genes_raw) <= max_genes:
 			gene_plot.segment(genes_plot_start, genes_plot_yn, genes_plot_end,
@@ -1092,6 +1097,10 @@ def calculate_assoc(file,region,pop,request,myargs):
 
 		out_grid = gridplot(assoc_plot, rug, gene_plot,
 			ncols=1, toolbar_options=dict(logo=None))
+
+		# export svg
+		assoc_plot.output_backend = "svg"
+		export_svgs(assoc_plot, filename="assoc_plot.svg")
 
 
 
@@ -1176,7 +1185,9 @@ def calculate_assoc(file,region,pop,request,myargs):
 		gene_c_plot = figure(min_border_top=2, min_border_bottom=0, min_border_left=100, min_border_right=5,
 						   x_range=xr, y_range=yr2_c, border_fill_color='white',
 						   title="", h_symmetry=False, v_symmetry=False, logo=None,
-						   plot_width=900, plot_height=plot_c_h_pix, tools="hover,xpan,box_zoom,wheel_zoom,tap,undo,redo,reset,previewsave")
+						   plot_width=900, 
+						   plot_height=plot_c_h_pix, 
+						   tools="hover,xpan,box_zoom,wheel_zoom,tap,undo,redo,reset,previewsave")
 
 		if len(genes_c_raw) <= max_genes_c:
 			gene_c_plot.segment(genes_c_plot_start, genes_c_plot_yn, genes_c_plot_end,
@@ -1208,6 +1219,10 @@ def calculate_assoc(file,region,pop,request,myargs):
 
 		out_grid = gridplot(assoc_plot, rug, gene_c_plot,
 					ncols=1, toolbar_options=dict(logo=None))
+		
+		# export svg
+		assoc_plot.output_backend = "svg"
+		export_svgs(assoc_plot, filename="assoc_plot.svg")
 
 
 
