@@ -1099,8 +1099,8 @@ def calculate_assoc(file,region,pop,request,myargs):
 			ncols=1, toolbar_options=dict(logo=None))
 
 		# export svg
-		assoc_plot.output_backend = "svg"
-		export_svgs(assoc_plot, filename="assoc_plot.svg")
+		# assoc_plot.output_backend = "svg"
+		# export_svgs(assoc_plot, filename="assoc_plot.svg")
 
 
 
@@ -1221,8 +1221,8 @@ def calculate_assoc(file,region,pop,request,myargs):
 					ncols=1, toolbar_options=dict(logo=None))
 		
 		# export svg
-		assoc_plot.output_backend = "svg"
-		export_svgs(assoc_plot, filename="assoc_plot.svg")
+		# assoc_plot.output_backend = "svg"
+		# export_svgs(assoc_plot, filename="assoc_plot.svg")
 
 
 
