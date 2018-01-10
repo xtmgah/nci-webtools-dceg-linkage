@@ -900,8 +900,8 @@ def calculate_assoc(file,region,pop,request,myargs):
 	assoc_plot=figure(
 				title="P-values and Regional LD for "+snp+" in "+pop,
 				min_border_top=2, min_border_bottom=2, min_border_left=60, min_border_right=60, h_symmetry=False, v_symmetry=False,
-				plot_width=900,
-				plot_height=600,
+				plot_width=6000,
+				plot_height=4000,
 				x_range=xr, y_range=yr,
 				tools="tap,pan,box_zoom,wheel_zoom,box_select,undo,redo,reset,previewsave", logo=None,
 				toolbar_location="above")
