@@ -861,7 +861,7 @@ def calculate_assoc(file,region,pop,request,myargs):
 	from bokeh.models import HoverTool,LinearAxis,Range1d
 	from bokeh.plotting import ColumnDataSource,curdoc,figure,output_file,reset_output,save
 	from bokeh.resources import CDN
-	from bokeh.io import export_svgs
+	# from bokeh.io import export_svgs
 
 	reset_output()
 
