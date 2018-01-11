@@ -973,7 +973,8 @@ def calculate_assoc(file,region,pop,request,myargs):
 			plot_height=50, 
 			tools="xpan,tap,wheel_zoom", logo=None)
 
-	rug.segment(x, y2_ll, x, y2_ul, source=source, color=color, alpha=alpha, line_width=1)
+	##### comment out glyphs for testing #####
+	# rug.segment(x, y2_ll, x, y2_ul, source=source, color=color, alpha=alpha, line_width=1)
 	rug.toolbar_location=None
 
 
@@ -1071,10 +1072,11 @@ def calculate_assoc(file,region,pop,request,myargs):
 						   tools="hover,xpan,box_zoom,wheel_zoom,tap,undo,redo,reset,previewsave")
 
 		if len(genes_raw) <= max_genes:
-			gene_plot.segment(genes_plot_start, genes_plot_yn, genes_plot_end,
-							  genes_plot_yn, color="black", alpha=1, line_width=2)
-			gene_plot.rect(exons_plot_x, exons_plot_yn, exons_plot_w, exons_plot_h,
-						   source=source2, fill_color="grey", line_color="grey")
+			##### comment out glyphs for testing #####
+			# gene_plot.segment(genes_plot_start, genes_plot_yn, genes_plot_end,
+			# 				  genes_plot_yn, color="black", alpha=1, line_width=2)
+			# gene_plot.rect(exons_plot_x, exons_plot_yn, exons_plot_w, exons_plot_h,
+			# 			   source=source2, fill_color="grey", line_color="grey")
 			gene_plot.text(genes_plot_start, genes_plot_yn, text=genes_plot_name, alpha=1, text_font_size="7pt",
 						   text_font_style="bold", text_baseline="middle", text_align="right", angle=0)
 			hover = gene_plot.select(dict(type=HoverTool))
@@ -1198,10 +1200,11 @@ def calculate_assoc(file,region,pop,request,myargs):
 						   tools="hover,xpan,box_zoom,wheel_zoom,tap,undo,redo,reset,previewsave")
 
 		if len(genes_c_raw) <= max_genes_c:
-			gene_c_plot.segment(genes_c_plot_start, genes_c_plot_yn, genes_c_plot_end,
-							  genes_c_plot_yn, color="black", alpha=1, line_width=2)
-			gene_c_plot.rect(exons_c_plot_x, exons_c_plot_yn, exons_c_plot_w, exons_c_plot_h,
-						   source=source2_c, fill_color="grey", line_color="grey")
+			##### comment out glyphs for testing #####
+			# gene_c_plot.segment(genes_c_plot_start, genes_c_plot_yn, genes_c_plot_end,
+			# 				  genes_c_plot_yn, color="black", alpha=1, line_width=2)
+			# gene_c_plot.rect(exons_c_plot_x, exons_c_plot_yn, exons_c_plot_w, exons_c_plot_h,
+			# 			   source=source2_c, fill_color="grey", line_color="grey")
 			gene_c_plot.text(genes_c_plot_start, genes_c_plot_yn, text=genes_c_plot_name, alpha=1, text_font_size="7pt",
 						   text_font_style="bold", text_baseline="middle", text_align="right", angle=0)
 			hover = gene_c_plot.select(dict(type=HoverTool))
