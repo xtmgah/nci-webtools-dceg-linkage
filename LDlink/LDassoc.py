@@ -861,7 +861,7 @@ def calculate_assoc(file,region,pop,request,myargs):
 	from bokeh.models import HoverTool,LinearAxis,Range1d
 	from bokeh.plotting import ColumnDataSource,curdoc,figure,output_file,reset_output,save
 	from bokeh.resources import CDN
-	# from bokeh.io import export_svgs
+	from bokeh.io import export_svgs
 
 	reset_output()
 
@@ -928,11 +928,12 @@ def calculate_assoc(file,region,pop,request,myargs):
 	b = [-log10(0.00000005),-log10(0.00000005)]
 	assoc_plot.line(a, b, color="blue", alpha=0.5)
 
-	assoc_points_not1000G=assoc_plot.circle(p_plot_pos, p_plot_pval, size=9+float("0.25")*14.0, source=source_p, line_color="gray", fill_color="white")
-	assoc_plot.add_tools(HoverTool(renderers=[assoc_points_not1000G], tooltips=OrderedDict([("Variant", "@p_plot_pos2"), ("P-value", "@p_plot_pval2"), ("Distance (Mb)", "@p_plot_dist")])))
+	# assoc_points_not1000G=assoc_plot.circle(p_plot_pos, p_plot_pval, size=9+float("0.25")*14.0, source=source_p, line_color="gray", fill_color="white")
+	# assoc_plot.add_tools(HoverTool(renderers=[assoc_points_not1000G], tooltips=OrderedDict([("Variant", "@p_plot_pos2"), ("P-value", "@p_plot_pval2"), ("Distance (Mb)", "@p_plot_dist")])))
 
-	assoc_points=assoc_plot.circle(x, y, size=size, source=source, color=color, alpha=alpha)
-	hover=HoverTool(renderers=[assoc_points])
+	# assoc_points=assoc_plot.circle(x, y, size=size, source=source, color=color, alpha=alpha)
+	# hover=HoverTool(renderers=[assoc_points])
+
 	hover.tooltips=OrderedDict([
 		("Variant", "@prs @p_alle"),
 		("P-value", "@p_val"),
@@ -1096,19 +1097,15 @@ def calculate_assoc(file,region,pop,request,myargs):
 		gene_plot.toolbar_location = "below"
 
 		# export svg
-		# assoc_plot.output_backend = "svg"
-		# export_svgs(assoc_plot, filename="assoc_plot.svg")
-		# rug.output_backend = "svg"
-		# export_svgs(rug, filename="rug.svg")
-		# gene_plot.output_backend = "svg"
-		# export_svgs(gene_plot, filename="gene_plot.svg")
+		assoc_plot.output_backend = "svg"
+		export_svgs(assoc_plot, filename="assoc_plot.svg")
+		rug.output_backend = "svg"
+		export_svgs(rug, filename="rug.svg")
+		gene_plot.output_backend = "svg"
+		export_svgs(gene_plot, filename="gene_plot.svg")
 
 		out_grid = gridplot(assoc_plot, rug, gene_plot,
 			ncols=1, toolbar_options=dict(logo=None))
-
-		# export svg
-		# assoc_plot.output_backend = "svg"
-		# export_svgs(assoc_plot, filename="assoc_plot.svg")
 
 
 
@@ -1226,12 +1223,12 @@ def calculate_assoc(file,region,pop,request,myargs):
 		gene_c_plot.toolbar_location = "below"
 
 		# export svg
-		# assoc_plot.output_backend = "svg"
-		# export_svgs(assoc_plot, filename="assoc_plot.svg")
-		# rug.output_backend = "svg"
-		# export_svgs(rug, filename="rug.svg")
-		# gene_c_plot.output_backend = "svg"
-		# export_svgs(gene_c_plot, filename="gene_c_plot.svg")
+		assoc_plot.output_backend = "svg"
+		export_svgs(assoc_plot, filename="assoc_plot.svg")
+		rug.output_backend = "svg"
+		export_svgs(rug, filename="rug.svg")
+		gene_c_plot.output_backend = "svg"
+		export_svgs(gene_c_plot, filename="gene_c_plot.svg")
 
 		out_grid = gridplot(assoc_plot, rug, gene_c_plot,
 					ncols=1, toolbar_options=dict(logo=None))
