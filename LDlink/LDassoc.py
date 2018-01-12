@@ -1037,7 +1037,7 @@ def calculate_assoc(file,region,pop,request,myargs):
 		exons_plot_yn=[n_rows-x+0.5 for x in exons_plot_y]
 		yr2=Range1d(start=0, end=n_rows)
 
-		data_gene_plot = {'exons_plot_x': exons_plot_x, 'exons_plot_y': exons_plot_y, 'exons_plot_w': exons_plot_w, 'exons_plot_h': exons_plot_h,'exons_plot_name': exons_plot_name, 'exons_plot_id': exons_plot_id, 'exons_plot_exon': exons_plot_exon, 'message': message}
+		data_gene_plot = {'exons_plot_x': exons_plot_x, 'exons_plot_yn': exons_plot_yn, 'exons_plot_w': exons_plot_w, 'exons_plot_h': exons_plot_h,'exons_plot_name': exons_plot_name, 'exons_plot_id': exons_plot_id, 'exons_plot_exon': exons_plot_exon, 'message': message}
 		source_gene_plot=ColumnDataSource(data_gene_plot)
 
 		max_genes = 40
@@ -1055,10 +1055,9 @@ def calculate_assoc(file,region,pop,request,myargs):
 						#    output_backend="webgl") # test render with webgl
 
 		if len(genes_raw) <= max_genes:
-			##### comment out glyphs for testing #####
 			gene_plot.segment(genes_plot_start, genes_plot_yn, genes_plot_end,
 							  genes_plot_yn, color="black", alpha=1, line_width=2)
-			gene_plot.rect(x='exons_plot_x', y='exons_plot_y', width='exons_plot_w', height='exons_plot_h',
+			gene_plot.rect(x='exons_plot_x', y='exons_plot_yn', width='exons_plot_w', height='exons_plot_h',
 						   source=source_gene_plot, fill_color="grey", line_color="grey")
 			gene_plot.text(genes_plot_start, genes_plot_yn, text=genes_plot_name, alpha=1, text_font_size="7pt",
 						   text_font_style="bold", text_baseline="middle", text_align="right", angle=0)
@@ -1161,7 +1160,7 @@ def calculate_assoc(file,region,pop,request,myargs):
 		exons_c_plot_yn=[n_rows_c-x+0.5 for x in exons_c_plot_y]
 		yr2_c=Range1d(start=0, end=n_rows_c)
 
-		data_gene_c_plot = {'exons_c_plot_x': exons_c_plot_x, 'exons_c_plot_y': exons_c_plot_y, 'exons_c_plot_w': exons_c_plot_w, 'exons_c_plot_h': exons_c_plot_h, 'exons_c_plot_name': exons_c_plot_name, 'exons_c_plot_id': exons_c_plot_id, 'message_c': message_c}
+		data_gene_c_plot = {'exons_c_plot_x': exons_c_plot_x, 'exons_c_plot_yn': exons_c_plot_yn, 'exons_c_plot_w': exons_c_plot_w, 'exons_c_plot_h': exons_c_plot_h, 'exons_c_plot_name': exons_c_plot_name, 'exons_c_plot_id': exons_c_plot_id, 'message_c': message_c}
 		source_gene_c_plot=ColumnDataSource(data_gene_c_plot)
 
 		max_genes_c = 40
@@ -1179,10 +1178,9 @@ def calculate_assoc(file,region,pop,request,myargs):
 						#    output_backend="webgl") # test render with webgl
 
 		if len(genes_c_raw) <= max_genes_c:
-			##### comment out glyphs for testing #####
 			gene_c_plot.segment(genes_c_plot_start, genes_c_plot_yn, genes_c_plot_end,
 							  genes_c_plot_yn, color="black", alpha=1, line_width=2)
-			gene_c_plot.rect(x='exons_c_plot_x', y='exons_c_plot_y', width='exons_c_plot_w', height='exons_c_plot_h',
+			gene_c_plot.rect(x='exons_c_plot_x', y='exons_c_plot_yn', width='exons_c_plot_w', height='exons_c_plot_h',
 						   source=source_gene_c_plot, fill_color="grey", line_color="grey")
 			gene_c_plot.text(genes_c_plot_start, genes_c_plot_yn, text=genes_c_plot_name, alpha=1, text_font_size="7pt",
 						   text_font_style="bold", text_baseline="middle", text_align="right", angle=0)
