@@ -1105,12 +1105,12 @@ def calculate_assoc(file,region,pop,request,myargs):
 		gene_plot.toolbar_location = "below"
 
 		# export svg
-		assoc_plot.output_backend = "svg"
-		# export_svgs(assoc_plot, filename="assoc_plot.svg")
-		rug.output_backend = "svg"
-		# export_svgs(rug, filename="rug.svg")
-		gene_plot.output_backend = "svg"
-		# export_svgs(gene_plot, filename="gene_plot.svg")
+		# assoc_plot.output_backend = "svg"
+		export_svgs(assoc_plot, filename="assoc_plot.svg")
+		# rug.output_backend = "svg"
+		export_svgs(rug, filename="rug.svg")
+		# gene_plot.output_backend = "svg"
+		export_svgs(gene_plot, filename="gene_plot.svg")
 
 		out_grid = gridplot(assoc_plot, rug, gene_plot,
 			ncols=1, toolbar_options=dict(logo=None))
@@ -1233,12 +1233,12 @@ def calculate_assoc(file,region,pop,request,myargs):
 		gene_c_plot.toolbar_location = "below"
 
 		# export svg
-		assoc_plot.output_backend = "svg"
-		# export_svgs(assoc_plot, filename="assoc_plot.svg")
-		rug.output_backend = "svg"
-		# export_svgs(rug, filename="rug.svg")
-		gene_c_plot.output_backend = "svg"
-		# export_svgs(gene_c_plot, filename="gene_c_plot.svg")
+		# assoc_plot.output_backend = "svg"
+		export_svgs(assoc_plot, filename="assoc_plot.svg")
+		# rug.output_backend = "svg"
+		export_svgs(rug, filename="rug.svg")
+		# gene_c_plot.output_backend = "svg"
+		export_svgs(gene_c_plot, filename="gene_c_plot.svg")
 
 		out_grid = gridplot(assoc_plot, rug, gene_c_plot,
 					ncols=1, toolbar_options=dict(logo=None))
