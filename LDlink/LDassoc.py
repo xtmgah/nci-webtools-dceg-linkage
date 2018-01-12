@@ -931,24 +931,26 @@ def calculate_assoc(file,region,pop,request,myargs):
 	
 	###### commented out for testing #####
 	# assoc_points_not1000G=assoc_plot.circle(p_plot_pos, p_plot_pval, size=9+float("0.25")*14.0, source=source_p, line_color="gray", fill_color="white")
-	# assoc_plot.add_tools(HoverTool(renderers=[assoc_points_not1000G], tooltips=OrderedDict([("Variant", "@p_plot_pos2"), ("P-value", "@p_plot_pval2"), ("Distance (Mb)", "@p_plot_dist")])))
+	assoc_points_not1000G=assoc_plot.circle(p_plot_pos, p_plot_pval, size=13, source=source_p, line_color="gray", fill_color="white")
+	assoc_plot.add_tools(HoverTool(renderers=[assoc_points_not1000G], tooltips=OrderedDict([("Variant", "@p_plot_pos2"), ("P-value", "@p_plot_pval2"), ("Distance (Mb)", "@p_plot_dist")])))
 
 	# assoc_points=assoc_plot.circle(x, y, size=size, source=source, color=color, alpha=alpha)
-	# hover=HoverTool(renderers=[assoc_points])
+	assoc_points=assoc_plot.circle(x, y, size=13, source=source, color=color, alpha=alpha)
+	hover=HoverTool(renderers=[assoc_points])
 
-	# hover.tooltips=OrderedDict([
-	# 	("Variant", "@prs @p_alle"),
-	# 	("P-value", "@p_val"),
-	# 	("Distance (Mb)", "@dist"),
-	# 	("MAF", "@p_maf"),
-	# 	("R"+sup_2+" ("+q_rs[0]+")", "@r"),
-	# 	("D\' ("+q_rs[0]+")", "@d"),
-	# 	("Correlated Alleles", "@alleles"),
-	# 	("RegulomeDB", "@regdb"),
-	# 	("Functional Class", "@funct"),
-	# ])
+	hover.tooltips=OrderedDict([
+		("Variant", "@prs @p_alle"),
+		("P-value", "@p_val"),
+		("Distance (Mb)", "@dist"),
+		("MAF", "@p_maf"),
+		("R"+sup_2+" ("+q_rs[0]+")", "@r"),
+		("D\' ("+q_rs[0]+")", "@d"),
+		("Correlated Alleles", "@alleles"),
+		("RegulomeDB", "@regdb"),
+		("Functional Class", "@funct"),
+	])
 
-	# assoc_plot.add_tools(hover)
+	assoc_plot.add_tools(hover)
 	###### commented out for testing #####
 	
 
