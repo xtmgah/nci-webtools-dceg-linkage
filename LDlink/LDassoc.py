@@ -875,8 +875,6 @@ def calculate_assoc(file,region,pop,request,myargs):
 
 	source=ColumnDataSource(
 		data=dict(
-			p_coordX=p_coord,
-			neg_log_pY=neg_log_p,
 			qrs=q_rs,
 			q_alle=q_allele,
 			q_maf=q_maf,
@@ -939,7 +937,7 @@ def calculate_assoc(file,region,pop,request,myargs):
 	assoc_plot.add_tools(HoverTool(renderers=[assoc_points_not1000G], tooltips=OrderedDict([("Variant", "@p_plot_pos2"), ("P-value", "@p_plot_pval2"), ("Distance (Mb)", "@p_plot_dist")])))
 
 	# assoc_points=assoc_plot.circle(x, y, size=size, source=source, color=color, alpha=alpha)
-	assoc_points=assoc_plot.circle(x='p_coordX', y='neg_log_pY', size=size, source=source, color=color, alpha=alpha)
+	assoc_points=assoc_plot.circle(x, y, size=size, qrs=q_rs, q_alle=q_allele, q_maf=q_maf, prs=p_rs, p_alle=p_allele, p_maf=p_maf, dist=dist, r=r2_round, d=d_prime_round, alleles=corr_alleles, regdb=regdb, funct=funct, p_val=p_val, color=color, alpha=alpha)
 	hover=HoverTool(renderers=[assoc_points])
 
 	hover.tooltips=OrderedDict([
