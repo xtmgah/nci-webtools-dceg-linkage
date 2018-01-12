@@ -868,6 +868,7 @@ def calculate_assoc(file,region,pop,request,myargs):
 	data_p = {'p_plot_posX': p_plot_pos, 'p_plot_pvalY': p_plot_pval, 'p_plot_pos2': p_plot_pos2, 'p_plot_pval2': p_plot_pval2, 'p_plot_dist': p_plot_dist}
 	source_p = ColumnDataSource(data_p)
 
+
 	# Assoc Plot
 	x = p_coord
 	y = neg_log_p
@@ -892,6 +893,7 @@ def calculate_assoc(file,region,pop,request,myargs):
 
 	assoc_plot.title.align="center"
 
+
 	# Add recombination rate
 	tabix_recomb="tabix -fh {0} {1}:{2}-{3} > {4}".format(recomb_dir, chromosome, coord1-whitespace, coord2+whitespace, tmp_dir+"recomb_"+request+".txt")
 	subprocess.call(tabix_recomb, shell=True)
@@ -905,6 +907,7 @@ def calculate_assoc(file,region,pop,request,myargs):
 		recomb_y.append(float(rate)/100*max(y))
 
 	assoc_plot.line(recomb_x, recomb_y, line_width=1, color="black", alpha=0.5)
+
 
 	# Add genome-wide significance
 	a = [coord1/1000000.0-whitespace,coord2/1000000.0+whitespace]
@@ -932,6 +935,7 @@ def calculate_assoc(file,region,pop,request,myargs):
 
 	assoc_plot.add_tools(hover)	
 
+
 	# Annotate RebulomeDB scores
 	if myargs.annotate==True:
 		assoc_plot.text(x, y, text=regdb, alpha=1, text_font_size="7pt", text_baseline="middle", text_align="center", angle=0)
@@ -958,7 +962,6 @@ def calculate_assoc(file,region,pop,request,myargs):
 			tools="xpan,tap,wheel_zoom", logo=None)
 			# output_backend="webgl") # test render with webgl
 
-	##### comment out glyphs for testing #####
 	rug.segment(x0='x', y0='y2_ll', x1='x', y1='y2_ul', source=source_rug, color='color', alpha='alpha', line_width=1)
 	rug.toolbar_location=None
 
@@ -1034,14 +1037,8 @@ def calculate_assoc(file,region,pop,request,myargs):
 		exons_plot_yn=[n_rows-x+0.5 for x in exons_plot_y]
 		yr2=Range1d(start=0, end=n_rows)
 
-		source2=ColumnDataSource(
-			data=dict(
-				exons_plot_name=exons_plot_name,
-				exons_plot_id=exons_plot_id,
-				exons_plot_exon=exons_plot_exon,
-				message=message,
-			)
-		)
+		data_gene_plot = {'exons_plot_x': exons_plot_x, 'exons_plot_yn': exons_plot_yn, 'exons_plot_w': exons_plot_w, 'exons_plot_h:' exons_plot_h,'exons_plot_name': exons_plot_name, 'exons_plot_id': exons_plot_id, 'exons_plot_exon': exons_plot_exon, 'message': message}
+		source_gene_plot=ColumnDataSource(data_gene_plot)
 
 		max_genes = 40
 		if len(lines) < 3 or len(genes_raw) > max_genes:
@@ -1059,10 +1056,10 @@ def calculate_assoc(file,region,pop,request,myargs):
 
 		if len(genes_raw) <= max_genes:
 			##### comment out glyphs for testing #####
-			# gene_plot.segment(genes_plot_start, genes_plot_yn, genes_plot_end,
-			# 				  genes_plot_yn, color="black", alpha=1, line_width=2)
-			# gene_plot.rect(exons_plot_x, exons_plot_yn, exons_plot_w, exons_plot_h,
-			# 			   source=source2, fill_color="grey", line_color="grey")
+			gene_plot.segment(genes_plot_start, genes_plot_yn, genes_plot_end,
+							  genes_plot_yn, color="black", alpha=1, line_width=2)
+			gene_plot.rect(x='exons_plot_x', y='exons_plot_yn', width='exons_plot_w', height='exons_plot_h',
+						   source=source_gene_plot, fill_color="grey", line_color="grey")
 			gene_plot.text(genes_plot_start, genes_plot_yn, text=genes_plot_name, alpha=1, text_font_size="7pt",
 						   text_font_style="bold", text_baseline="middle", text_align="right", angle=0)
 			hover = gene_plot.select(dict(type=HoverTool))
@@ -1164,13 +1161,8 @@ def calculate_assoc(file,region,pop,request,myargs):
 		exons_c_plot_yn=[n_rows_c-x+0.5 for x in exons_c_plot_y]
 		yr2_c=Range1d(start=0, end=n_rows_c)
 
-		source2_c=ColumnDataSource(
-			data=dict(
-				exons_c_plot_name=exons_c_plot_name,
-				exons_c_plot_id=exons_c_plot_id,
-				message_c=message_c,
-			)
-		)
+		data_gene_c_plot = {'exons_c_plot_x': exons_c_plot_x, 'exons_c_plot_y': exons_c_plot_y, 'exons_c_plot_w': exons_c_plot_w, 'exons_c_plot_h': exons_c_plot_h, 'exons_c_plot_name': exons_c_plot_name, 'exons_c_plot_id': exons_c_plot_id, 'message_c': message_c}
+		source_gene_c_plot=ColumnDataSource(data_gene_c_plot)
 
 		max_genes_c = 40
 		if len(lines_c) < 3 or len(genes_c_raw) > max_genes_c:
@@ -1188,10 +1180,10 @@ def calculate_assoc(file,region,pop,request,myargs):
 
 		if len(genes_c_raw) <= max_genes_c:
 			##### comment out glyphs for testing #####
-			# gene_c_plot.segment(genes_c_plot_start, genes_c_plot_yn, genes_c_plot_end,
-			# 				  genes_c_plot_yn, color="black", alpha=1, line_width=2)
-			# gene_c_plot.rect(exons_c_plot_x, exons_c_plot_yn, exons_c_plot_w, exons_c_plot_h,
-			# 			   source=source2_c, fill_color="grey", line_color="grey")
+			gene_c_plot.segment(genes_c_plot_start, genes_c_plot_yn, genes_c_plot_end,
+							  genes_c_plot_yn, color="black", alpha=1, line_width=2)
+			gene_c_plot.rect(x='exons_c_plot_x', y='exons_c_plot_yn', width='exons_c_plot_w', height='exons_c_plot_h',
+						   source=source_gene_c_plot, fill_color="grey", line_color="grey")
 			gene_c_plot.text(genes_c_plot_start, genes_c_plot_yn, text=genes_c_plot_name, alpha=1, text_font_size="7pt",
 						   text_font_style="bold", text_baseline="middle", text_align="right", angle=0)
 			hover = gene_c_plot.select(dict(type=HoverTool))
