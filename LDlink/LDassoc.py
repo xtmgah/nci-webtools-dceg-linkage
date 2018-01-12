@@ -905,8 +905,8 @@ def calculate_assoc(file,region,pop,request,myargs):
 				plot_height=600,
 				x_range=xr, y_range=yr,
 				tools="tap,pan,box_zoom,wheel_zoom,box_select,undo,redo,reset,previewsave", logo=None,
-				toolbar_location="above",
-				output_backend="webgl") # test render with webgl
+				toolbar_location="above")
+				# output_backend="webgl") # test render with webgl
 
 	assoc_plot.title.align="center"
 
@@ -972,8 +972,8 @@ def calculate_assoc(file,region,pop,request,myargs):
 			title="", min_border_top=2, min_border_bottom=2, min_border_left=60, min_border_right=60, h_symmetry=False, v_symmetry=False,
 			plot_width=900, 
 			plot_height=50, 
-			tools="xpan,tap,wheel_zoom", logo=None,
-			output_backend="webgl") # test render with webgl
+			tools="xpan,tap,wheel_zoom", logo=None)
+			# output_backend="webgl") # test render with webgl
 
 	##### comment out glyphs for testing #####
 	# rug.segment(x, y2_ll, x, y2_ul, source=source, color=color, alpha=alpha, line_width=1)
@@ -1071,8 +1071,8 @@ def calculate_assoc(file,region,pop,request,myargs):
 						   title="", h_symmetry=False, v_symmetry=False, logo=None,
 						   plot_width=900, 
 						   plot_height=plot_h_pix, 
-						   tools="hover,xpan,box_zoom,wheel_zoom,tap,undo,redo,reset,previewsave",
-						   output_backend="webgl") # test render with webgl
+						   tools="hover,xpan,box_zoom,wheel_zoom,tap,undo,redo,reset,previewsave)
+						#    output_backend="webgl") # test render with webgl
 
 		if len(genes_raw) <= max_genes:
 			##### comment out glyphs for testing #####
@@ -1200,8 +1200,8 @@ def calculate_assoc(file,region,pop,request,myargs):
 						   title="", h_symmetry=False, v_symmetry=False, logo=None,
 						   plot_width=900, 
 						   plot_height=plot_c_h_pix, 
-						   tools="hover,xpan,box_zoom,wheel_zoom,tap,undo,redo,reset,previewsave",
-						   output_backend="webgl") # test render with webgl
+						   tools="hover,xpan,box_zoom,wheel_zoom,tap,undo,redo,reset,previewsave")
+						#    output_backend="webgl") # test render with webgl
 
 		if len(genes_c_raw) <= max_genes_c:
 			##### comment out glyphs for testing #####
