@@ -931,11 +931,17 @@ def calculate_assoc(file,region,pop,request,myargs):
 	
 	###### commented out for testing #####
 	# assoc_points_not1000G=assoc_plot.circle(p_plot_pos, p_plot_pval, size=9+float("0.25")*14.0, source=source_p, line_color="gray", fill_color="white")
-	assoc_points_not1000G=assoc_plot.circle(p_plot_pos, p_plot_pval, size=13, source=source_p, line_color="gray", fill_color="white")
+	assoc_points_not1000G=assoc_plot.circle(x='p_plot_pos', y='p_plot_pval', size=13, source=source_p, line_color="gray", fill_color="white")
 	assoc_plot.add_tools(HoverTool(renderers=[assoc_points_not1000G], tooltips=OrderedDict([("Variant", "@p_plot_pos2"), ("P-value", "@p_plot_pval2"), ("Distance (Mb)", "@p_plot_dist")])))
 
+	# source_p=ColumnDataSource(
+	# 	data=dict(
+	# 		p_plot_pos2=p_plot_pos2,
+	# 		p_plot_pval2=p_plot_pval2,
+	# 		p_plot_dist=p_plot_dist,))
+
 	# assoc_points=assoc_plot.circle(x, y, size=size, source=source, color=color, alpha=alpha)
-	assoc_points=assoc_plot.circle(x, y, size=13, source=source, color=color, alpha=alpha)
+	assoc_points=assoc_plot.circle(x='x', y='y', size=13, source=source, color=color, alpha=alpha)
 	hover=HoverTool(renderers=[assoc_points])
 
 	hover.tooltips=OrderedDict([
