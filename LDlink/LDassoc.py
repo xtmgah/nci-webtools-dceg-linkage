@@ -1071,7 +1071,7 @@ def calculate_assoc(file,region,pop,request,myargs):
 						   title="", h_symmetry=False, v_symmetry=False, logo=None,
 						   plot_width=900, 
 						   plot_height=plot_h_pix, 
-						   tools="hover,xpan,box_zoom,wheel_zoom,tap,undo,redo,reset,previewsave)
+						   tools="hover,xpan,box_zoom,wheel_zoom,tap,undo,redo,reset,previewsave")
 						#    output_backend="webgl") # test render with webgl
 
 		if len(genes_raw) <= max_genes:
