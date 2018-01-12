@@ -1037,7 +1037,7 @@ def calculate_assoc(file,region,pop,request,myargs):
 		exons_plot_yn=[n_rows-x+0.5 for x in exons_plot_y]
 		yr2=Range1d(start=0, end=n_rows)
 
-		data_gene_plot = {'exons_plot_x': exons_plot_x, 'exons_plot_yn': exons_plot_yn, 'exons_plot_w': exons_plot_w, 'exons_plot_h:' exons_plot_h,'exons_plot_name': exons_plot_name, 'exons_plot_id': exons_plot_id, 'exons_plot_exon': exons_plot_exon, 'message': message}
+		data_gene_plot = {'exons_plot_x': exons_plot_x, 'exons_plot_yn': exons_plot_yn, 'exons_plot_w': exons_plot_w, 'exons_plot_h': exons_plot_h,'exons_plot_name': exons_plot_name, 'exons_plot_id': exons_plot_id, 'exons_plot_exon': exons_plot_exon, 'message': message}
 		source_gene_plot=ColumnDataSource(data_gene_plot)
 
 		max_genes = 40
