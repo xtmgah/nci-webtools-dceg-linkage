@@ -865,13 +865,9 @@ def calculate_assoc(file,region,pop,request,myargs):
 
 	reset_output()
 
-	# Assoc Plot
-	x=p_coord
-	y=neg_log_p
-
 	source_p=ColumnDataSource(
 		data=dict(
-			p_plot_posX= p_plot_pos,
+			p_plot_posX=p_plot_pos,
 			p_plot_pvalY=p_plot_pval,
 			p_plot_pos2=p_plot_pos2,
 			p_plot_pval2=p_plot_pval2,
@@ -879,8 +875,8 @@ def calculate_assoc(file,region,pop,request,myargs):
 
 	source=ColumnDataSource(
 		data=dict(
-			xX = x,
-			yY = y,
+			p_coordX=p_coord,
+			neg_log_pY=neg_log_p,
 			qrs=q_rs,
 			q_alle=q_allele,
 			q_maf=q_maf,
@@ -897,6 +893,10 @@ def calculate_assoc(file,region,pop,request,myargs):
 		)
 	)
 
+	# Assoc Plot
+	x=p_coord
+	y=neg_log_p
+	
 	whitespace=0.01
 	xr=Range1d(start=coord1/1000000.0-whitespace, end=coord2/1000000.0+whitespace)
 	yr=Range1d(start=-0.03, end=max(y)*1.03)
@@ -939,7 +939,7 @@ def calculate_assoc(file,region,pop,request,myargs):
 	assoc_plot.add_tools(HoverTool(renderers=[assoc_points_not1000G], tooltips=OrderedDict([("Variant", "@p_plot_pos2"), ("P-value", "@p_plot_pval2"), ("Distance (Mb)", "@p_plot_dist")])))
 
 	# assoc_points=assoc_plot.circle(x, y, size=size, source=source, color=color, alpha=alpha)
-	assoc_points=assoc_plot.circle(x='xX', y='yY', size=size, source=source, color=color, alpha=alpha)
+	assoc_points=assoc_plot.circle(x='p_coordX', y='neg_log_pY', size=size, source=source, color=color, alpha=alpha)
 	hover=HoverTool(renderers=[assoc_points])
 
 	hover.tooltips=OrderedDict([
