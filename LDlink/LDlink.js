@@ -99,6 +99,8 @@ $(document).ready(function() {
     });
 
     $('#ldassoc').prop('disabled', true);
+    $('#ldassoc-downloadSVG').prop('disabled', true);
+
 
     $("#example-gwas").click(function(e){
       console.log("Use example GWAS data.");
@@ -262,6 +264,10 @@ $(document).ready(function() {
     $('.ldlinkForm').on('submit', function(e) {
         //alert('Validate');
         calculate(e);
+    });
+    // Click Download SVG button
+    $("#example-gwas").click(function(e){
+        console.log("DOWNLOAD BUTTON CLICKED");
     });
 
     setupTabs();
@@ -1351,6 +1357,8 @@ function updateLDassoc() {
         if (displayError(id, jsonObj) == false) {
             $('#ldassoc-bokeh-graph').empty().append(data);
             $('#' + id + '-results-container').show();
+            // enable download SVGs button
+            $('#ldassoc-downloadSVG').removeAttr('disabled');
             getLDAssocResults('assoc'+ldInputs.reference+".json");
 
         }
