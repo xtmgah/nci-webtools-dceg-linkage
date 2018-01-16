@@ -1065,13 +1065,13 @@ def calculate_assoc(file,region,pop,request,myargs):
 
 		if len(genes_raw) <= max_genes:
 			# DEBUG
-			gene_plot.segment(genes_plot_start, genes_plot_yn, genes_plot_end,
-							  genes_plot_yn, color="black", alpha=1, line_width=2)
 			gene_plot_rects=gene_plot.rect(x='exons_plot_x', y='exons_plot_yn', width='exons_plot_w', height='exons_plot_h',
 						   source=source_gene_plot, fill_color="grey", line_color="grey")
 			gene_plot.add_tools(HoverTool(renderers=[gene_plot_rects], tooltips=OrderedDict([("Gene", "@exons_plot_name"),("Transcript ID", "@exons_plot_id"),("Exon", "@exons_plot_exon")])))
 			gene_plot.text(genes_plot_start, genes_plot_yn, text=genes_plot_name, alpha=1, text_font_size="7pt",
 						   text_font_style="bold", text_baseline="middle", text_align="right", angle=0)
+			gene_plot.segment(genes_plot_start, genes_plot_yn, genes_plot_end,
+							  genes_plot_yn, color="black", alpha=1, line_width=2)
 			# hover = gene_plot.select(dict(type=HoverTool))
 			# hover = HoverTool(renderers=[gene_plot_rects])
 			# hover.tooltips = OrderedDict([
@@ -1197,14 +1197,14 @@ def calculate_assoc(file,region,pop,request,myargs):
 						#    output_backend="webgl") # test render with webgl
 
 		if len(genes_c_raw) <= max_genes_c:
-			gene_c_plot.segment(genes_c_plot_start, genes_c_plot_yn, genes_c_plot_end,
-							  genes_c_plot_yn, color="black", alpha=1, line_width=2)
 			# DEBUG
 			gene_c_plot_rects=gene_c_plot.rect(x='exons_c_plot_x', y='exons_c_plot_yn', width='exons_c_plot_w', height='exons_c_plot_h',
 						   source=source_gene_c_plot, fill_color="grey", line_color="grey")
 			gene_c_plot.add_tools(HoverTool(renderers=[gene_c_plot_rects], tooltips=OrderedDict([("Gene", "@exons_c_plot_name"),("Transcript IDs", "@exons_c_plot_id")])))
 			gene_c_plot.text(genes_c_plot_start, genes_c_plot_yn, text=genes_c_plot_name, alpha=1, text_font_size="7pt",
 						   text_font_style="bold", text_baseline="middle", text_align="right", angle=0)
+			gene_c_plot.segment(genes_c_plot_start, genes_c_plot_yn, genes_c_plot_end,
+							  genes_c_plot_yn, color="black", alpha=1, line_width=2)
 			# hover = gene_c_plot.select(dict(type=HoverTool))
 			# hover = HoverTool(renderers=[gene_c_plot_rects])
 			# hover.tooltips = OrderedDict([
