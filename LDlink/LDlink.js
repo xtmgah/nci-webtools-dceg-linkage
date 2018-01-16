@@ -269,6 +269,10 @@ $(document).ready(function() {
     // Click Download SVG button
     $("#ldassoc-downloadSVG").click(function(e){
         console.log("DOWNLOAD BUTTON CLICKED");
+        e.preventDefault();
+        var loc = window.location.pathname;
+        window.location.href = loc + '/' + $("#ldassoc-file-label").val() + '_assoc_plot.svg';
+        console.log(window.location.href);
     });
 
     setupTabs();
