@@ -1202,7 +1202,7 @@ def calculate_assoc(file,region,pop,request,myargs):
 			# DEBUG
 			gene_c_plot_rects=gene_c_plot.rect(x='exons_c_plot_x', y='exons_c_plot_yn', width='exons_c_plot_w', height='exons_c_plot_h',
 						   source=source_gene_c_plot, fill_color="grey", line_color="grey")
-			gene_c_plot.add_tools(HoverTool(renderers=[gene_c_plot_rects], toolstips=OrderedDict([("Gene", "@exons_c_plot_name"),("Transcript IDs", "@exons_c_plot_id")])))
+			gene_c_plot.add_tools(HoverTool(renderers=[gene_c_plot_rects], tooltips=OrderedDict([("Gene", "@exons_c_plot_name"),("Transcript IDs", "@exons_c_plot_id")])))
 			gene_c_plot.text(genes_c_plot_start, genes_c_plot_yn, text=genes_c_plot_name, alpha=1, text_font_size="7pt",
 						   text_font_style="bold", text_baseline="middle", text_align="right", angle=0)
 			# hover = gene_c_plot.select(dict(type=HoverTool))
