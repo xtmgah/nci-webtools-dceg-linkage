@@ -1097,11 +1097,11 @@ def calculate_assoc(file,region,pop,request,myargs):
 
 		# export svg
 		assoc_plot.output_backend = "svg"
-		export_svgs(assoc_plot, filename=file+"_assoc_plot.svg")
+		export_svgs(assoc_plot, filename="assoc_plot.svg")
 		# rug.output_backend = "svg"
 		# export_svgs(rug, filename="rug.svg")
 		gene_plot.output_backend = "svg"
-		export_svgs(gene_plot, filename=file+"_gene_plot.svg")
+		export_svgs(gene_plot, filename="gene_plot.svg")
 		save(assoc_plot)
 		save(gene_plot)
 		# print save(assoc_plot)
@@ -1236,11 +1236,11 @@ def calculate_assoc(file,region,pop,request,myargs):
 
 		# export svg
 		assoc_plot.output_backend = "svg"
-		export_svgs(assoc_plot, filename=file+"_assoc_plot.svg")
+		export_svgs(assoc_plot, filename="assoc_plot.svg")
 		# rug.output_backend = "svg"
 		# export_svgs(rug, filename="rug.svg")
 		gene_c_plot.output_backend = "svg"
-		export_svgs(gene_c_plot, filename=file+"_gene_c_plot.svg")
+		export_svgs(gene_c_plot, filename="gene_c_plot.svg")
 		save(assoc_plot)
 		save(gene_c_plot)
 		# print save(assoc_plot)

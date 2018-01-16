@@ -271,7 +271,7 @@ $(document).ready(function() {
         console.log("DOWNLOAD BUTTON CLICKED");
         e.preventDefault();
         var loc = window.location.pathname;
-        window.location.href = loc + '/' + $("#ldassoc-file-label").val() + '_assoc_plot.svg';
+        window.location.href = loc + $("#ldassoc-file-label").val() + '_assoc_plot.svg';
         console.log(window.location.href);
     });
 
