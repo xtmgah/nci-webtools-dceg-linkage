@@ -883,7 +883,9 @@ def calculate_assoc(file,region,pop,request,myargs):
 
 	assoc_plot=figure(
 				title="P-values and Regional LD for "+snp+" in "+pop,
-				min_border_top=2, min_border_bottom=2, min_border_left=60, min_border_right=60, h_symmetry=False, v_symmetry=False,
+				min_border_top=2, min_border_bottom=2, 
+				# min_border_left=60, min_border_right=60, 
+				h_symmetry=False, v_symmetry=False,
 				plot_width=900,
 				plot_height=600,
 				x_range=xr, y_range=yr,
@@ -956,7 +958,10 @@ def calculate_assoc(file,region,pop,request,myargs):
 
 	rug=figure(
 			x_range=xr, y_range=yr_rug, border_fill_color='white', y_axis_type=None,
-			title="", min_border_top=2, min_border_bottom=2, min_border_left=60, min_border_right=60, h_symmetry=False, v_symmetry=False,
+			title="", 
+			min_border_top=2, min_border_bottom=2, 
+			# min_border_left=60, min_border_right=60, 
+			h_symmetry=False, v_symmetry=False,
 			plot_width=900, 
 			plot_height=50, 
 			tools="xpan,tap,wheel_zoom", logo=None)
@@ -1046,7 +1051,8 @@ def calculate_assoc(file,region,pop,request,myargs):
 		else:
 			plot_h_pix = 150 + (len(lines) - 2) * 50
 
-		gene_plot = figure(min_border_top=2, min_border_bottom=0, min_border_left=100, min_border_right=5,
+		gene_plot = figure(min_border_top=2, min_border_bottom=0, 
+						#    min_border_left=100, min_border_right=5,
 						   x_range=xr, y_range=yr2, border_fill_color='white',
 						   title="", h_symmetry=False, v_symmetry=False, logo=None,
 						   plot_width=900, 
@@ -1170,7 +1176,8 @@ def calculate_assoc(file,region,pop,request,myargs):
 		else:
 			plot_c_h_pix = 150 + (len(lines_c) - 2) * 50
 
-		gene_c_plot = figure(min_border_top=2, min_border_bottom=0, min_border_left=100, min_border_right=5,
+		gene_c_plot = figure(min_border_top=2, min_border_bottom=0, 
+							# min_border_left=100, min_border_right=5,
 						   x_range=xr, y_range=yr2_c, border_fill_color='white',
 						   title="", h_symmetry=False, v_symmetry=False, logo=None,
 						   plot_width=900, 
