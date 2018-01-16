@@ -271,8 +271,10 @@ $(document).ready(function() {
         console.log("DOWNLOAD BUTTON CLICKED");
         e.preventDefault();
         var loc = window.location.pathname;
-        window.location.href = loc + $("#ldassoc-file-label").val() + '_assoc_plot.svg';
-        console.log(window.location.href);
+        // window.location.href = loc + 'assoc_plot.svg';
+        window.open(loc + 'assoc_plot.svg', '_blank');
+        window.open(loc + 'gene_plot.svg', '_blank');
+        // console.log(window.location.href);
     });
 
     setupTabs();

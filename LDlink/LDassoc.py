@@ -1240,7 +1240,7 @@ def calculate_assoc(file,region,pop,request,myargs):
 		# rug.output_backend = "svg"
 		# export_svgs(rug, filename="rug.svg")
 		gene_c_plot.output_backend = "svg"
-		export_svgs(gene_c_plot, filename="gene_c_plot.svg")
+		export_svgs(gene_c_plot, filename="gene_plot.svg")
 		save(assoc_plot)
 		save(gene_c_plot)
 		print save(assoc_plot)
