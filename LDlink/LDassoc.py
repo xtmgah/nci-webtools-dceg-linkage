@@ -1187,6 +1187,7 @@ def calculate_assoc(file,region,pop,request,myargs):
 			gene_c_plot.text(genes_c_plot_start, genes_c_plot_yn, text=genes_c_plot_name, alpha=1, text_font_size="7pt",
 						   text_font_style="bold", text_baseline="middle", text_align="right", angle=0)
 			hover = gene_c_plot.select(dict(type=HoverTool))
+			# DEBUG
 			hover.tooltips = OrderedDict([
 				("Gene", "@exons_c_plot_name"),
 				("Transcript IDs", "@exons_c_plot_id"),
