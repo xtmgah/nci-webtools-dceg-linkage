@@ -1041,6 +1041,9 @@ def calculate_assoc(file,region,pop,request,myargs):
 		yr2=Range1d(start=0, end=n_rows)
 
 		data_gene_plot = {'exons_plot_x': exons_plot_x, 'exons_plot_yn': exons_plot_yn, 'exons_plot_w': exons_plot_w, 'exons_plot_h': exons_plot_h,'exons_plot_name': exons_plot_name, 'exons_plot_id': exons_plot_id, 'exons_plot_exon': exons_plot_exon, 'message': message}
+		print "data_gene_plot"
+		print data_gene_plot
+
 		source_gene_plot=ColumnDataSource(data_gene_plot)
 
 		max_genes = 40
@@ -1064,21 +1067,18 @@ def calculate_assoc(file,region,pop,request,myargs):
 			# DEBUG
 			gene_plot.segment(genes_plot_start, genes_plot_yn, genes_plot_end,
 							  genes_plot_yn, color="black", alpha=1, line_width=2)
-			gene_rects = gene_plot.rect(x='exons_plot_x', y='exons_plot_yn', width='exons_plot_w', height='exons_plot_h',
+			gene_plot.rect(x='exons_plot_x', y='exons_plot_yn', width='exons_plot_w', height='exons_plot_h',
 						   source=source_gene_plot, fill_color="grey", line_color="grey")
 			# gene_plot.rect(exons_plot_x, exons_plot_yn, exons_plot_w, exons_plot_h,
 			# 			   fill_color="grey", line_color="grey")
 			gene_plot.text(genes_plot_start, genes_plot_yn, text=genes_plot_name, alpha=1, text_font_size="7pt",
 						   text_font_style="bold", text_baseline="middle", text_align="right", angle=0)
-
-			gene_plot.add_tools(HoverTool(renderers=[gene_rects], tooltips=OrderedDict([("Gene", "@exons_plot_name"),("Transcript ID", "@exons_plot_id"),("Exon", "@exons_plot_exon")])))
-			
-			# hover = gene_plot.select(dict(type=HoverTool))
-			# hover.tooltips = OrderedDict([
-			# 	("Gene", "@exons_plot_name"),
-			# 	("Transcript ID", "@exons_plot_id"),
-			# 	("Exon", "@exons_plot_exon"),
-			# ])
+			hover = gene_plot.select(dict(type=HoverTool))
+			hover.tooltips = OrderedDict([
+				("Gene", "@exons_plot_name"),
+				("Transcript ID", "@exons_plot_id"),
+				("Exon", "@exons_plot_exon"),
+			])
 
 		else:
 			x_coord_text = coord1/1000000.0 + (coord2/1000000.0 - coord1/1000000.0) / 2.0
@@ -1173,6 +1173,9 @@ def calculate_assoc(file,region,pop,request,myargs):
 		yr2_c=Range1d(start=0, end=n_rows_c)
 
 		data_gene_c_plot = {'exons_c_plot_x': exons_c_plot_x, 'exons_c_plot_yn': exons_c_plot_yn, 'exons_c_plot_w': exons_c_plot_w, 'exons_c_plot_h': exons_c_plot_h, 'exons_c_plot_name': exons_c_plot_name, 'exons_c_plot_id': exons_c_plot_id, 'message_c': message_c}
+		print "data_gene_c_plot"
+		print data_gene_c_plot
+
 		source_gene_c_plot=ColumnDataSource(data_gene_c_plot)
 
 		max_genes_c = 40
@@ -1196,22 +1199,17 @@ def calculate_assoc(file,region,pop,request,myargs):
 			gene_c_plot.segment(genes_c_plot_start, genes_c_plot_yn, genes_c_plot_end,
 							  genes_c_plot_yn, color="black", alpha=1, line_width=2)
 			# DEBUG
-			gene_c_rects = gene_c_plot.rect(x='exons_c_plot_x', y='exons_c_plot_yn', width='exons_c_plot_w', height='exons_c_plot_h',
+			gene_c_plot.rect(x='exons_c_plot_x', y='exons_c_plot_yn', width='exons_c_plot_w', height='exons_c_plot_h',
 						   source=source_gene_c_plot, fill_color="grey", line_color="grey")
 			# gene_c_plot.rect(exons_c_plot_x, exons_c_plot_yn, exons_c_plot_w, exons_c_plot_h,
 			# 			   fill_color="grey", line_color="grey")
 			gene_c_plot.text(genes_c_plot_start, genes_c_plot_yn, text=genes_c_plot_name, alpha=1, text_font_size="7pt",
 						   text_font_style="bold", text_baseline="middle", text_align="right", angle=0)
-
-			# hover = gene_c_plot.select(dict(type=HoverTool))
-			hover = HoverTool(renderers=[gene_c_rects])
-
+			hover = gene_c_plot.select(dict(type=HoverTool))
 			hover.tooltips = OrderedDict([
 				("Gene", "@exons_c_plot_name"),
 				("Transcript IDs", "@exons_c_plot_id"),
 			])
-
-			gene_c_plot.add_tools(hover)
 
 		else:
 			x_coord_text = coord1/1000000.0 + (coord2/1000000.0 - coord1/1000000.0) / 2.0
