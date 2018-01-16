@@ -153,6 +153,7 @@ $(document).ready(function() {
       }else{
         $('#ldassoc-file').prop('disabled', false);
         $('#ldassoc').prop('disabled', true);
+        $('#ldassoc-downloadSVG').prop('disabled', true);
         $("#assoc-chromosome > button").val('');
         $("#assoc-chromosome > button").html('Select Chromosome&nbsp;<span class="caret"></span>');
         $("#assoc-position > button").val('');
@@ -266,7 +267,7 @@ $(document).ready(function() {
         calculate(e);
     });
     // Click Download SVG button
-    $("#example-gwas").click(function(e){
+    $("#ldassoc-downloadSVG").click(function(e){
         console.log("DOWNLOAD BUTTON CLICKED");
     });
 
