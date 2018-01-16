@@ -1040,7 +1040,7 @@ def calculate_assoc(file,region,pop,request,myargs):
 		exons_plot_yn=[n_rows-x+0.5 for x in exons_plot_y]
 		yr2=Range1d(start=0, end=n_rows)
 
-		data_gene_plot = {'exons_plot_x': exons_plot_x, 'exons_plot_yn': exons_plot_yn, 'exons_plot_w': exons_plot_w, 'exons_plot_h': exons_plot_h,'exons_plot_name': exons_plot_name, 'exons_plot_id': exons_plot_id, 'exons_plot_exon': exons_plot_exon, 'message': message}
+		data_gene_plot = {'exons_plot_x': exons_plot_x, 'exons_plot_yn': exons_plot_yn, 'exons_plot_w': exons_plot_w, 'exons_plot_h': exons_plot_h,'exons_plot_name': exons_plot_name, 'exons_plot_id': exons_plot_id, 'exons_plot_exon': exons_plot_exon}
 		print "data_gene_plot"
 		print data_gene_plot
 
@@ -1172,7 +1172,7 @@ def calculate_assoc(file,region,pop,request,myargs):
 		exons_c_plot_yn=[n_rows_c-x+0.5 for x in exons_c_plot_y]
 		yr2_c=Range1d(start=0, end=n_rows_c)
 
-		data_gene_c_plot = {'exons_c_plot_x': exons_c_plot_x, 'exons_c_plot_yn': exons_c_plot_yn, 'exons_c_plot_w': exons_c_plot_w, 'exons_c_plot_h': exons_c_plot_h, 'exons_c_plot_name': exons_c_plot_name, 'exons_c_plot_id': exons_c_plot_id, 'message_c': message_c}
+		data_gene_c_plot = {'exons_c_plot_x': exons_c_plot_x, 'exons_c_plot_yn': exons_c_plot_yn, 'exons_c_plot_w': exons_c_plot_w, 'exons_c_plot_h': exons_c_plot_h, 'exons_c_plot_name': exons_c_plot_name, 'exons_c_plot_id': exons_c_plot_id}
 		print "data_gene_c_plot"
 		print data_gene_c_plot
 
