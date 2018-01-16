@@ -881,16 +881,15 @@ def calculate_assoc(file,region,pop,request,myargs):
 	yr=Range1d(start=-0.03, end=max(y)*1.03)
 	sup_2=u"\u00B2"
 
-	assoc_plot=figure(
-				title="P-values and Regional LD for "+snp+" in "+pop,
-				# min_border_top=2, min_border_bottom=2, 
-				# min_border_left=60, min_border_right=60, 
-				# h_symmetry=False, v_symmetry=False,
-				# plot_width=900,
-				# plot_height=600,
-				x_range=xr, y_range=yr,
-				tools="tap,pan,box_zoom,wheel_zoom,box_select,undo,redo,reset,previewsave", logo=None,
-				toolbar_location="above")
+	assoc_plot=figure(title="P-values and Regional LD for "+snp+" in "+pop,
+					min_border_top=2, min_border_bottom=2, 
+					min_border_left=60, min_border_right=60, 
+					h_symmetry=False, v_symmetry=False,
+					plot_width=900,
+					plot_height=600,
+					x_range=xr, y_range=yr,
+					tools="tap,pan,box_zoom,wheel_zoom,box_select,undo,redo,reset,previewsave", logo=None,
+					toolbar_location="above")
 				# output_backend="webgl") # test render with webgl
 
 	assoc_plot.title.align="center"
@@ -956,15 +955,14 @@ def calculate_assoc(file,region,pop,request,myargs):
 	data_rug = {'x': x, 'y': y, 'y2_ll': y2_ll, 'y2_ul': y2_ul,'qrs': q_rs, 'q_alle': q_allele, 'q_maf': q_maf, 'prs': p_rs, 'p_alle': p_allele, 'p_maf': p_maf, 'dist': dist, 'r': r2_round, 'd': d_prime_round, 'alleles': corr_alleles, 'regdb': regdb, 'funct': funct, 'p_val': p_val, 'size': size, 'color': color, 'alpha': alpha}
 	source_rug = ColumnDataSource(data_rug)
 
-	rug=figure(
-			x_range=xr, y_range=yr_rug, border_fill_color='white', y_axis_type=None,
-			title="", 
-			# min_border_top=2, min_border_bottom=2, 
-			# min_border_left=60, min_border_right=60, 
-			# h_symmetry=False, v_symmetry=False,
-			# plot_width=900, 
-			# plot_height=50, 
-			tools="xpan,tap,wheel_zoom", logo=None)
+	rug=figure(x_range=xr, y_range=yr_rug, border_fill_color='white', y_axis_type=None,
+				title="", 
+				min_border_top=2, min_border_bottom=2, 
+				min_border_left=60, min_border_right=60, 
+				h_symmetry=False, v_symmetry=False,
+				plot_width=900, 
+				plot_height=50, 
+				tools="xpan,tap,wheel_zoom", logo=None)
 			# output_backend="webgl") # test render with webgl
 
 	rug.segment(x0='x', y0='y2_ll', x1='x', y1='y2_ul', source=source_rug, color='color', alpha='alpha', line_width=1)
@@ -1051,15 +1049,14 @@ def calculate_assoc(file,region,pop,request,myargs):
 		else:
 			plot_h_pix = 150 + (len(lines) - 2) * 50
 
-		gene_plot = figure(
-						# min_border_top=2, min_border_bottom=0, 
-						#    min_border_left=100, min_border_right=5,
+		gene_plot = figure(min_border_top=2, min_border_bottom=0, 
+						   min_border_left=100, min_border_right=5,
 						   x_range=xr, y_range=yr2, border_fill_color='white',
 						   title="", 
-						#    h_symmetry=False, v_symmetry=False, 
+						   h_symmetry=False, v_symmetry=False, 
 						   logo=None,
-						#    plot_width=900, 
-						#    plot_height=plot_h_pix, 
+						   plot_width=900, 
+						   plot_height=plot_h_pix, 
 						   tools="hover,xpan,box_zoom,wheel_zoom,tap,undo,redo,reset,previewsave")
 						#    output_backend="webgl") # test render with webgl
 
@@ -1094,11 +1091,11 @@ def calculate_assoc(file,region,pop,request,myargs):
 		gene_plot.toolbar_location = "below"
 
 		# export svg
-		assoc_plot.output_backend = "svg"
+		# assoc_plot.output_backend = "svg"
 		# export_svgs(assoc_plot, filename="assoc_plot.svg")
-		rug.output_backend = "svg"
+		# rug.output_backend = "svg"
 		# export_svgs(rug, filename="rug.svg")
-		gene_plot.output_backend = "svg"
+		# gene_plot.output_backend = "svg"
 		# export_svgs(gene_plot, filename="gene_plot.svg")
 
 		out_grid = gridplot(assoc_plot, rug, gene_plot,
@@ -1179,16 +1176,15 @@ def calculate_assoc(file,region,pop,request,myargs):
 		else:
 			plot_c_h_pix = 150 + (len(lines_c) - 2) * 50
 
-		gene_c_plot = figure(
-							# min_border_top=2, min_border_bottom=0, 
-							# min_border_left=100, min_border_right=5,
-						   x_range=xr, y_range=yr2_c, border_fill_color='white',
-						   title="", 
-						#    h_symmetry=False, v_symmetry=False, 
-						   logo=None,
-						#    plot_width=900, 
-						#    plot_height=plot_c_h_pix, 
-						   tools="hover,xpan,box_zoom,wheel_zoom,tap,undo,redo,reset,previewsave")
+		gene_c_plot = figure(min_border_top=2, min_border_bottom=0, 
+							min_border_left=100, min_border_right=5,
+							x_range=xr, y_range=yr2_c, border_fill_color='white',
+							title="", 
+							h_symmetry=False, v_symmetry=False, 
+							logo=None,
+							plot_width=900, 
+							plot_height=plot_c_h_pix, 
+							tools="hover,xpan,box_zoom,wheel_zoom,tap,undo,redo,reset,previewsave")
 						#    output_backend="webgl") # test render with webgl
 
 		if len(genes_c_raw) <= max_genes_c:
@@ -1221,11 +1217,11 @@ def calculate_assoc(file,region,pop,request,myargs):
 		gene_c_plot.toolbar_location = "below"
 
 		# export svg
-		assoc_plot.output_backend = "svg"
+		# assoc_plot.output_backend = "svg"
 		# export_svgs(assoc_plot, filename="assoc_plot.svg")
-		rug.output_backend = "svg"
+		# rug.output_backend = "svg"
 		# export_svgs(rug, filename="rug.svg")
-		gene_c_plot.output_backend = "svg"
+		# gene_c_plot.output_backend = "svg"
 		# export_svgs(gene_c_plot, filename="gene_c_plot.svg")
 
 		out_grid = gridplot(assoc_plot, rug, gene_c_plot,
