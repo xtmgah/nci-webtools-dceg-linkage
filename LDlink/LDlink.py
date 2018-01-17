@@ -618,6 +618,9 @@ def ldassoc():
     myargs.annotate = bool(request.args.get("annotate") == "True")
     print "annotate: " + str(myargs.annotate)
 
+    myargs.exportsvg == bool(request.args.get("exportsvg") == "True")
+    print "exportsvg: " + str(myargs.annotate)
+
     try:
         out_json = calculate_assoc(filename, region, pop, reference, myargs)
     except:
