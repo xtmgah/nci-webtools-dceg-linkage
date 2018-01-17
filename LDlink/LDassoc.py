@@ -1325,7 +1325,7 @@ def main():
 	elif args.variant:
 		region="variant"
 
-	prints "ARGS"
+	print "ARGS"
 	print args
 
 
