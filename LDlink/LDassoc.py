@@ -1041,8 +1041,8 @@ def calculate_assoc(file,region,pop,request,myargs):
 		yr2=Range1d(start=0, end=n_rows)
 
 		data_gene_plot = {'exons_plot_x': exons_plot_x, 'exons_plot_yn': exons_plot_yn, 'exons_plot_w': exons_plot_w, 'exons_plot_h': exons_plot_h,'exons_plot_name': exons_plot_name, 'exons_plot_id': exons_plot_id, 'exons_plot_exon': exons_plot_exon}
-		print "data_gene_plot"
-		print data_gene_plot
+		# print "data_gene_plot"
+		# print data_gene_plot
 
 		source_gene_plot=ColumnDataSource(data_gene_plot)
 
@@ -1097,11 +1097,11 @@ def calculate_assoc(file,region,pop,request,myargs):
 
 		# export svg
 		assoc_plot.output_backend = "svg"
-		export_svgs(assoc_plot, filename="export/assoc_plot.svg")
+		# export_svgs(assoc_plot, filename="export/assoc_plot.svg")
 		# rug.output_backend = "svg"
 		# export_svgs(rug, filename="rug.svg")
 		gene_plot.output_backend = "svg"
-		export_svgs(gene_plot, filename="export/gene_plot.svg")
+		# export_svgs(gene_plot, filename="export/gene_plot.svg")
 		# save(assoc_plot)
 		# save(gene_plot)
 		# print save(assoc_plot)
@@ -1180,8 +1180,8 @@ def calculate_assoc(file,region,pop,request,myargs):
 		yr2_c=Range1d(start=0, end=n_rows_c)
 
 		data_gene_c_plot = {'exons_c_plot_x': exons_c_plot_x, 'exons_c_plot_yn': exons_c_plot_yn, 'exons_c_plot_w': exons_c_plot_w, 'exons_c_plot_h': exons_c_plot_h, 'exons_c_plot_name': exons_c_plot_name, 'exons_c_plot_id': exons_c_plot_id}
-		print "data_gene_c_plot"
-		print data_gene_c_plot
+		# print "data_gene_c_plot"
+		# print data_gene_c_plot
 
 		source_gene_c_plot=ColumnDataSource(data_gene_c_plot)
 
@@ -1236,11 +1236,11 @@ def calculate_assoc(file,region,pop,request,myargs):
 
 		# export svg
 		assoc_plot.output_backend = "svg"
-		export_svgs(assoc_plot, filename="export/assoc_plot.svg")
+		# export_svgs(assoc_plot, filename="export/assoc_plot.svg")
 		# rug.output_backend = "svg"
 		# export_svgs(rug, filename="rug.svg")
 		gene_c_plot.output_backend = "svg"
-		export_svgs(gene_c_plot, filename="export/gene_plot.svg")
+		# export_svgs(gene_c_plot, filename="export/gene_plot.svg")
 		# save(assoc_plot)
 		# save(gene_c_plot)
 		# print save(assoc_plot)
@@ -1313,6 +1313,7 @@ def main():
 	parser.add_argument("-p", "--pval", type=str, help="header name for p-value (default is \"P\")", default="P")
 	parser.add_argument("-s", "--start", type=str, help="starting coordinate (ex: chr22:25855459), chr must be same as in --end (required with --region)")
 	parser.add_argument("-t", "--transcript", help="plot all gene transcripts", action="store_true")
+	parser.add_argument("-ex", "--exportsvg", help="export plots to svg", action="store_true")
 	parser.add_argument("-w", "--window", type=int, help="flanking region (+/- bp) around gene, region, or variant of interest (default is 500 for --gene and --variant and 0 for --region)")
 
 	args=parser.parse_args()
@@ -1323,6 +1324,9 @@ def main():
 		region="region"
 	elif args.variant:
 		region="variant"
+
+	prints "ARGS"
+	print args
 
 
 	# Run function
