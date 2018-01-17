@@ -284,6 +284,8 @@ $(document).ready(function() {
     //     // console.log(window.location.href);
     //     // trigger savetool click
     //     // $(".bk-toolbar-button").eq(8).trigger("click");
+    //  $(".bk-toolbar-button").eq(17).trigger("click");
+
     // });
 
     setupTabs();
@@ -1375,8 +1377,11 @@ function updateLDassoc() {
             $('#ldassoc-bokeh-graph').empty().append(data);
             $('#' + id + '-results-container').show();
             // do for hidden svg graph
-            $('#ldassoc-bokeh-graph-svg').empty().append(data);
-            $('#' + id + '-results-container-svg').show();
+            if ($("#assoc-export").hasClass('active')) {
+                $('#ldassoc-bokeh-graph-svg').empty().append(data);
+                $('#' + id + '-results-container-svg').show();
+                $(".bk-toolbar-button").eq(17).trigger("click");
+            }
             // enable download SVGs button
             // $('#ldassoc-downloadSVG').removeAttr('disabled');
             getLDAssocResults('assoc'+ldInputs.reference+".json");
@@ -1757,10 +1762,14 @@ function checkAlert(elementId, message, type, displayResults) {
         $('#'+prefix).show();
         if (typeof displayResults !== 'undefined' && displayResults) {
             $('#'+elementId+'-results-container').show();
-            $('#'+elementId+'-results-container-svg').show();
+            if ($("#assoc-export").hasClass('active')) {
+                $('#'+elementId+'-results-container-svg').show();
+            }
         } else {
             $('#'+elementId+'-results-container').hide();
-            $('#'+elementId+'-results-container-svg').hide();
+            if ($("#assoc-export").hasClass('active')) {
+             $('#'+elementId+'-results-container-svg').hide();
+            }
         }
     }
 }
