@@ -266,11 +266,11 @@ $(document).ready(function() {
         //alert('Validate');
         calculate(e);
         // open new window for export svg if flag is on
-        if ($("#assoc-export").hasClass('active')) {
-            var loc = window.location.pathname;
-            var url = loc + 'export.html'
-            open(url, 'Export to SVG', "alwaysRaised,dependent,status,scrollbars,resizable,width=1000,height=800").focus();
-        }
+        // if ($("#assoc-export").hasClass('active')) {
+        //     var loc = window.location.pathname;
+        //     var url = loc + 'export.html'
+        //     open(url, 'Export to SVG', "alwaysRaised,dependent,status,scrollbars,resizable,width=1000,height=800").focus();
+        // }
 
     });
     // Click Download SVG button
