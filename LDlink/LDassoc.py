@@ -1097,15 +1097,15 @@ def calculate_assoc(file,region,pop,request,myargs):
 
 		# export svg
 		assoc_plot.output_backend = "svg"
-		export_svgs(assoc_plot, filename="assoc_plot.svg")
+		export_svgs(assoc_plot, filename="export/assoc_plot.svg")
 		# rug.output_backend = "svg"
 		# export_svgs(rug, filename="rug.svg")
 		gene_plot.output_backend = "svg"
-		export_svgs(gene_plot, filename="gene_plot.svg")
-		save(assoc_plot)
-		save(gene_plot)
-		print save(assoc_plot)
-		print save(gene_plot)
+		export_svgs(gene_plot, filename="export/gene_plot.svg")
+		# save(assoc_plot)
+		# save(gene_plot)
+		# print save(assoc_plot)
+		# print save(gene_plot)
 		assoc_plot.output_backend = 'canvas'
 		rug.output_backend = 'canvas'
 		gene_plot.output_backend = 'canvas'
@@ -1236,15 +1236,15 @@ def calculate_assoc(file,region,pop,request,myargs):
 
 		# export svg
 		assoc_plot.output_backend = "svg"
-		export_svgs(assoc_plot, filename="assoc_plot.svg")
+		export_svgs(assoc_plot, filename="export/assoc_plot.svg")
 		# rug.output_backend = "svg"
 		# export_svgs(rug, filename="rug.svg")
 		gene_c_plot.output_backend = "svg"
-		export_svgs(gene_c_plot, filename="gene_plot.svg")
-		save(assoc_plot)
-		save(gene_c_plot)
-		print save(assoc_plot)
-		print save(gene_c_plot)
+		export_svgs(gene_c_plot, filename="export/gene_plot.svg")
+		# save(assoc_plot)
+		# save(gene_c_plot)
+		# print save(assoc_plot)
+		# print save(gene_c_plot)
 		assoc_plot.output_backend = 'canvas'
 		rug.output_backend = 'canvas'
 		gene_c_plot.output_backend = 'canvas'
