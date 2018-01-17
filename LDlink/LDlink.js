@@ -272,8 +272,8 @@ $(document).ready(function() {
         e.preventDefault();
         var loc = window.location.pathname;
         // window.location.href = loc + 'assoc_plot.svg';
-        window.open(loc + 'assoc_plot.svg', '_blank');
-        window.open(loc + 'gene_plot.svg', '_blank');
+        window.open(loc + 'export/assoc_plot.svg', '_blank');
+        window.open(loc + 'export/gene_plot.svg', '_blank');
         // console.log(window.location.href);
     });
 
