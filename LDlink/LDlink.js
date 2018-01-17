@@ -1374,6 +1374,9 @@ function updateLDassoc() {
         if (displayError(id, jsonObj) == false) {
             $('#ldassoc-bokeh-graph').empty().append(data);
             $('#' + id + '-results-container').show();
+            // do for hidden svg graph
+            $('#ldassoc-bokeh-graph-svg').empty().append(data);
+            $('#' + id + '-results-container-svg').show();
             // enable download SVGs button
             // $('#ldassoc-downloadSVG').removeAttr('disabled');
             getLDAssocResults('assoc'+ldInputs.reference+".json");
@@ -1754,8 +1757,10 @@ function checkAlert(elementId, message, type, displayResults) {
         $('#'+prefix).show();
         if (typeof displayResults !== 'undefined' && displayResults) {
             $('#'+elementId+'-results-container').show();
+            $('#'+elementId+'-results-container-svg').show();
         } else {
             $('#'+elementId+'-results-container').hide();
+            $('#'+elementId+'-results-container-svg').hide();
         }
     }
 }
