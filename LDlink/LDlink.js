@@ -101,10 +101,11 @@ $(document).ready(function() {
     $('#ldassoc').prop('disabled', true);
     // $('#ldassoc-downloadSVG').prop('disabled', true);
 
-    if ($('#ldassoc-bokeh-graph-svg').is(':visible')) {
-        $('.bk-toolbar-button').eq(17).trigger("click");
-        $('#ldassoc-results-container-svg').hide();
-    }
+    // everytime this element is visible, must execute below
+    // if ($('#ldassoc-bokeh-graph-svg').is(':visible')) {
+    //     $('.bk-toolbar-button').eq(17).trigger("click");
+    //     $('#ldassoc-results-container-svg').hide();
+    // }
 
     $("#example-gwas").click(function(e){
       console.log("Use example GWAS data.");
@@ -1383,7 +1384,10 @@ function updateLDassoc() {
             // do for hidden svg graph
             if ($("#assoc-export").hasClass('active')) {
                 $('#ldassoc-bokeh-graph-svg').empty().append(data);
-                $('#ldassoc-results-container-svg').show();
+                $('#ldassoc-results-container-svg').show(function() {
+                    $('.bk-toolbar-button').eq(17).trigger("click");
+                    $('#ldassoc-results-container-svg').hide();
+                });
                 // $(".bk-toolbar-button").eq(17).trigger("click");
             }
             // enable download SVGs button
@@ -1771,9 +1775,7 @@ function checkAlert(elementId, message, type, displayResults) {
             }
         } else {
             $('#'+elementId+'-results-container').hide();
-            if ($("#assoc-export").hasClass('active')) {
-             $('#'+elementId+'-results-container-svg').hide();
-            }
+            $('#'+elementId+'-results-container-svg').hide();
         }
     }
 }
