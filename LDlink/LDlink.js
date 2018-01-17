@@ -101,6 +101,10 @@ $(document).ready(function() {
     $('#ldassoc').prop('disabled', true);
     // $('#ldassoc-downloadSVG').prop('disabled', true);
 
+    if ($('#ldassoc-bokeh-graph-svg').is(':visible')) {
+        $('.bk-toolbar-button').eq(17).trigger("click");
+        $('#ldassoc-results-container-svg').hide();
+    }
 
     $("#example-gwas").click(function(e){
       console.log("Use example GWAS data.");
@@ -1379,8 +1383,8 @@ function updateLDassoc() {
             // do for hidden svg graph
             if ($("#assoc-export").hasClass('active')) {
                 $('#ldassoc-bokeh-graph-svg').empty().append(data);
-                $('#' + id + '-results-container-svg').show();
-                $(".bk-toolbar-button").eq(17).trigger("click");
+                $('#ldassoc-results-container-svg').show();
+                // $(".bk-toolbar-button").eq(17).trigger("click");
             }
             // enable download SVGs button
             // $('#ldassoc-downloadSVG').removeAttr('disabled');
