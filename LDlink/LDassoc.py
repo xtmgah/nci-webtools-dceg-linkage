@@ -1089,13 +1089,9 @@ def calculate_assoc(file,region,pop,request,myargs):
 
 		gene_plot.toolbar_location = "below"
 
-		# assoc_plot.output_backend = "svg"
-		# rug.output_backend = "svg"
-		# gene_plot.output_backend = "svg"
-
-		assoc_plot.output_backend = "canvas"
-		rug.output_backend = "canvas"
-		gene_plot.output_backend = "canvas"
+		assoc_plot.output_backend = "svg"
+		rug.output_backend = "svg"
+		gene_plot.output_backend = "svg"
 
 		out_grid = gridplot(assoc_plot, rug, gene_plot, ncols=1, toolbar_options=dict(logo=None))
 
@@ -1215,19 +1211,11 @@ def calculate_assoc(file,region,pop,request,myargs):
 
 		gene_c_plot.toolbar_location = "below"
 
-		# assoc_plot.output_backend = "svg"
-		# rug.output_backend = "svg"
-		# gene_c_plot.output_backend = "svg"
-
-		assoc_plot.output_backend = "canvas"
-		rug.output_backend = "canvas"
-		gene_c_plot.output_backend = "canvas"
+		assoc_plot.output_backend = "svg"
+		rug.output_backend = "svg"
+		gene_c_plot.output_backend = "svg"
 
 		out_grid = gridplot(assoc_plot, rug, gene_c_plot, ncols=1, toolbar_options=dict(logo=None))
-		
-		
-
-
 
 
 	###########################

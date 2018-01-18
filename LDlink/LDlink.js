@@ -146,15 +146,11 @@ $(document).ready(function() {
         $("#region-region-start-coord").val("chr8:128289591");
         $("#region-region-end-coord").val("chr8:128784397");
         $("#region-region-index").val("rs7837688");
-        console.log($("#region-region-start-coord").val());
-        console.log($("#region-region-end-coord").val());
-        console.log($("#region-region-index").val());
 
         $("#ldassoc-population-codes").val('');
         refreshPopulation([],"ldassoc");
         $("#ldassoc-population-codes").val(["CEU"]);
         refreshPopulation(["CEU"],"ldassoc");
-        console.log($("#ldassoc-population-codes").val());
       }else{
         $('#ldassoc-file').prop('disabled', false);
         $('#ldassoc').prop('disabled', true);
@@ -181,7 +177,6 @@ $(document).ready(function() {
         $("#region-region-index").val('');
         $("#ldassoc-population-codes").val('');
         refreshPopulation([],"ldassoc");
-        console.log($("#ldassoc-population-codes").val());
       }
     });
 
@@ -1336,22 +1331,20 @@ function updateLDassoc() {
         //data is returned as a string representation of JSON instead of JSON obj
         //JSON.parse() cleans up this json string.
         console.log("Success!");
-        console.dir(data);
-        // create SVG object
+        // create bokeh object with output_backend=canvas from svg
         var dataString = data[0]
-        dataSVGString = dataString.replace(/canvas/g, "svg");
-        var dataSVG = new Object([dataSVGString, data[1]]);
+        dataCanvasString = dataString.replace(/svg/g, "canvas");
+        var dataCanvas = new Object([dataCanvasString, data[1]]);
         
-        var jsonObjSVG;
-        if(typeof dataSVG == 'string') {
+        var jsonObjCanvas;
+        if(typeof dataCanvas == 'string') {
             console.log("reach1");
-            jsonObjSVG = JSON.parse(dataSVG);
+            jsonObjCanvas = JSON.parse(dataCanvas);
         } else {
             console.log("reach2");
-            jsonObjSVG = dataSVG;
+            jsonObjCanvas = dataCanvas;
         }
-        console.log(typeof dataSVG);
-
+        console.log(typeof dataCanvas);
         var jsonObj;
         if(typeof data == 'string') {
             console.log("reach1");
@@ -1363,19 +1356,19 @@ function updateLDassoc() {
         console.log(typeof data);
 
         console.log("DATA SVG:");
-        console.log(dataSVG);
-        console.log("DATA CANVAS:");
         console.log(data);
+        console.log("DATA CANVAS:");
+        console.log(dataCanvas);
 
         // generate shown canvas graph
-        if (displayError(id, jsonObj) == false) {
-            $('#ldassoc-bokeh-graph').empty().append(data);
+        if (displayError(id, jsonObjCanvas) == false) {
+            $('#ldassoc-bokeh-graph').empty().append(dataCanvas);
             $('#' + id + '-results-container').show();
             getLDAssocResults('assoc'+ldInputs.reference+".json");
         }
         // generate hidden svg graph
-        if (displayError(id, jsonObjSVG) == false) {
-            $('#ldassoc-bokeh-graph-svg').empty().append(dataSVG);
+        if (displayError(id, jsonObj) == false) {
+            $('#ldassoc-bokeh-graph-svg').empty().append(data);
             $('#ldassoc-results-container-svg').show();
             $('#ldassoc-results-container-svg').hide();
             $('#ldassoc-downloadSVG').removeAttr('disabled');
