@@ -516,22 +516,6 @@ def calculate_proxy(snp, pop, request, r2_d="r2"):
 
     reset_output()
 
-    source = ColumnDataSource(
-        data=dict(
-            qrs=q_rs,
-            q_alle=q_allele,
-            q_maf=q_maf,
-            prs=p_rs,
-            p_alle=p_allele,
-            p_maf=p_maf,
-            dist=dist,
-            r=r2_round,
-            d=d_prime_round,
-            alleles=corr_alleles,
-            regdb=regdb,
-            funct=funct,
-        )
-    )
 
     # Proxy Plot
     x = p_coord
@@ -568,9 +552,29 @@ def calculate_proxy(snp, pop, request, r2_d="r2"):
         recomb_x.append(int(pos) / 1000000.0)
         recomb_y.append(float(rate) / 100.0)
 
+    data = {
+        'x': x,
+        'y': y,
+        'qrs': q_rs,
+        'q_alle': q_allele,
+        'q_maf': q_maf,
+        'prs': p_rs,
+        'p_alle': p_allele,
+        'p_maf': p_maf,
+        'dist': dist,
+        'r': r2_round,
+        'd': d_prime_round,
+        'alleles': corr_alleles,
+        'regdb': regdb,
+        'funct': funct,
+        'size': size,
+        'color': color
+    }
+    source = ColumnDataSource(data)
+
     proxy_plot.line(recomb_x, recomb_y, line_width=1, color="black", alpha=0.5)
 
-    proxy_plot.circle(x, y, size=size, source=source, color=color, alpha=0.5)
+    proxy_plot.circle(x='x', y='y', size='size', color='color', alpha=0.5, source=source)
 
     hover = proxy_plot.select(dict(type=HoverTool))
     hover.tooltips = OrderedDict([
@@ -602,13 +606,35 @@ def calculate_proxy(snp, pop, request, r2_d="r2"):
     y2_ul = [1.03] * len(x)
     yr_rug = Range1d(start=-0.03, end=1.03)
 
+    data_rug = {
+        'x': x,
+        'y': y,
+        'y2_ll': y2_ll,
+        'y2_ul': y2_ul,
+        'qrs': q_rs,
+        'q_alle': q_allele,
+        'q_maf': q_maf,
+        'prs': p_rs,
+        'p_alle': p_allele,
+        'p_maf': p_maf,
+        'dist': dist,
+        'r': r2_round,
+        'd': d_prime_round,
+        'alleles': corr_alleles,
+        'regdb': regdb,
+        'funct': funct,
+        'size': size,
+        'color': color
+    }
+    source_rug = ColumnDataSource(data_rug)
+
     rug = figure(
         x_range=xr, y_range=yr_rug, border_fill_color='white', y_axis_type=None,
         title="", min_border_top=2, min_border_bottom=2, min_border_left=60, min_border_right=60, h_symmetry=False, v_symmetry=False,
         plot_width=900, plot_height=50, tools="xpan,tap", logo=None)
 
-    rug.segment(x, y2_ll, x, y2_ul, source=source,
-                color=color, alpha=0.5, line_width=1)
+    rug.segment(x0='x', y0='y2_ll', x1='x', y1='y2_ul', source=source_rug,
+                color='color', alpha=0.5, line_width=1)
     rug.toolbar_location = None
 
     # Gene Plot
@@ -681,13 +707,17 @@ def calculate_proxy(snp, pop, request, r2_d="r2"):
     exons_plot_yn = [n_rows - x + 0.5 for x in exons_plot_y]
     yr2 = Range1d(start=0, end=n_rows)
 
-    source2 = ColumnDataSource(
-        data=dict(
-            exons_plot_name=exons_plot_name,
-            exons_plot_id=exons_plot_id,
-            exons_plot_exon=exons_plot_exon,
-        )
-    )
+    data_gene_plot = {
+        'exons_plot_x': exons_plot_x,
+        'exons_plot_yn': exons_plot_yn,
+        'exons_plot_w': exons_plot_w,
+        'exons_plot_h': exons_plot_h,
+        'exons_plot_name': exons_plot_name,
+        'exons_plot_id': exons_plot_id,
+        'exons_plot_exon': exons_plot_exon
+    }
+
+    source_gene_plot = ColumnDataSource(data_gene_plot)
 
     if len(lines) < 3:
         plot_h_pix = 150
@@ -701,8 +731,8 @@ def calculate_proxy(snp, pop, request, r2_d="r2"):
 
     gene_plot.segment(genes_plot_start, genes_plot_yn, genes_plot_end,
                       genes_plot_yn, color="black", alpha=1, line_width=2)
-    gene_plot.rect(exons_plot_x, exons_plot_yn, exons_plot_w, exons_plot_h,
-                   source=source2, fill_color="grey", line_color="grey")
+    gene_plot.rect(x='exons_plot_x', y='exons_plot_yn', width='exons_plot_w', height='exons_plot_h',
+                   source=source_gene_plot, fill_color="grey", line_color="grey")
     gene_plot.xaxis.axis_label = "Chromosome " + \
         snp_coord[1] + " Coordinate (Mb)(GRCh37)"
     gene_plot.yaxis.axis_label = "Genes"

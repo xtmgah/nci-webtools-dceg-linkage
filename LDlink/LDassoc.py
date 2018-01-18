@@ -1039,8 +1039,6 @@ def calculate_assoc(file,region,pop,request,myargs):
 		yr2=Range1d(start=0, end=n_rows)
 
 		data_gene_plot = {'exons_plot_x': exons_plot_x, 'exons_plot_yn': exons_plot_yn, 'exons_plot_w': exons_plot_w, 'exons_plot_h': exons_plot_h,'exons_plot_name': exons_plot_name, 'exons_plot_id': exons_plot_id, 'exons_plot_exon': exons_plot_exon}
-		# print "data_gene_plot"
-		# print data_gene_plot
 
 		source_gene_plot=ColumnDataSource(data_gene_plot)
 

@@ -101,12 +101,6 @@ $(document).ready(function() {
     $('#ldassoc').prop('disabled', true);
     $('#ldassoc-downloadSVG').prop('disabled', true);
 
-    // everytime this element is visible, must execute below
-    // if ($('#ldassoc-bokeh-graph-svg').is(':visible')) {
-    //     $('.bk-toolbar-button').eq(17).trigger("click");
-    //     $('#ldassoc-results-container-svg').hide();
-    // }
-
     $("#example-gwas").click(function(e){
       console.log("Use example GWAS data.");
       var useEx = document.getElementById('example-gwas');
@@ -1338,27 +1332,16 @@ function updateLDassoc() {
         
         var jsonObjCanvas;
         if(typeof dataCanvas == 'string') {
-            console.log("reach1");
             jsonObjCanvas = JSON.parse(dataCanvas);
         } else {
-            console.log("reach2");
             jsonObjCanvas = dataCanvas;
         }
-        console.log(typeof dataCanvas);
         var jsonObj;
         if(typeof data == 'string') {
-            console.log("reach1");
             jsonObj = JSON.parse(data);
         } else {
-            console.log("reach2");
             jsonObj = data;
         }
-        console.log(typeof data);
-
-        console.log("DATA SVG:");
-        console.log(data);
-        console.log("DATA CANVAS:");
-        console.log(dataCanvas);
 
         // generate shown canvas graph
         if (displayError(id, jsonObjCanvas) == false) {
