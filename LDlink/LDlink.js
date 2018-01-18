@@ -1364,6 +1364,16 @@ function updateLDassoc() {
         console.log(data);
         console.dir(data);
 
+        var dataCanvas;
+        dataCanvas = data.replace(/svg/g, "canvas");
+        
+        var jsonObjCanvas;
+        if(typeof dataCanvas == 'string') {
+            jsonObjCanvas = JSON.parse(dataCanvas);
+        } else {
+            jsonObjCanvas = dataCanvas;
+        }
+
         var jsonObj;
         if(typeof data == 'string') {
             jsonObj = JSON.parse(data);
@@ -1371,27 +1381,20 @@ function updateLDassoc() {
             jsonObj = data;
         }
 
-        if (displayError(id, jsonObj) == false) {
-            $('#ldassoc-bokeh-graph').empty().append(data);
+        if (displayError(id, jsonObjCanvas) == false) {
+            $('#ldassoc-bokeh-graph').empty().append(dataCanvas);
             $('#' + id + '-results-container').show();
+            getLDAssocResults('assoc'+ldInputs.reference+".json");
+        }
+
+        if (displayError(id, jsonObj) == false) {
             // do for hidden svg graph
             $('#ldassoc-bokeh-graph-svg').empty().append(data);
             $('#ldassoc-results-container-svg').show();
             $('#ldassoc-results-container-svg').hide();
-            // if ($("#assoc-export").hasClass('active')) {
-            //     $('#ldassoc-bokeh-graph-svg').empty().append(data);
-            //     $('#ldassoc-results-container-svg').show();
-                // $('#ldassoc-results-container-svg').show(function() {
-                //     $('.bk-toolbar-button').eq(17).trigger("click");
-                //     $('#ldassoc-results-container-svg').hide();
-                // });
-                // $(".bk-toolbar-button").eq(17).trigger("click");
-            // }
-            // enable download SVGs button
             $('#ldassoc-downloadSVG').removeAttr('disabled');
-            getLDAssocResults('assoc'+ldInputs.reference+".json");
-
         }
+
         $("#"+id+"-loading").hide();
     });
     ajaxRequest.fail(function(jqXHR, textStatus) {
