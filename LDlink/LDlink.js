@@ -1384,10 +1384,11 @@ function updateLDassoc() {
             // do for hidden svg graph
             if ($("#assoc-export").hasClass('active')) {
                 $('#ldassoc-bokeh-graph-svg').empty().append(data);
-                $('#ldassoc-results-container-svg').show(function() {
-                    $('.bk-toolbar-button').eq(17).trigger("click");
-                    $('#ldassoc-results-container-svg').hide();
-                });
+                $('#ldassoc-results-container-svg').show();
+                // $('#ldassoc-results-container-svg').show(function() {
+                //     $('.bk-toolbar-button').eq(17).trigger("click");
+                //     $('#ldassoc-results-container-svg').hide();
+                // });
                 // $(".bk-toolbar-button").eq(17).trigger("click");
             }
             // enable download SVGs button
