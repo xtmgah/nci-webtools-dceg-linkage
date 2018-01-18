@@ -99,6 +99,13 @@ $(document).ready(function() {
     });
 
     $('#ldassoc').prop('disabled', true);
+    // $('#ldassoc-downloadSVG').prop('disabled', true);
+
+    // everytime this element is visible, must execute below
+    // if ($('#ldassoc-bokeh-graph-svg').is(':visible')) {
+    //     $('.bk-toolbar-button').eq(17).trigger("click");
+    //     $('#ldassoc-results-container-svg').hide();
+    // }
 
     $("#example-gwas").click(function(e){
       console.log("Use example GWAS data.");
@@ -151,6 +158,7 @@ $(document).ready(function() {
       }else{
         $('#ldassoc-file').prop('disabled', false);
         $('#ldassoc').prop('disabled', true);
+        // $('#ldassoc-downloadSVG').prop('disabled', true);
         $("#assoc-chromosome > button").val('');
         $("#assoc-chromosome > button").html('Select Chromosome&nbsp;<span class="caret"></span>');
         $("#assoc-position > button").val('');
@@ -262,7 +270,28 @@ $(document).ready(function() {
     $('.ldlinkForm').on('submit', function(e) {
         //alert('Validate');
         calculate(e);
+        // open new window for export svg if flag is on
+        // if ($("#assoc-export").hasClass('active')) {
+        //     var loc = window.location.pathname;
+        //     var url = loc + 'export.html'
+        //     open(url, 'Export to SVG', "alwaysRaised,dependent,status,scrollbars,resizable,width=1000,height=800").focus();
+        // }
+
     });
+    // Click Download SVG button
+    // $("#ldassoc-downloadSVG").click(function(e){
+    //     console.log("DOWNLOAD BUTTON CLICKED");
+    //     e.preventDefault();
+    //     var loc = window.location.pathname;
+    //     // window.location.href = loc + 'assoc_plot.svg';
+    //     window.open(loc + 'export/assoc_plot.svg', '_blank');
+    //     window.open(loc + 'export/gene_plot.svg', '_blank');
+    //     // console.log(window.location.href);
+    //     // trigger savetool click
+    //     // $(".bk-toolbar-button").eq(8).trigger("click");
+    //  $(".bk-toolbar-button").eq(17).trigger("click");
+
+    // });
 
     setupTabs();
     autoCalculate();
@@ -1297,7 +1326,8 @@ function updateLDassoc() {
         dprime: $("#assoc-matrix-color-r2").hasClass('active') ? "False" :"True",
         transcript: $("#assoc-transcript").hasClass('active') ? "False" :"True",
         annotate: $("#assoc-annotate").hasClass('active') ? "True" :"False",
-        useEx: $('#example-gwas').is(':checked')? "True" :"False"
+        useEx: $('#example-gwas').is(':checked')? "True" :"False",
+        exportsvg: $("#assoc-export").hasClass('active') ? "True" :"False"
     };
 
     console.log("Transcript " + ldInputs.transcript.toString());
@@ -1351,6 +1381,17 @@ function updateLDassoc() {
         if (displayError(id, jsonObj) == false) {
             $('#ldassoc-bokeh-graph').empty().append(data);
             $('#' + id + '-results-container').show();
+            // do for hidden svg graph
+            if ($("#assoc-export").hasClass('active')) {
+                $('#ldassoc-bokeh-graph-svg').empty().append(data);
+                $('#ldassoc-results-container-svg').show(function() {
+                    $('.bk-toolbar-button').eq(17).trigger("click");
+                    $('#ldassoc-results-container-svg').hide();
+                });
+                // $(".bk-toolbar-button").eq(17).trigger("click");
+            }
+            // enable download SVGs button
+            // $('#ldassoc-downloadSVG').removeAttr('disabled');
             getLDAssocResults('assoc'+ldInputs.reference+".json");
 
         }
@@ -1729,8 +1770,12 @@ function checkAlert(elementId, message, type, displayResults) {
         $('#'+prefix).show();
         if (typeof displayResults !== 'undefined' && displayResults) {
             $('#'+elementId+'-results-container').show();
+            if ($("#assoc-export").hasClass('active')) {
+                $('#'+elementId+'-results-container-svg').show();
+            }
         } else {
             $('#'+elementId+'-results-container').hide();
+            $('#'+elementId+'-results-container-svg').hide();
         }
     }
 }

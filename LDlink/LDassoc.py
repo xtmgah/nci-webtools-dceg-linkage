@@ -881,16 +881,27 @@ def calculate_assoc(file,region,pop,request,myargs):
 	yr=Range1d(start=-0.03, end=max(y)*1.03)
 	sup_2=u"\u00B2"
 
+	# if myargs.exportsvg==True:
+	# 	assoc_plot=figure(title="P-values and Regional LD for "+snp+" in "+pop,
+	# 				min_border_top=2, min_border_bottom=2, 
+	# 				min_border_left=60, min_border_right=60, 
+	# 				h_symmetry=False, v_symmetry=False,
+	# 				plot_width=900,
+	# 				plot_height=600,
+	# 				x_range=xr, y_range=yr,
+	# 				tools="tap,pan,box_zoom,wheel_zoom,box_select,undo,redo,reset,previewsave", logo=None,
+	# 				toolbar_location="above",
+	# 				output_backend="svg")
+	# else:
 	assoc_plot=figure(title="P-values and Regional LD for "+snp+" in "+pop,
-					min_border_top=2, min_border_bottom=2, 
-					min_border_left=60, min_border_right=60, 
-					h_symmetry=False, v_symmetry=False,
-					plot_width=900,
-					plot_height=600,
-					x_range=xr, y_range=yr,
-					tools="tap,pan,box_zoom,wheel_zoom,box_select,undo,redo,reset,previewsave", logo=None,
-					toolbar_location="above")
-				# output_backend="webgl") # test render with webgl
+				min_border_top=2, min_border_bottom=2, 
+				min_border_left=60, min_border_right=60, 
+				h_symmetry=False, v_symmetry=False,
+				plot_width=900,
+				plot_height=600,
+				x_range=xr, y_range=yr,
+				tools="tap,pan,box_zoom,wheel_zoom,box_select,undo,redo,reset,previewsave", logo=None,
+				toolbar_location="above")
 
 	assoc_plot.title.align="center"
 
@@ -955,6 +966,17 @@ def calculate_assoc(file,region,pop,request,myargs):
 	data_rug = {'x': x, 'y': y, 'y2_ll': y2_ll, 'y2_ul': y2_ul,'qrs': q_rs, 'q_alle': q_allele, 'q_maf': q_maf, 'prs': p_rs, 'p_alle': p_allele, 'p_maf': p_maf, 'dist': dist, 'r': r2_round, 'd': d_prime_round, 'alleles': corr_alleles, 'regdb': regdb, 'funct': funct, 'p_val': p_val, 'size': size, 'color': color, 'alpha': alpha}
 	source_rug = ColumnDataSource(data_rug)
 
+	# if myargs.exportsvg==True:
+	# 	rug=figure(x_range=xr, y_range=yr_rug, border_fill_color='white', y_axis_type=None,
+	# 				title="", 
+	# 				min_border_top=2, min_border_bottom=2, 
+	# 				min_border_left=60, min_border_right=60, 
+	# 				h_symmetry=False, v_symmetry=False,
+	# 				plot_width=900, 
+	# 				plot_height=50, 
+	# 				tools="xpan,tap,wheel_zoom", logo=None,
+	# 				output_backend="svg")
+	# else:
 	rug=figure(x_range=xr, y_range=yr_rug, border_fill_color='white', y_axis_type=None,
 				title="", 
 				min_border_top=2, min_border_bottom=2, 
@@ -963,7 +985,6 @@ def calculate_assoc(file,region,pop,request,myargs):
 				plot_width=900, 
 				plot_height=50, 
 				tools="xpan,tap,wheel_zoom", logo=None)
-			# output_backend="webgl") # test render with webgl
 
 	rug.segment(x0='x', y0='y2_ll', x1='x', y1='y2_ul', source=source_rug, color='color', alpha='alpha', line_width=1)
 	rug.toolbar_location=None
@@ -1041,8 +1062,8 @@ def calculate_assoc(file,region,pop,request,myargs):
 		yr2=Range1d(start=0, end=n_rows)
 
 		data_gene_plot = {'exons_plot_x': exons_plot_x, 'exons_plot_yn': exons_plot_yn, 'exons_plot_w': exons_plot_w, 'exons_plot_h': exons_plot_h,'exons_plot_name': exons_plot_name, 'exons_plot_id': exons_plot_id, 'exons_plot_exon': exons_plot_exon}
-		print "data_gene_plot"
-		print data_gene_plot
+		# print "data_gene_plot"
+		# print data_gene_plot
 
 		source_gene_plot=ColumnDataSource(data_gene_plot)
 
@@ -1052,25 +1073,33 @@ def calculate_assoc(file,region,pop,request,myargs):
 		else:
 			plot_h_pix = 150 + (len(lines) - 2) * 50
 
-		gene_plot = figure(min_border_top=2, min_border_bottom=0, 
-						   min_border_left=100, min_border_right=5,
-						   x_range=xr, y_range=yr2, border_fill_color='white',
-						   title="", 
-						   h_symmetry=False, v_symmetry=False, 
-						   logo=None,
-						   plot_width=900, 
-						   plot_height=plot_h_pix, 
-						   tools="hover,xpan,box_zoom,wheel_zoom,tap,undo,redo,reset,previewsave")
-						#    output_backend="webgl") # test render with webgl
+		# if myargs.exportsvg==True:
+		# 	gene_plot=figure(min_border_top=2, min_border_bottom=0, 
+		# 					min_border_left=100, min_border_right=5,
+		# 					x_range=xr, y_range=yr2, border_fill_color='white',
+		# 					title="", 
+		# 					h_symmetry=False, v_symmetry=False, 
+		# 					logo=None,
+		# 					plot_width=900, 
+		# 					plot_height=plot_h_pix, 
+		# 					tools="hover,xpan,box_zoom,wheel_zoom,tap,undo,redo,reset,previewsave",
+		# 					output_backend="svg")
+		# else:
+		gene_plot=figure(min_border_top=2, min_border_bottom=0, 
+						min_border_left=100, min_border_right=5,
+						x_range=xr, y_range=yr2, border_fill_color='white',
+						title="", 
+						h_symmetry=False, v_symmetry=False, 
+						logo=None,
+						plot_width=900, 
+						plot_height=plot_h_pix, 
+						tools="hover,xpan,box_zoom,wheel_zoom,tap,undo,redo,reset,previewsave")
 
 		if len(genes_raw) <= max_genes:
-			# DEBUG
 			gene_plot.segment(genes_plot_start, genes_plot_yn, genes_plot_end,
 							  genes_plot_yn, color="black", alpha=1, line_width=2)
 			gene_plot.rect(x='exons_plot_x', y='exons_plot_yn', width='exons_plot_w', height='exons_plot_h',
 						   source=source_gene_plot, fill_color="grey", line_color="grey")
-			# gene_plot.rect(exons_plot_x, exons_plot_yn, exons_plot_w, exons_plot_h,
-			# 			   fill_color="grey", line_color="grey")
 			gene_plot.text(genes_plot_start, genes_plot_yn, text=genes_plot_name, alpha=1, text_font_size="7pt",
 						   text_font_style="bold", text_baseline="middle", text_align="right", angle=0)
 			hover = gene_plot.select(dict(type=HoverTool))
@@ -1095,23 +1124,24 @@ def calculate_assoc(file,region,pop,request,myargs):
 
 		gene_plot.toolbar_location = "below"
 
-		# export svg
-		assoc_plot.output_backend = "svg"
-		export_svgs(assoc_plot, filename="assoc_plot.svg")
-		# rug.output_backend = "svg"
-		# export_svgs(rug, filename="rug.svg")
-		gene_plot.output_backend = "svg"
-		export_svgs(gene_plot, filename="gene_plot.svg")
-		save(assoc_plot)
-		save(gene_plot)
-		print save(assoc_plot)
-		print save(gene_plot)
-		assoc_plot.output_backend = 'canvas'
-		rug.output_backend = 'canvas'
-		gene_plot.output_backend = 'canvas'
+		# # export svg
+		if myargs.exportsvg==True:
+			assoc_plot.output_backend = "svg"
+			# export_svgs(assoc_plot, filename="export/assoc_plot.svg")
+			rug.output_backend = "svg"
+			# export_svgs(rug, filename="rug.svg")
+			gene_plot.output_backend = "svg"
+			# export_svgs(gene_plot, filename="export/gene_plot.svg")
+			# save(assoc_plot)
+			# save(gene_plot)
+			# print save(assoc_plot)
+			# print save(gene_plot)
+		else:
+			assoc_plot.output_backend = 'canvas'
+			rug.output_backend = 'canvas'
+			gene_plot.output_backend = 'canvas'
 
-		out_grid = gridplot(assoc_plot, rug, gene_plot,
-			ncols=1, toolbar_options=dict(logo=None))
+		out_grid = gridplot(assoc_plot, rug, gene_plot, ncols=1, toolbar_options=dict(logo=None))
 
 
 
@@ -1180,8 +1210,8 @@ def calculate_assoc(file,region,pop,request,myargs):
 		yr2_c=Range1d(start=0, end=n_rows_c)
 
 		data_gene_c_plot = {'exons_c_plot_x': exons_c_plot_x, 'exons_c_plot_yn': exons_c_plot_yn, 'exons_c_plot_w': exons_c_plot_w, 'exons_c_plot_h': exons_c_plot_h, 'exons_c_plot_name': exons_c_plot_name, 'exons_c_plot_id': exons_c_plot_id}
-		print "data_gene_c_plot"
-		print data_gene_c_plot
+		# print "data_gene_c_plot"
+		# print data_gene_c_plot
 
 		source_gene_c_plot=ColumnDataSource(data_gene_c_plot)
 
@@ -1191,6 +1221,18 @@ def calculate_assoc(file,region,pop,request,myargs):
 		else:
 			plot_c_h_pix = 150 + (len(lines_c) - 2) * 50
 
+		# if myargs.exportsvg==True:
+		# 	gene_c_plot = figure(min_border_top=2, min_border_bottom=0, 
+		# 						min_border_left=100, min_border_right=5,
+		# 						x_range=xr, y_range=yr2_c, border_fill_color='white',
+		# 						title="", 
+		# 						h_symmetry=False, v_symmetry=False, 
+		# 						logo=None,
+		# 						plot_width=900, 
+		# 						plot_height=plot_c_h_pix, 
+		# 						tools="hover,xpan,box_zoom,wheel_zoom,tap,undo,redo,reset,previewsave",
+		# 						output_backend="svg")
+		# else:
 		gene_c_plot = figure(min_border_top=2, min_border_bottom=0, 
 							min_border_left=100, min_border_right=5,
 							x_range=xr, y_range=yr2_c, border_fill_color='white',
@@ -1200,16 +1242,12 @@ def calculate_assoc(file,region,pop,request,myargs):
 							plot_width=900, 
 							plot_height=plot_c_h_pix, 
 							tools="hover,xpan,box_zoom,wheel_zoom,tap,undo,redo,reset,previewsave")
-						#    output_backend="webgl") # test render with webgl
 
 		if len(genes_c_raw) <= max_genes_c:
 			gene_c_plot.segment(genes_c_plot_start, genes_c_plot_yn, genes_c_plot_end,
 							  genes_c_plot_yn, color="black", alpha=1, line_width=2)
-			# DEBUG
 			gene_c_plot.rect(x='exons_c_plot_x', y='exons_c_plot_yn', width='exons_c_plot_w', height='exons_c_plot_h',
 						   source=source_gene_c_plot, fill_color="grey", line_color="grey")
-			# gene_c_plot.rect(exons_c_plot_x, exons_c_plot_yn, exons_c_plot_w, exons_c_plot_h,
-			# 			   fill_color="grey", line_color="grey")
 			gene_c_plot.text(genes_c_plot_start, genes_c_plot_yn, text=genes_c_plot_name, alpha=1, text_font_size="7pt",
 						   text_font_style="bold", text_baseline="middle", text_align="right", angle=0)
 			hover = gene_c_plot.select(dict(type=HoverTool))
@@ -1233,23 +1271,24 @@ def calculate_assoc(file,region,pop,request,myargs):
 
 		gene_c_plot.toolbar_location = "below"
 
-		# export svg
-		assoc_plot.output_backend = "svg"
-		export_svgs(assoc_plot, filename="assoc_plot.svg")
-		# rug.output_backend = "svg"
-		# export_svgs(rug, filename="rug.svg")
-		gene_c_plot.output_backend = "svg"
-		export_svgs(gene_c_plot, filename="gene_c_plot.svg")
-		save(assoc_plot)
-		save(gene_c_plot)
-		print save(assoc_plot)
-		print save(gene_c_plot)
-		assoc_plot.output_backend = 'canvas'
-		rug.output_backend = 'canvas'
-		gene_c_plot.output_backend = 'canvas'
+		# # export svg
+		if myargs.exportsvg==True:
+			assoc_plot.output_backend = "svg"
+			# export_svgs(assoc_plot, filename="export/assoc_plot.svg")
+			rug.output_backend = "svg"
+			# export_svgs(rug, filename="rug.svg")
+			gene_c_plot.output_backend = "svg"
+			# export_svgs(gene_c_plot, filename="export/gene_plot.svg")
+			# save(assoc_plot)
+			# save(gene_c_plot)
+			# print save(assoc_plot)
+			# print save(gene_c_plot)
+		else:
+			assoc_plot.output_backend = 'canvas'
+			rug.output_backend = 'canvas'
+			gene_c_plot.output_backend = 'canvas'
 
-		out_grid = gridplot(assoc_plot, rug, gene_c_plot,
-					ncols=1, toolbar_options=dict(logo=None))
+		out_grid = gridplot(assoc_plot, rug, gene_c_plot, ncols=1, toolbar_options=dict(logo=None))
 		
 		
 
@@ -1312,6 +1351,7 @@ def main():
 	parser.add_argument("-p", "--pval", type=str, help="header name for p-value (default is \"P\")", default="P")
 	parser.add_argument("-s", "--start", type=str, help="starting coordinate (ex: chr22:25855459), chr must be same as in --end (required with --region)")
 	parser.add_argument("-t", "--transcript", help="plot all gene transcripts", action="store_true")
+	parser.add_argument("-ex", "--exportsvg", help="export plots to svg", action="store_true")
 	parser.add_argument("-w", "--window", type=int, help="flanking region (+/- bp) around gene, region, or variant of interest (default is 500 for --gene and --variant and 0 for --region)")
 
 	args=parser.parse_args()
@@ -1322,6 +1362,9 @@ def main():
 		region="region"
 	elif args.variant:
 		region="variant"
+
+	print "ARGS"
+	print args
 
 
 	# Run function
