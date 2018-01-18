@@ -262,7 +262,6 @@ $(document).ready(function() {
     });
     // Click Download SVG button
     $("#ldassoc-downloadSVG").click(function(e){
-        console.log("DOWNLOAD BUTTON CLICKED");
         $(".bk-toolbar-button").eq(17).trigger("click");
     });
 
