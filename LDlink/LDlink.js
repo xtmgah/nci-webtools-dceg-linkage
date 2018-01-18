@@ -1360,12 +1360,11 @@ function updateLDassoc() {
         //data is returned as a string representation of JSON instead of JSON obj
         //JSON.parse() cleans up this json string.
         console.log("Success!");
-        console.log("HERE'S THE DATA:");
-        console.log(data);
         console.dir(data);
 
+        var dataString = JSON.stringify(data);
         var dataCanvas;
-        dataCanvas = data.replace(/svg/g, "canvas");
+        dataCanvas = dataString.replace(/svg/g, "canvas");
         
         var jsonObjCanvas;
         if(typeof dataCanvas == 'string') {
@@ -1380,6 +1379,11 @@ function updateLDassoc() {
         } else {
             jsonObj = data;
         }
+
+        console.log("DATA CANVAS:");
+        console.log(dataCanvas);
+        console.log("DATA SVG:");
+        console.log(data);
 
         if (displayError(id, jsonObjCanvas) == false) {
             $('#ldassoc-bokeh-graph').empty().append(dataCanvas);
