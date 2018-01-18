@@ -99,7 +99,7 @@ $(document).ready(function() {
     });
 
     $('#ldassoc').prop('disabled', true);
-    // $('#ldassoc-downloadSVG').prop('disabled', true);
+    $('#ldassoc-downloadSVG').prop('disabled', true);
 
     // everytime this element is visible, must execute below
     // if ($('#ldassoc-bokeh-graph-svg').is(':visible')) {
@@ -158,7 +158,7 @@ $(document).ready(function() {
       }else{
         $('#ldassoc-file').prop('disabled', false);
         $('#ldassoc').prop('disabled', true);
-        // $('#ldassoc-downloadSVG').prop('disabled', true);
+        $('#ldassoc-downloadSVG').prop('disabled', true);
         $("#assoc-chromosome > button").val('');
         $("#assoc-chromosome > button").html('Select Chromosome&nbsp;<span class="caret"></span>');
         $("#assoc-position > button").val('');
@@ -279,19 +279,10 @@ $(document).ready(function() {
 
     });
     // Click Download SVG button
-    // $("#ldassoc-downloadSVG").click(function(e){
-    //     console.log("DOWNLOAD BUTTON CLICKED");
-    //     e.preventDefault();
-    //     var loc = window.location.pathname;
-    //     // window.location.href = loc + 'assoc_plot.svg';
-    //     window.open(loc + 'export/assoc_plot.svg', '_blank');
-    //     window.open(loc + 'export/gene_plot.svg', '_blank');
-    //     // console.log(window.location.href);
-    //     // trigger savetool click
-    //     // $(".bk-toolbar-button").eq(8).trigger("click");
-    //  $(".bk-toolbar-button").eq(17).trigger("click");
-
-    // });
+    $("#ldassoc-downloadSVG").click(function(e){
+        console.log("DOWNLOAD BUTTON CLICKED");
+        $(".bk-toolbar-button").eq(17).trigger("click");
+    });
 
     setupTabs();
     autoCalculate();
@@ -1382,17 +1373,20 @@ function updateLDassoc() {
             $('#ldassoc-bokeh-graph').empty().append(data);
             $('#' + id + '-results-container').show();
             // do for hidden svg graph
-            if ($("#assoc-export").hasClass('active')) {
-                $('#ldassoc-bokeh-graph-svg').empty().append(data);
-                $('#ldassoc-results-container-svg').show();
+            $('#ldassoc-bokeh-graph-svg').empty().append(data);
+            $('#ldassoc-results-container-svg').show();
+            $('#ldassoc-results-container-svg').hide();
+            // if ($("#assoc-export").hasClass('active')) {
+            //     $('#ldassoc-bokeh-graph-svg').empty().append(data);
+            //     $('#ldassoc-results-container-svg').show();
                 // $('#ldassoc-results-container-svg').show(function() {
                 //     $('.bk-toolbar-button').eq(17).trigger("click");
                 //     $('#ldassoc-results-container-svg').hide();
                 // });
                 // $(".bk-toolbar-button").eq(17).trigger("click");
-            }
+            // }
             // enable download SVGs button
-            // $('#ldassoc-downloadSVG').removeAttr('disabled');
+            $('#ldassoc-downloadSVG').removeAttr('disabled');
             getLDAssocResults('assoc'+ldInputs.reference+".json");
 
         }
