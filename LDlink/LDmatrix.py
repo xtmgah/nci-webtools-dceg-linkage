@@ -636,7 +636,8 @@ def calculate_matrix(snplst, pop, request, r2_d="r2"):
     rug = figure(x_range=xr, y_range=yr, y_axis_type=None,
                  title="", min_border_top=1, min_border_bottom=0, min_border_left=100, min_border_right=5, h_symmetry=False, v_symmetry=False,
                  plot_width=800, plot_height=50, tools="hover,xpan,tap")
-    rug.rect(x='x', y='y', w='w', h='h', fill_color='red', dilate=True, line_color=None, fill_alpha=0.6, source=source_rug)
+
+    rug.rect(x='x', y='y', width='w', height='h', fill_color='red', dilate=True, line_color=None, fill_alpha=0.6, source=source_rug)
 
     hover = rug.select(dict(type=HoverTool))
     hover.tooltips = OrderedDict([
