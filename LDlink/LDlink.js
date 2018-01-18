@@ -270,13 +270,6 @@ $(document).ready(function() {
     $('.ldlinkForm').on('submit', function(e) {
         //alert('Validate');
         calculate(e);
-        // open new window for export svg if flag is on
-        // if ($("#assoc-export").hasClass('active')) {
-        //     var loc = window.location.pathname;
-        //     var url = loc + 'export.html'
-        //     open(url, 'Export to SVG', "alwaysRaised,dependent,status,scrollbars,resizable,width=1000,height=800").focus();
-        // }
-
     });
     // Click Download SVG button
     $("#ldassoc-downloadSVG").click(function(e){
@@ -1144,14 +1137,8 @@ function updateData(id) {
 }
 
 function isBrowseSet(elementId) {
-    // console.log("Check browse: "+elementId);
-
-    // var browse =  $('#'+elementId+'-file').val();
     var query = $('#header-values');
     var isVisible = query.is(':visible');
-    console.log("did it show? " + isVisible.toString());
-    // console.dir("File chosen? " + browse.toString());
-    // if(browse != "") {
     if(isVisible === true) {
         $('#'+elementId+'-browse-set-none').popover('hide');
         return true;
@@ -1163,10 +1150,7 @@ function isBrowseSet(elementId) {
 }
 
 function isRegionSet(elementId) {
-    // console.log("Check region: "+elementId);
-
     var region =  $('#region-codes-menu1').html().replace(/&nbsp;<span class="caret"><\/span>/, "");
-    // console.log("Anything there? " + region);
     if(region == "Gene" || region == "Region" || region == "Variant") {
         $('#'+elementId+'-region-codes-zero').popover('hide');
         return true;
@@ -1284,11 +1268,7 @@ function areRegionDetailsSet(elementId) {
 }
 
 function isPopulationSet(elementId) {
-    //console.log("Check population: "+elementId);
-
     var population =  $('#'+elementId+'-population-codes').val();
-    console.dir(population);
-    console.log(population);
     if(population == null ) {
         $('#'+elementId+'-population-codes-zero').popover('show');
         setTimeout(function() { $('#'+elementId+'-population-codes-zero').popover('hide'); }, 4000);
@@ -1318,11 +1298,7 @@ function updateLDassoc() {
         transcript: $("#assoc-transcript").hasClass('active') ? "False" :"True",
         annotate: $("#assoc-annotate").hasClass('active') ? "True" :"False",
         useEx: $('#example-gwas').is(':checked')? "True" :"False",
-        exportsvg: $("#assoc-export").hasClass('active') ? "True" :"False"
     };
-
-    console.log("Transcript " + ldInputs.transcript.toString());
-    console.log("Annotate " + ldInputs.annotate.toString());
 
     ldInputs.columns.chromosome = $("#assoc-chromosome > button").val();
     ldInputs.columns.position = $("#assoc-position > button").val();
@@ -1361,21 +1337,20 @@ function updateLDassoc() {
         //JSON.parse() cleans up this json string.
         console.log("Success!");
         console.dir(data);
-
+        // create SVG object
         var dataString = data[0]
-        dataCanvasString = dataString.replace(/svg/g, "canvas");
-
-        var dataCanvas = new Object([dataCanvasString, data[1]]);
+        dataSVGString = dataString.replace(/canvas/g, "svg");
+        var dataSVG = new Object([dataSVGString, data[1]]);
         
-        var jsonObjCanvas;
-        if(typeof dataCanvas == 'string') {
+        var jsonObjSVG;
+        if(typeof dataSVG == 'string') {
             console.log("reach1");
-            jsonObjCanvas = JSON.parse(dataCanvas);
+            jsonObjSVG = JSON.parse(dataSVG);
         } else {
             console.log("reach2");
-            jsonObjCanvas = dataCanvas;
+            jsonObjSVG = dataSVG;
         }
-        console.log(typeof dataCanvas);
+        console.log(typeof dataSVG);
 
         var jsonObj;
         if(typeof data == 'string') {
@@ -1387,20 +1362,20 @@ function updateLDassoc() {
         }
         console.log(typeof data);
 
-        console.log("DATA CANVAS:");
-        console.log(dataCanvas);
         console.log("DATA SVG:");
+        console.log(dataSVG);
+        console.log("DATA CANVAS:");
         console.log(data);
 
-        if (displayError(id, jsonObjCanvas) == false) {
-            $('#ldassoc-bokeh-graph').empty().append(dataCanvas);
+        // generate shown canvas graph
+        if (displayError(id, jsonObj) == false) {
+            $('#ldassoc-bokeh-graph').empty().append(data);
             $('#' + id + '-results-container').show();
             getLDAssocResults('assoc'+ldInputs.reference+".json");
         }
-
-        if (displayError(id, jsonObj) == false) {
-            // do for hidden svg graph
-            $('#ldassoc-bokeh-graph-svg').empty().append(data);
+        // generate hidden svg graph
+        if (displayError(id, jsonObjSVG) == false) {
+            $('#ldassoc-bokeh-graph-svg').empty().append(dataSVG);
             $('#ldassoc-results-container-svg').show();
             $('#ldassoc-results-container-svg').hide();
             $('#ldassoc-downloadSVG').removeAttr('disabled');
@@ -1781,9 +1756,6 @@ function checkAlert(elementId, message, type, displayResults) {
         $('#'+prefix).show();
         if (typeof displayResults !== 'undefined' && displayResults) {
             $('#'+elementId+'-results-container').show();
-            if ($("#assoc-export").hasClass('active')) {
-                $('#'+elementId+'-results-container-svg').show();
-            }
         } else {
             $('#'+elementId+'-results-container').hide();
             $('#'+elementId+'-results-container-svg').hide();
