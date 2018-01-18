@@ -1362,11 +1362,10 @@ function updateLDassoc() {
         console.log("Success!");
         console.dir(data);
 
-        // var dataString = JSON.stringify(data);
-        // var dataCanvas;
-        // dataCanvas = dataString.replace(/svg/g, "canvas");
+        var dataString = data[0]
+        dataCanvasString = dataString.replace(/svg/g, "canvas");
 
-        var dataCanvas = data;
+        var dataCanvas = new Object([dataCanvasString, data[1]]);
         
         var jsonObjCanvas;
         if(typeof dataCanvas == 'string') {
