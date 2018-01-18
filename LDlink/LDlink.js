@@ -1360,6 +1360,8 @@ function updateLDassoc() {
         //data is returned as a string representation of JSON instead of JSON obj
         //JSON.parse() cleans up this json string.
         console.log("Success!");
+        console.log("HERE'S THE DATA:");
+        console.log(data);
         console.dir(data);
 
         var jsonObj;
