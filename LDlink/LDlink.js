@@ -1362,23 +1362,31 @@ function updateLDassoc() {
         console.log("Success!");
         console.dir(data);
 
-        var dataString = JSON.stringify(data);
-        var dataCanvas;
-        dataCanvas = dataString.replace(/svg/g, "canvas");
+        // var dataString = JSON.stringify(data);
+        // var dataCanvas;
+        // dataCanvas = dataString.replace(/svg/g, "canvas");
+
+        var dataCanvas = data;
         
         var jsonObjCanvas;
         if(typeof dataCanvas == 'string') {
+            console.log("reach1");
             jsonObjCanvas = JSON.parse(dataCanvas);
         } else {
+            console.log("reach2");
             jsonObjCanvas = dataCanvas;
         }
+        console.log(typeof dataCanvas);
 
         var jsonObj;
         if(typeof data == 'string') {
+            console.log("reach1");
             jsonObj = JSON.parse(data);
         } else {
+            console.log("reach2");
             jsonObj = data;
         }
+        console.log(typeof data);
 
         console.log("DATA CANVAS:");
         console.log(dataCanvas);
