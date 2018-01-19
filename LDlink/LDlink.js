@@ -1364,15 +1364,15 @@ function updateLDassoc() {
     ajaxRequest.always(function() {
         $btn.button('reset');
 
-    setTimeout(function(){var checkbox=$(".bk-toolbar-inspector").children().first();
-    $(checkbox).attr('id', 'hover');
-    $(checkbox).append('<label for="hover" class="sr-only">Hover Tool</label>');},100);
+        setTimeout(function(){var checkbox=$(".bk-toolbar-inspector").children().first();
+        $(checkbox).attr('id', 'hover');
+        $(checkbox).append('<label for="hover" class="sr-only">Hover Tool</label>');},100);
 
-    setTimeout(function(){var tb=$(".bk-toolbar");
-    $(tb).append('<label for="ldassoc-downloadSVG" class="sr-only">Download SVGs</label><input type="button" id="ldassoc-downloadSVG" value="Download SVG" class="btn btn-default" ></input>');
-    $("#ldassoc-downloadSVG").click(function(e){
-        $(".bk-toolbar-button").eq(17).trigger("click");
-    });},100);
+        setTimeout(function(){var tb=$("#ldassoc-bokeh-graph");
+        $(tb).prepend('<label for="ldassoc-downloadSVG" class="sr-only">Download SVGs</label><input type="button" id="ldassoc-downloadSVG" value="Download SVG" class="btn btn-default" ></input>');
+        $("#ldassoc-downloadSVG").click(function(e){
+            $(".bk-toolbar-button").eq(17).trigger("click");
+        });},100);
     });
 
     hideLoadingIcon(ajaxRequest, id);
