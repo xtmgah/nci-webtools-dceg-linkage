@@ -10,3 +10,4 @@ LDlink/sftp-config-alt.json
 .idea/*
 /common
 common/
+/node_modules/

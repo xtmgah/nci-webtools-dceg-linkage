@@ -1,0 +1,26 @@
+{
+  "name": "nci-webtools-dceg-linkage",
+  "version": "1.0.0",
+  "description": "LDlink is a suite of web-based applications designed to easily and efficiently interrogate linkage disequilibrium in population groups.",
+  "main": "LDlink.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha tests/ --reporter xunit --reporter-options output=tests/e2e_results.xml"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CBIIT/nci-webtools-dceg-linkage.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CBIIT/nci-webtools-dceg-linkage/issues"
+  },
+  "homepage": "https://github.com/CBIIT/nci-webtools-dceg-linkage#readme",
+  "devDependencies": {
+    "mocha": "^5.0.0",
+    "selenium-webdriver": "^4.0.0-alpha.1"
+  }
+}
