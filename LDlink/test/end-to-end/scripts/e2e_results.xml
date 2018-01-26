@@ -1,0 +1,4 @@
+<testsuite name="Mocha Tests" tests="2" failures="0" errors="0" skipped="0" timestamp="Fri, 26 Jan 2018 21:46:56 GMT" time="52.708">
+<testcase classname="ldassoc_bokeh_plot_appears.js" name="ldassoc_bokeh_plot_appears" time="27.031"/>
+<testcase classname="ldassoc_downloadsvg_button_appears.js" name="ldassoc_downloadsvg_button_appears" time="25.673"/>
+</testsuite>
