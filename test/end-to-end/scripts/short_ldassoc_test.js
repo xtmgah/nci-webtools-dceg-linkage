@@ -8,7 +8,7 @@ until = webdriver.until;
 
 describe(path.basename(__filename), function() {
   // --enter test case name (ie. 'example test case')
-  test.it('ldassoc_downloadsvg_button_appears', function(done) {
+  test.it('short_ldassoc_test', function(done) {
     this.timeout(0);
     var driver = new webdriver.Builder()
     .forBrowser('firefox')
@@ -23,18 +23,12 @@ describe(path.basename(__filename), function() {
     //   driver.sleep(1000);
     // });
 
-    driver.get("https://analysistools-sandbox.nci.nih.gov"+"/");
+    driver.get("https://analysistools-sandbox.nci.nih.gov"+"/LDlink/?tab=home");
 		driver.sleep('2000');
-		driver.findElement(By.linkText("LDLink")).click();
+		driver.findElement(By.id("help-tab-anchor")).click();
 		driver.sleep('2000');
-		driver.findElement(By.id("ldassoc-tab-anchor")).click();
-		driver.sleep('2000');
-		driver.findElement(By.css("span.slider.round")).click();
-		driver.sleep('5000');
-		driver.findElement(By.id("ldassoc")).click();
-		driver.sleep('8000');
-		driver.findElement(By.id("ldassoc-downloadSVG")).getText().then(text=> {
-			assert(text == '');
+		driver.findElement(By.css("#help-tab > p")).getText().then(text=> {
+			assert(text == 'LDlink is designed to be an intuitive and simple tool for investigating patterns of linkage disequilibrium across a variety of ancestral population groups. This help documentation page gives detailed description of the metrics calculated by LDlink modules and aids users in understanding all aspects of the required input and returned output. The documentation is divided into the following sections:');
 			done();
 		});
 		
