@@ -8,7 +8,7 @@ until = webdriver.until;
 
 describe(path.basename(__filename), function() {
   // --enter test case name (ie. 'example test case')
-  test.it('short_ldassoc_test', function(done) {
+  test.it('ldlink_ldmatrix_twovariants_error', function(done) {
     this.timeout(0);
     var driver = new webdriver.Builder()
     .forBrowser('firefox')
@@ -23,14 +23,25 @@ describe(path.basename(__filename), function() {
     //   driver.sleep(1000);
     // });
 
-    driver.get("https://analysistools-sandbox.nci.nih.gov"+"/LDlink/?tab=home");
+    driver.get("https://analysistools-sandbox.nci.nih.gov"+"/");
 		driver.sleep('2000');
-		driver.findElement(By.id("help-tab-anchor")).click();
+		driver.findElement(By.linkText("LDLink")).click();
 		driver.sleep('2000');
-		driver.findElement(By.css("#help-tab > p")).getText().then(text=> {
-			assert(text == 'LDlink is designed to be an intuitive and simple tool for investigating patterns of linkage disequilibrium across a variety of ancestral population groups. This help documentation page gives detailed description of the metrics calculated by LDlink modules and aids users in understanding all aspects of the required input and returned output. The documentation is divided into the following sections:');
+		driver.findElement(By.id("ldmatrix-tab-anchor")).click();
+		driver.sleep('2000');
+		driver.findElement(By.id("ldmatrix-file-snp-numbers")).sendKeys('rs1231234');
+		driver.sleep('2000');
+		driver.findElement(By.xpath("(//button[@type='button'])[7]")).click();
+		driver.sleep('2000');
+		driver.findElement(By.xpath("(//input[@value='YRI'])[3]")).click();
+		driver.sleep('2000');
+		driver.findElement(By.id("ldmatrix")).click();
+		driver.sleep('2000');
+		driver.findElement(By.id("ldmatrix-message-content")).getText().then(text=> {
+			assert(text == 'Less than two variants to plot.');
 			done();
 		});
+		driver.sleep('2000');
 		
 
     driver.close();
