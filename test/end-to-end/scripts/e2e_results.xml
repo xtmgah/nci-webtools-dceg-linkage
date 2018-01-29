@@ -1,27 +1,4 @@
-<testsuite name="Mocha Tests" tests="3" failures="1" errors="1" skipped="0" timestamp="Mon, 29 Jan 2018 17:02:36 GMT" time="49.916">
-<testcase classname="ldlink_help_text_test.js" name="ldlink_help_text_test" time="12.298"/>
-<testcase classname="ldlink_ldassoc_example_individuals.js" name="ldlink_ldassoc_example_individuals" time="14.672"><failure>
-WebDriverError
-    at Object.throwDecodedError (node_modules\selenium-webdriver\lib\error.js:497:15)
-    at parseHttpResponse (node_modules\selenium-webdriver\lib\http.js:519:13)
-    at doSend.then.response (node_modules\selenium-webdriver\lib\http.js:441:30)
-    at &lt;anonymous&gt;
-    at process._tickCallback (internal/process/next_tick.js:188:7)
-From: Task: WebElement.click()
-    at thenableWebDriverProxy.schedule (node_modules\selenium-webdriver\lib\webdriver.js:807:17)
-    at WebElementPromise.schedule_ (node_modules\selenium-webdriver\lib\webdriver.js:2015:25)
-    at WebElementPromise.click (node_modules\selenium-webdriver\lib\webdriver.js:2096:17)
-    at Context.&lt;anonymous&gt; (output_js_tests\ldlink_ldassoc_example_individuals.js:32:45)
-    at runTest (node_modules\selenium-webdriver\testing\index.js:160:14)
-    at node_modules\selenium-webdriver\testing\index.js:185:16
-    at new ManagedPromise (node_modules\selenium-webdriver\lib\promise.js:1085:7)
-    at controlFlowExecute (node_modules\selenium-webdriver\testing\index.js:184:14)
-    at TaskQueue.execute_ (node_modules\selenium-webdriver\lib\promise.js:3092:14)
-    at TaskQueue.executeNext_ (node_modules\selenium-webdriver\lib\promise.js:3075:27)
-    at asyncRun (node_modules\selenium-webdriver\lib\promise.js:2982:25)
-    at node_modules\selenium-webdriver\lib\promise.js:676:7
-    at &lt;anonymous&gt;
-From: Task: ldlink_ldassoc_example_individuals.js ldlink_ldassoc_example_individuals
-    at Context.ret (node_modules\selenium-webdriver\testing\index.js:183:10)</failure></testcase>
-<testcase classname="ldlink_ldmatrix_twovariants_error.js" name="ldlink_ldmatrix_twovariants_error" time="22.941"/>
+<testsuite name="Mocha Tests" tests="2" failures="0" errors="0" skipped="0" timestamp="Mon, 29 Jan 2018 17:26:42 GMT" time="30.137">
+<testcase classname="ldlink_help_text.js" name="ldlink_help_text" time="12.738"/>
+<testcase classname="ldlink_ldmatrix_population_validation.js" name="ldlink_ldmatrix_population_validation" time="17.395"/>
 </testsuite>

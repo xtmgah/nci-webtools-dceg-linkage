@@ -8,7 +8,7 @@ until = webdriver.until;
 
 describe(path.basename(__filename), function() {
   // --enter test case name (ie. 'example test case')
-  test.it('ldlink_help_text_test', function(done) {
+  test.it('ldlink_ldmatrix_population_validation', function(done) {
     this.timeout(0);
     var driver = new webdriver.Builder()
     .forBrowser('firefox')
@@ -27,10 +27,14 @@ describe(path.basename(__filename), function() {
 		driver.sleep('2000');
 		driver.findElement(By.linkText("LDLink")).click();
 		driver.sleep('2000');
-		driver.findElement(By.id("help-tab-anchor")).click();
+		driver.findElement(By.id("ldmatrix-tab-anchor")).click();
 		driver.sleep('2000');
-		driver.findElement(By.css("#help-tab > p")).getText().then(text=> {
-			assert(text == 'LDlink is designed to be an intuitive and simple tool for investigating patterns of linkage disequilibrium across a variety of ancestral population groups. This help documentation page gives detailed description of the metrics calculated by LDlink modules and aids users in understanding all aspects of the required input and returned output. The documentation is divided into the following sections:');
+		driver.findElement(By.id("ldmatrix-file-snp-numbers")).sendKeys('rs1231234');
+		driver.sleep('2000');
+		driver.findElement(By.id("ldmatrix")).click();
+		driver.sleep('2000');
+		driver.findElement(By.css("div.popover-content")).getText().then(text=> {
+			assert(text == 'Please select a population.');
 			done();
 		});
 		
