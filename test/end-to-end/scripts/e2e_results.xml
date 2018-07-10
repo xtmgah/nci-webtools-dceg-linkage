@@ -1,4 +1,3 @@
-<testsuite name="Mocha Tests" tests="2" failures="0" errors="0" skipped="0" timestamp="Mon, 29 Jan 2018 18:17:14 GMT" time="28.256">
-<testcase classname="ldlink_help_text_assert.js" name="ldlink_help_text_assert" time="13.155"/>
-<testcase classname="ldlink_ldmatrix_test_population_validation.js" name="ldlink_ldmatrix_test_population_validation" time="15.098"/>
+<testsuite name="Mocha Tests" tests="1" failures="0" errors="0" skipped="0" timestamp="Tue, 10 Jul 2018 18:25:03 GMT" time="13.941">
+<testcase classname="example_wikipedia_test.js" name="example_wikipedia_test" time="13.935"/>
 </testsuite>

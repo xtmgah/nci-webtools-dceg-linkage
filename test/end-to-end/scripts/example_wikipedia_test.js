@@ -8,7 +8,7 @@ until = webdriver.until;
 
 describe(path.basename(__filename), function() {
   // --enter test case name (ie. 'example test case')
-  test.it('ldlink_ldmatrix_test_population_validation', function(done) {
+  test.it('example_wikipedia_test', function(done) {
     this.timeout(0);
     var driver = new webdriver.Builder()
     .forBrowser('firefox')
@@ -23,17 +23,14 @@ describe(path.basename(__filename), function() {
     //   driver.sleep(1000);
     // });
 
-    driver.get("https://analysistools-sandbox.nci.nih.gov"+"/");
+    driver.get("https://www.wikipedia.org"+"/");
 		driver.sleep('2000');
-		driver.findElement(By.linkText("LDLink")).click();
+		driver.findElement(By.id("searchInput")).sendKeys('selenium');
 		driver.sleep('2000');
-		driver.findElement(By.id("ldmatrix-tab-anchor")).click();
-		driver.findElement(By.id("ldmatrix-file-snp-numbers")).sendKeys('rs1231234');
-		driver.sleep('2000');
-		driver.findElement(By.id("ldmatrix")).click();
-		driver.sleep('2000');
-		driver.findElement(By.css("div.popover-content")).getText().then(text=> {
-			assert(text == 'Please select a population.');
+		driver.findElement(By.css("button.pure-button.pure-button-primary-progressive")).click();
+		driver.sleep('3000');
+		driver.getTitle().then(title=> {
+			assert(title == 'Selenium - Wikipedia');
 			done();
 		});
 		
