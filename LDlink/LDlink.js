@@ -1325,7 +1325,7 @@ function updateLDassoc() {
         //JSON.parse() cleans up this json string.
         console.log("Success!");
         // create bokeh object with output_backend=canvas from svg
-        var dataString = data[0]
+        var dataString = data[0];
         dataCanvasString = dataString.replace(/svg/g, "canvas");
         var dataCanvas = new Object([dataCanvasString, data[1]]);
         
