@@ -37,7 +37,7 @@ describe('Test Suite 1 - ' + path.basename(__filename), function() {
 
   });
 
-  test.it('LDhap_Test', function(done) {
+  test.it('LDhap_example', function(done) {
     this.timeout(0);
     var driver = new webdriver.Builder()
     .forBrowser('firefox')
@@ -56,14 +56,14 @@ describe('Test Suite 1 - ' + path.basename(__filename), function() {
 		driver.sleep('2000');
 		driver.findElement(By.id(`ldhap-tab-anchor`)).click();
 		driver.sleep('2000');
-		driver.findElement(By.id(`ldhap-file`)).sendKeys('/home/ncianalysis/.jenkins/jobs/LDlink-sandbox-testing-only/workspace/test/end-to-end/test-data/5_sample_LDhap.txt');
+		driver.findElement(By.id(`ldhap-file`)).sendKeys('/home/ncianalysis/.jenkins/jobs/LDlink-dev-testing-only/workspace/test/end-to-end/test-data/5_sample_LDhap.txt');
 		driver.sleep('2000');
 		driver.findElement(By.xpath(`(//button[@type='button'])[6]`)).click();
 		driver.sleep('2000');
 		driver.findElement(By.xpath(`//form[@id='ldhapForm']/div[3]/div/div/ul/li[3]/a/label`)).click();
 		driver.sleep('2000');
 		driver.findElement(By.id(`ldhap`)).click();
-		driver.sleep('3000');
+		driver.sleep('2000');
 		driver.findElement(By.css(`a[title="Cluster Report"] > span`)).getText().then(text=> {
 			assert(text == 'rs2182115');
 			done();
