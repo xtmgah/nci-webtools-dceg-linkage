@@ -40,7 +40,7 @@ describe('Test Suite 1 - ' + path.basename(__filename), function() {
   test.it('LDhap_Test', function(done) {
     this.timeout(0);
     var driver = new webdriver.Builder()
-    .forBrowser('chrome')
+    .forBrowser('firefox')
     .build();
 
     // -----example get path of example test file----- 
